@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDb = require("./configDB/mongoDB");
-const { login, signup, authenticateJWT } = require("./controllers/userController");
+const { login, signup, authenticateJWT, uploadTransactions } = require("./controllers/userController");
 const cors=require('cors');
 
 // Connect to MongoDB
@@ -18,6 +18,7 @@ app.post('/api/users/signup', signup);
 app.get('/api/user', authenticateJWT, (req, res) => {
     res.json({ message: 'Protected route accessed successfully!', user: req.user });
 });
+app.post('/api/users/uploadTransactions', uploadTransactions);
 
 // Start the Express server
 const PORT = process.env.PORT || 3000;

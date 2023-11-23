@@ -1,6 +1,38 @@
 const mongoose = require('mongoose');
 const Joi=require('joi');
 
+const transactionSchema = new mongoose.Schema
+({
+    transactionType: 
+    {
+        type: String,
+        required: true
+    },
+    category: 
+    {
+        type: String,
+        required: true
+    },
+    date: 
+    {
+        type: Date,
+        required: true
+
+    },
+    amount: 
+    {
+        type: Number,
+        required: true
+
+    },
+    description: 
+    {
+        type: String,
+        required: true
+
+    }
+});
+
 const userSchema = new mongoose.Schema
 ({
     name: 
@@ -19,6 +51,7 @@ const userSchema = new mongoose.Schema
         type: String,
         required: true,
     },
+    transactions: [transactionSchema]
 });
 
 const User = mongoose.model('User', userSchema);
