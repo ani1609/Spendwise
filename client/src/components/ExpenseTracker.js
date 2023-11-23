@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
+import { set } from "mongoose";
 
 function ExpenseTracker() 
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
+    const [transactions, setTransactions] = useState([]);
     const [formData, setFormData] = useState({
         transactionType: "",
         category: "",
@@ -12,6 +14,35 @@ function ExpenseTracker()
         amount: "",
         description: ""
     });
+
+    const fetchTransactions= async (userToken) =>
+    {
+        try
+        {
+            const config = 
+            {
+                headers: 
+                {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            };
+            const response = await axios.get("http://localhost:3000/api/users/fetchTransactions", config);
+            console.log(response.data.transactions);
+            setTransactions(response.data.transactions);
+        }
+        catch (error)
+        {
+            console.error("Error fetching transactions:", error);
+        }
+    };
+
+    useEffect(() =>
+    {
+        if (userToken)
+        {
+            fetchTransactions(userToken);
+        }
+    }, [userToken]);
 
     const handleChange = (e) => 
     {
@@ -21,7 +52,7 @@ function ExpenseTracker()
     const handleSubmit = async (e) => 
     {
         e.preventDefault();
-
+        setTransactions([...transactions, formData]);
         try 
         {
             const config = 
@@ -40,88 +71,100 @@ function ExpenseTracker()
         }
     };
 
-  return (
-    <div className="ExpenseTracker_parent">
-        <div className="form_container">
-            <h4>Add new transaction</h4>
-            <form>
-            <legend>Transaction Type</legend>
-            <label>
-                <input
-                type="radio"
-                name="transactionType"
-                value="Income"
-                checked={formData.transactionType === "Income"}
-                onChange={handleChange}
-                required
-                />
-                Income
-            </label>
-            <label>
-                <input
-                type="radio"
-                name="transactionType"
-                value="Expense"
-                checked={formData.transactionType === "Expense"}
-                onChange={handleChange}
-                required
-                />
-                Expense
-            </label>
+    return (
+        <div className="ExpenseTracker_parent">
+            <div className="form_container">
+                <h4>Add new transaction</h4>
+                <form>
+                    <legend>Transaction Type</legend>
+                    <label>
+                        <input
+                        type="radio"
+                        name="transactionType"
+                        value="Income"
+                        checked={formData.transactionType === "Income"}
+                        onChange={handleChange}
+                        required
+                        />
+                        Income
+                    </label>
+                    <label>
+                        <input
+                        type="radio"
+                        name="transactionType"
+                        value="Expense"
+                        checked={formData.transactionType === "Expense"}
+                        onChange={handleChange}
+                        required
+                        />
+                        Expense
+                    </label>
+                    <label htmlFor="category">Category</label>
+                    <select
+                        id="category"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="NULL">Choose a category</option>
+                        <option value="Food">Food</option>
+                        <option value="Transportation">Transportation</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <label htmlFor="date">Date</label>
+                    <input
+                        type="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                        placeholder="Date"
+                        required
+                    />
+                    <label htmlFor="amount">Amount</label>
+                    <input
+                        type="number"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleChange}
+                        placeholder="Amount"
+                        required
+                    />
+                    <label htmlFor="description">Description</label>
+                    <input
+                        type="text"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Description"
+                        required
+                    />
+                    <button type="submit" onClick={handleSubmit}> Add Expense </button>
+                </form>
+            </div>
 
-            <label htmlFor="category">Category</label>
-            <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-            >
-                <option value="NULL">Choose a category</option>
-                <option value="Food">Food</option>
-                <option value="Transportation">Transportation</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Bills">Bills</option>
-                <option value="Others">Others</option>
-            </select>
-
-            <label htmlFor="date">Date</label>
-            <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                placeholder="Date"
-                required
-            />
-
-            <label htmlFor="amount">Amount</label>
-            <input
-                type="number"
-                name="amount"
-                value={formData.amount}
-                onChange={handleChange}
-                placeholder="Amount"
-                required
-            />
-
-            <label htmlFor="description">Description</label>
-            <input
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Description"
-                required
-            />
-
-            <button type="submit" onClick={handleSubmit}>
-                Add Expense
-            </button>
-            </form>
+            <div className="TransactionDetails_container">
+                <h4>Transaction Details</h4>
+                {transactions.length > 0 ? (
+                    
+                    transactions.map((transaction, index) =>
+                    (
+                        <ul key={index}>
+                            <li><strong>Transaction type </strong>{transaction.transactionType}</li>
+                            <li><strong>Category </strong>{transaction.category}</li>
+                            <li><strong>Date </strong>{new Date(transaction.date).toLocaleDateString()}</li>
+                            <li><strong>Amount </strong>{transaction.amount}</li>
+                            <li><strong>Description </strong>{transaction.description}</li>
+                        </ul>
+                    ))
+                ) : (
+                    <p>No transactions added yet.</p>
+                )}
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 
 export default ExpenseTracker;
