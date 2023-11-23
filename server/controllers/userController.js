@@ -158,12 +158,49 @@ const uploadTransactions = async (req, res) =>
         }
     }
 };
-  
+
+const deleteTransactcion = async (req, res) => 
+{
+    console.log("got delete Transaction request");
+    console.log(req.body);
+    try
+    {
+        const token=req.headers.authorization.split(' ')[1];
+        const decoded=jwt.verify(token,SECRET_KEY);
+        const user=await User.findById(decoded.id);
+
+        if(!user)
+        {
+            return res.status(404).json({message:"User not found"});
+        }
+
+        user.transactions.splice(req.body.index,1);
+        await user.save();
+    }
+    catch(error)
+    {
+        console.error(error);
+
+        if(error.name==='TokenExpiredError')
+        {
+            return res.status(401).json({message:"Token expired"});
+        }
+        else if(error.name==='JsonWebTokenError')
+        {
+            return res.status(401).json({message:"Invalid token"});
+        }
+        else
+        {
+            return res.status(500).json({message:"Internal Server Error"});
+        }
+    }
+};
 
 module.exports = {
     login,
     signup,
     authenticateJWT,
     fetchTransactions,
-    uploadTransactions
+    uploadTransactions,
+    deleteTransactcion
 };

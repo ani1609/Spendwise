@@ -1,0 +1,7 @@
+.edit_icon, .delete_icon
+{
+    margin-top: 10px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
