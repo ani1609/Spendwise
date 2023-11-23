@@ -1,0 +1,41 @@
+.navbar_parent
+{
+    height: 70px;
+    width: 100vw;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px 50px;
+}
+
+.navbar_parent h1
+{
+    padding: 0;
+    margin: 0;
+}
+
+.profile_container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.logout_icon
+{
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.login_signup_container
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
