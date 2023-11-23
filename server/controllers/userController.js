@@ -38,7 +38,7 @@ const signup = async (req, res) =>
         const user = await User.findOne({ email: req.body.email });
         if (user) 
         {
-        return res.status(409).send({ message: "User already exists" });
+            return res.status(409).send({ message: "User already exists" });
         }
 
         const salt = await bcrypt.genSalt(Number(SALT));
@@ -84,6 +84,41 @@ function authenticateJWT(req, res, next)
     });
 }
 
+const fetchTransactions = async (req, res) =>
+{
+    console.log("got fetchTransactions request");
+    try 
+    {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, SECRET_KEY);
+        const user = await User.findById(decoded.id);
+    
+        if (!user) 
+        {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ transactions: user.transactions });
+    }
+    catch (error) 
+    {
+        console.error(error);
+    
+        if (error.name === 'TokenExpiredError') 
+        {
+            return res.status(401).json({ message: "Token expired" });
+        }
+        else if(error.name === 'JsonWebTokenError')
+        {
+            return res.status(401).json({ message: "Invalid token" });
+        }
+        else
+        {
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+}
+
 const uploadTransactions = async (req, res) => 
 {
     console.log("got uploadTransactions request");
@@ -95,26 +130,30 @@ const uploadTransactions = async (req, res) =>
         const decoded = jwt.verify(token, SECRET_KEY);
         const user = await User.findById(decoded.id);
     
-        if (!user) {
+        if (!user) 
+        {
             return res.status(404).json({ message: "User not found" });
         }
     
         user.transactions.push(req.body);
         await user.save();
     
-        // Return a success response
         res.status(200).json({ message: "Transaction uploaded successfully" });
     }
     catch (error) 
     {
         console.error(error);
     
-        // Handle different error scenarios
-        if (error.name === 'TokenExpiredError') {
+        if (error.name === 'TokenExpiredError')
+        {
             return res.status(401).json({ message: "Token expired" });
-        } else if (error.name === 'JsonWebTokenError') {
+        }
+        else if (error.name === 'JsonWebTokenError')
+        {
             return res.status(401).json({ message: "Invalid token" });
-        } else {
+        }
+        else
+        {
             return res.status(500).json({ message: "Internal Server Error" });
         }
     }
@@ -125,5 +164,6 @@ module.exports = {
     login,
     signup,
     authenticateJWT,
+    fetchTransactions,
     uploadTransactions
 };
