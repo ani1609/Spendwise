@@ -14,6 +14,10 @@ function ExpenseTracker()
         amount: "",
         description: ""
     });
+    const [balance, setBalance] = useState(0);
+    const [incoming, setIncoming] = useState(0);
+    const [outgoing, setOutgoing] = useState(0);
+
 
     const fetchTransactions= async (userToken) =>
     {
@@ -21,7 +25,7 @@ function ExpenseTracker()
         {
             const config = 
             {
-                headers: 
+                headers:
                 {
                     Authorization: `Bearer ${userToken}`,
                 },
@@ -44,9 +48,30 @@ function ExpenseTracker()
         }
     }, [userToken]);
 
+    useEffect(() =>
+    {
+        let incoming = 0;
+        let outgoing = 0;
+        transactions.forEach(transaction =>
+        {
+            if(transaction.transactionType === "Income")
+            {
+                incoming += transaction.amount;
+            }
+            else
+            {
+                outgoing += transaction.amount;
+            }
+        });
+        setIncoming(incoming);
+        setOutgoing(outgoing);
+        setBalance(incoming - outgoing);
+    }, [transactions]);
+
     const handleChange = (e) => 
     {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const targetValue = e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value;
+        setFormData({ ...formData, [e.target.name]: targetValue });
     };
 
     const handleSubmit = async (e) => 
@@ -145,10 +170,12 @@ function ExpenseTracker()
                 </form>
             </div>
 
-            <div className="TransactionDetails_container">
-                <h4>Transaction Details</h4>
+            <div className="WalletDetails_container">
+                <h2>Balance <strong>{balance}</strong></h2>
+                <h3><strong>Income </strong>{incoming}</h3>
+                <h3><strong>Expense </strong>{outgoing}</h3>
+                <h4>Transactions</h4>
                 {transactions.length > 0 ? (
-                    
                     transactions.map((transaction, index) =>
                     (
                         <ul key={index}>
