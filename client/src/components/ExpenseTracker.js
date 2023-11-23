@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
-import { set } from "mongoose";
+import {ReactComponent as Edit} from '../icons/edit.svg';
+import {ReactComponent as Delete} from '../icons/delete.svg';
+
 
 function ExpenseTracker() 
 {
@@ -88,13 +90,43 @@ function ExpenseTracker()
                 },
             };
             const response = await axios.post("http://localhost:3000/api/users/uploadTransactions", formData, config);
-            console.log("Transaction added successfully:", response.data);
+            console.log("Transaction added successfully");
         }
         catch (error) 
         {
             console.error("Error adding transaction:", error.message);
         }
     };
+
+    const handleEdit = (index) =>
+    {
+        console.log("Edit clicked at index ", index);
+
+    }
+
+    const handleDelete = async (index) =>
+    {
+        console.log("Delete clicked at indexxx ", index);
+        const newTransactions = [...transactions];
+        newTransactions.splice(index, 1);
+        setTransactions(newTransactions);
+        try 
+        {
+            const config = 
+            {
+                headers: 
+                {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            };
+            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", {index}, config);
+            console.log("Transaction deleted successfully");
+        }
+        catch (error) 
+        {
+            console.error("Error adding transaction:", error.message);
+        }
+    }
 
     return (
         <div className="ExpenseTracker_parent">
@@ -184,6 +216,8 @@ function ExpenseTracker()
                             <li><strong>Date </strong>{new Date(transaction.date).toLocaleDateString()}</li>
                             <li><strong>Amount </strong>{transaction.amount}</li>
                             <li><strong>Description </strong>{transaction.description}</li>
+                            <li><Edit className="edit_icon" onClick={()=>handleEdit(index)}/></li>
+                            <li><Delete className="delete_icon" onClick={()=>handleDelete(index)}/></li>
                         </ul>
                     ))
                 ) : (
