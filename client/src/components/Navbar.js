@@ -42,13 +42,20 @@ function Navbar()
     , [userToken]);
 
 
+    const handleLogout = () =>
+    {
+        localStorage.removeItem('expenseTrackerUserToken');
+        window.location.reload();
+    }
+
+
     return (
         <div className="navbar_parent">
             <h1>Expense Tracker</h1>
             {userToken?
                 <div className="profile_container">
                     <h4>{user?.name?.split(' ')[0]}</h4>
-                    <Logout className="logout_icon"/>
+                    <Logout className="logout_icon" onClick={handleLogout}/>
                 </div>
                 :
                 <div className="login_signup_container">
