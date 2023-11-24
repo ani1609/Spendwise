@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
+import "../index.css";
 import { ReactComponent as Edit } from '../icons/edit.svg';
 import { ReactComponent as Delete } from '../icons/delete.svg';
 import DoughnutChart from "./DoughnutChart";
@@ -168,110 +169,116 @@ function ExpenseTracker() {
     }
 
     return (
-        <div className="ExpenseTracker_parent flex justify-evenly mt-40">
-            <div className="form_container border-2 p-8">
-                <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
-                <form className="flex gap-4">
-                    <div className="flex flex-col gap-2">
-                        <legend>Transaction Type</legend>
-                        <label>
-                            <input
-                                type="radio"
-                                name="transactionType"
-                                value="Income"
-                                checked={formData.transactionType === "Income"}
-                                onChange={handleChange}
-                                required
-                            />&nbsp;
-                            Income
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="transactionType"
-                                value="Expense"
-                                checked={formData.transactionType === "Expense"}
-                                onChange={handleChange}
-                                required
-                            />&nbsp;
-                            Expense
-                        </label>
-                        <label htmlFor="category" className="mt-4">Category</label>
-                        <select
-                            id="category"
-                            name="category"
-                            value={formData.category}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="NULL">Choose a category</option>
-                            <option value="Food">Food</option>
-                            <option value="Travel">Travel</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Bills">Bills</option>
-                            <option value="Others">Others</option>
-                        </select>
-                        <label htmlFor="date" className="mt-4">Date</label>
-                        <input
-                            type="date"
-                            name="date"
-                            value={formData.date}
-                            onChange={handleChange}
-                            placeholder="Date"
-                            required
-                        />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <label htmlFor="amount">Amount</label>
-                        <input
-                            type="number"
-                            name="amount"
-                            value={formData.amount}
-                            onChange={handleChange}
-                            placeholder="Amount"
-                            required
-                            className="border-2 p-2"
-                        />
-                        <label htmlFor="description" className="mt-4">Description</label>
-                        <input
-                            type="text"
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            placeholder="Description"
-                            required
-                            className="border-2 p-2"
-                        />
-                        <button type="submit" className="border-2 bg-violet-500 mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
-                    </div>
-                </form>
+        <div className="expenseTracker_parent">
+            <div className="balance_container border-2 rounded">
+                <h3>Your Balance</h3>
+                <h1>&#x20B9; {balance}</h1>
             </div>
-
-            <div className="WalletDetails_container p-6 flex flex-col gap-2">
-                <h2>Balance <br></br><span>&#x20B9; {balance}</span></h2>
-                <div className="shadow-lg flex justify-evenly p-4 px-8 gap-2">
-                    <h3 className="flex flex-col items-center p-4"><strong>Income</strong><span className="text-green-600 text-xl">+&#x20B9;{incoming}</span></h3>
-                    <h3 className="flex flex-col items-center p-4"><strong>Expense</strong><span className="text-red-600 text-xl">-&#x20B9;{outgoing}</span></h3>
+            <div className="formTransactions_container flex justify-evenly">
+                <div className="form_container border-2 rounded p-8">
+                    <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
+                    <form className="flex gap-4">
+                        <div className="flex flex-col gap-2">
+                            <legend>Transaction Type</legend>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="transactionType"
+                                    value="Income"
+                                    checked={formData.transactionType === "Income"}
+                                    onChange={handleChange}
+                                    required
+                                />&nbsp;
+                                Income
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="transactionType"
+                                    value="Expense"
+                                    checked={formData.transactionType === "Expense"}
+                                    onChange={handleChange}
+                                    required
+                                />&nbsp;
+                                Expense
+                            </label>
+                            <label htmlFor="category" className="mt-4">Category</label>
+                            <select
+                                id="category"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="NULL">Choose a category</option>
+                                <option value="Food">Food</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Bills">Bills</option>
+                                <option value="Others">Others</option>
+                            </select>
+                            <label htmlFor="date" className="mt-4">Date</label>
+                            <input
+                                type="date"
+                                name="date"
+                                value={formData.date}
+                                onChange={handleChange}
+                                placeholder="Date"
+                                required
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="amount">Amount</label>
+                            <input
+                                type="number"
+                                name="amount"
+                                value={formData.amount}
+                                onChange={handleChange}
+                                placeholder="Amount"
+                                required
+                                className="border-2 p-2"
+                            />
+                            <label htmlFor="description" className="mt-4">Description</label>
+                            <input
+                                type="text"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                placeholder="Description"
+                                required
+                                className="border-2 p-2"
+                            />
+                            <button type="submit" className="border-2 bg-violet-500 mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                        </div>
+                    </form>
                 </div>
-                <h4>Transactions</h4><hr></hr>
-                {transactions.length > 0 ? (
-                    transactions.map((transaction, index) =>
-                    (
-                        <ul key={index} className="shadow-lg p-4 w-96 h-20 overflow-hidden">
-                            <li className="text-xs text-gray-500">{new Date(transaction.date).toLocaleDateString()}</li>
-                            <div className="flex justify-between items-start">
-                                <li>{transaction.description}</li>
-                                <div className="flex items-center">
-                                    <li>&#x20B9; {transaction.amount}</li>
-                                    <li><Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} /></li>
-                                    <li><Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} /></li>
+            
+
+                <div className="WalletDetails_container flex flex-col">
+                    <div className="incomeExpense_container border-2 rounded flex justify-around gap-2">
+                        <h3 className="flex flex-col items-center">Income<span className="text-green-600 text-xl">+ &#x20B9;{incoming}</span></h3>
+                        <h3 className="flex flex-col items-center">Expense<span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span></h3>
+                    </div>
+                    <h4>Transactions</h4><hr></hr>
+                    {transactions.length > 0 ? (
+                        transactions.map((transaction, index) =>
+                        (
+                            <ul key={index} className="transaction shadow-lg p-4 w-96 h-20 overflow-hidden">
+                                <li className="text-xs text-gray-500">{new Date(transaction.date).toLocaleDateString()}</li>
+                                <div className="flex justify-between items-start">
+                                    <li>{transaction.description}</li>
+                                    <div className="flex items-center">
+                                        <li>&#x20B9; {transaction.amount}</li>
+                                        <li><Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} /></li>
+                                        <li><Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} /></li>
+                                    </div>
                                 </div>
-                            </div>
-                        </ul>
-                    ))
-                ) : (
-                    <p className="text-gray-400">No transactions added yet.</p>
-                )}
+                            </ul>
+                        ))
+                    ) : (
+                        <p className="text-gray-400">No transactions added yet.</p>
+                    )}
+                </div>
             </div>
             {/* {transactions.length > 0 && <DoughnutChart transactions={transactions} />} */}
         </div>
