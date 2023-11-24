@@ -3,7 +3,6 @@ import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import {ReactComponent as Edit} from '../icons/edit.svg';
 import {ReactComponent as Delete} from '../icons/delete.svg';
-import { set } from "mongoose";
 
 
 function ExpenseTracker() 
