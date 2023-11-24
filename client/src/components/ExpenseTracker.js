@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
-import {ReactComponent as Edit} from '../icons/edit.svg';
-import {ReactComponent as Delete} from '../icons/delete.svg';
+import { ReactComponent as Edit } from '../icons/edit.svg';
+import { ReactComponent as Delete } from '../icons/delete.svg';
 
 
-function ExpenseTracker() 
-{
+function ExpenseTracker() {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [transactions, setTransactions] = useState([]);
     const [formData, setFormData] = useState({
@@ -26,11 +25,9 @@ function ExpenseTracker()
 
 
 
-    const fetchTransactions= async (userToken) =>
-    {
-        try
-        {
-            const config = 
+    const fetchTransactions = async (userToken) => {
+        try {
+            const config =
             {
                 headers:
                 {
@@ -41,32 +38,25 @@ function ExpenseTracker()
             console.log(response.data.transactions);
             setTransactions(response.data.transactions);
         }
-        catch (error)
-        {
+        catch (error) {
             console.error("Error fetching transactions:", error);
         }
     };
 
-    useEffect(() =>
-    {
-        if (userToken)
-        {
+    useEffect(() => {
+        if (userToken) {
             fetchTransactions(userToken);
         }
     }, [userToken]);
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         let incoming = 0;
         let outgoing = 0;
-        transactions.forEach(transaction =>
-        {
-            if(transaction.transactionType === "Income")
-            {
+        transactions.forEach(transaction => {
+            if (transaction.transactionType === "Income") {
                 incoming += transaction.amount;
             }
-            else
-            {
+            else {
                 outgoing += transaction.amount;
             }
         });
@@ -75,33 +65,27 @@ function ExpenseTracker()
         setBalance(incoming - outgoing);
     }, [transactions]);
 
-    const handleChange = (e) => 
-    {
+    const handleChange = (e) => {
         const targetValue = e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value;
         setFormData({ ...formData, [e.target.name]: targetValue });
     };
 
-    const handleSubmit = async (e) => 
-    {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (editEnabled)
-        {
-            if (editIndex >= 0 && editIndex < transactions.length) 
-            {
+        if (editEnabled) {
+            if (editIndex >= 0 && editIndex < transactions.length) {
                 const updatedTransaction = { ...transactions[editIndex], ...formData };
                 const updatedTransactions = [...transactions];
                 updatedTransactions[editIndex] = updatedTransaction;
                 setTransactions(updatedTransactions);
-            } 
-            else 
-            {
+            }
+            else {
                 console.log("Invalid index");
             }
-            try 
-            {
-                const config = 
+            try {
+                const config =
                 {
-                    headers: 
+                    headers:
                     {
                         Authorization: `Bearer ${userToken}`,
                     },
@@ -117,19 +101,16 @@ function ExpenseTracker()
                     transactionId: ""
                 });
             }
-            catch (error) 
-            {
+            catch (error) {
                 console.error("Error adding transaction:", error.message);
             }
         }
-        else
-        {
+        else {
             setTransactions([...transactions, formData]);
-            try 
-            {
-                const config = 
+            try {
+                const config =
                 {
-                    headers: 
+                    headers:
                     {
                         Authorization: `Bearer ${userToken}`,
                     },
@@ -145,15 +126,13 @@ function ExpenseTracker()
                     transactionId: ""
                 });
             }
-            catch (error) 
-            {
+            catch (error) {
                 console.error("Error adding transaction:", error.message);
             }
         }
     };
 
-    const handleEdit = (transactionId, index) =>
-    {
+    const handleEdit = (transactionId, index) => {
         setEditEnabled(true);
         console.log("Edit clicked at index ", index);
         setEditIndex(index);
@@ -166,82 +145,82 @@ function ExpenseTracker()
         setFormData(editedTransaction);
     }
 
-    const handleDelete = async (transactionId, index) =>
-    {
+    const handleDelete = async (transactionId, index) => {
         console.log("Delete clicked at indexxx ", transactionId);
         const newTransactions = [...transactions];
         newTransactions.splice(index, 1);
         setTransactions(newTransactions);
-        try 
-        {
-            const config = 
+        try {
+            const config =
             {
-                headers: 
+                headers:
                 {
                     Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", {transactionId}, config);
+            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", { transactionId }, config);
             console.log("Transaction deleted successfully");
         }
-        catch (error) 
-        {
+        catch (error) {
             console.error("Error adding transaction:", error.message);
         }
     }
 
     return (
-        <div className="ExpenseTracker_parent flex justify-evenly mt-10">
+        <div className="ExpenseTracker_parent flex justify-evenly mt-40">
             <div className="form_container border-2 p-8">
                 <h4>Add new transaction</h4>
-                <form className="flex flex-col gap-2">
-                    <legend>Transaction Type</legend>
-                    <label>
+                <form className="flex gap-4">
+                    <div className="flex flex-col gap-2">
+                        <legend>Transaction Type</legend>
+                        <label>
+                            <input
+                                type="radio"
+                                name="transactionType"
+                                value="Income"
+                                checked={formData.transactionType === "Income"}
+                                onChange={handleChange}
+                                required
+                            />&nbsp;
+                            Income
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="transactionType"
+                                value="Expense"
+                                checked={formData.transactionType === "Expense"}
+                                onChange={handleChange}
+                                required
+                            />&nbsp;
+                            Expense
+                        </label>
+                        <label htmlFor="category">Category</label>
+                        <select
+                            id="category"
+                            name="category"
+                            value={formData.category}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="NULL">Choose a category</option>
+                            <option value="Food">Food</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <label htmlFor="date">Date</label>
                         <input
-                        type="radio"
-                        name="transactionType"
-                        value="Income"
-                        checked={formData.transactionType === "Income"}
-                        onChange={handleChange}
-                        required
-                        />&nbsp;
-                        Income
-                    </label>
-                    <label>
-                        <input
-                        type="radio"
-                        name="transactionType"
-                        value="Expense"
-                        checked={formData.transactionType === "Expense"}
-                        onChange={handleChange}
-                        required
-                        />&nbsp;
-                        Expense
-                    </label>
-                    <label htmlFor="category">Category</label>
-                    <select
-                        id="category"
-                        name="category"
-                        value={formData.category}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="NULL">Choose a category</option>
-                        <option value="Food">Food</option>
-                        <option value="Transportation">Transportation</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Bills">Bills</option>
-                        <option value="Others">Others</option>
-                    </select>
-                    <label htmlFor="date">Date</label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleChange}
-                        placeholder="Date"
-                        required
-                    />
+                            type="date"
+                            name="date"
+                            value={formData.date}
+                            onChange={handleChange}
+                            placeholder="Date"
+                            required
+                        />
+                    </div>
+                    <div className="flex flex-col gap-2">
                     <label htmlFor="amount">Amount</label>
                     <input
                         type="number"
@@ -262,10 +241,11 @@ function ExpenseTracker()
                         required
                         className="border-2 p-2"
                     />
-                    <button type="submit" className="border-2 bg-violet-500 text-white p-2" onClick={handleSubmit}> {editEnabled? "Edit Transaction" : "Add Transaction"} </button>
+                    <button type="submit" className="border-2 bg-violet-500 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                    </div>
                 </form>
             </div>
-
+          
             <div className="WalletDetails_container border-2 p-6 flex flex-col gap-2">
                 <h2>Balance <strong>{balance}</strong></h2>
                 <h3><strong>Income </strong>{incoming}</h3>
@@ -280,8 +260,8 @@ function ExpenseTracker()
                             <li><strong>Date </strong>{new Date(transaction.date).toLocaleDateString()}</li>
                             <li><strong>Amount </strong>{transaction.amount}</li>
                             <li><strong>Description </strong>{transaction.description}</li>
-                            <li><Edit className="edit_icon" onClick={()=>handleEdit(transaction.transactionId, index)}/></li>
-                            <li><Delete className="delete_icon" onClick={()=>handleDelete(transaction.transactionId, index)}/></li>
+                            <li><Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} /></li>
+                            <li><Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} /></li>
                         </ul>
                     ))
                 ) : (
