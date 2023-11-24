@@ -169,7 +169,7 @@ function ExpenseTracker() {
     return (
         <div className="ExpenseTracker_parent flex justify-evenly mt-40">
             <div className="form_container border-2 p-8">
-                <h4>Add new transaction</h4>
+                <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
                 <form className="flex gap-4">
                     <div className="flex flex-col gap-2">
                         <legend>Transaction Type</legend>
@@ -195,7 +195,7 @@ function ExpenseTracker() {
                             />&nbsp;
                             Expense
                         </label>
-                        <label htmlFor="category">Category</label>
+                        <label htmlFor="category" className="mt-4">Category</label>
                         <select
                             id="category"
                             name="category"
@@ -210,7 +210,7 @@ function ExpenseTracker() {
                             <option value="Bills">Bills</option>
                             <option value="Others">Others</option>
                         </select>
-                        <label htmlFor="date">Date</label>
+                        <label htmlFor="date" className="mt-4">Date</label>
                         <input
                             type="date"
                             name="date"
@@ -221,40 +221,42 @@ function ExpenseTracker() {
                         />
                     </div>
                     <div className="flex flex-col gap-2">
-                    <label htmlFor="amount">Amount</label>
-                    <input
-                        type="number"
-                        name="amount"
-                        value={formData.amount}
-                        onChange={handleChange}
-                        placeholder="Amount"
-                        required
-                        className="border-2 p-2"
-                    />
-                    <label htmlFor="description">Description</label>
-                    <input
-                        type="text"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        placeholder="Description"
-                        required
-                        className="border-2 p-2"
-                    />
-                    <button type="submit" className="border-2 bg-violet-500 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                        <label htmlFor="amount">Amount</label>
+                        <input
+                            type="number"
+                            name="amount"
+                            value={formData.amount}
+                            onChange={handleChange}
+                            placeholder="Amount"
+                            required
+                            className="border-2 p-2"
+                        />
+                        <label htmlFor="description" className="mt-4">Description</label>
+                        <input
+                            type="text"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Description"
+                            required
+                            className="border-2 p-2"
+                        />
+                        <button type="submit" className="border-2 bg-violet-500 mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                     </div>
                 </form>
             </div>
-          
-            <div className="WalletDetails_container border-2 p-6 flex flex-col gap-2">
-                <h2>Balance <strong>{balance}</strong></h2>
-                <h3><strong>Income </strong>{incoming}</h3>
-                <h3><strong>Expense </strong>{outgoing}</h3>
-                <h4>Transactions</h4>
+
+            <div className="WalletDetails_container p-6 flex flex-col gap-2">
+                <h2>Balance <br></br><span>&#x20B9; {balance}</span></h2>
+                <div className="shadow-lg flex justify-evenly p-4 px-8 gap-2">
+                    <h3 className="flex flex-col items-center p-4"><strong>Income</strong><span className="text-green-600 text-xl">+&#x20B9;{incoming}</span></h3>
+                    <h3 className="flex flex-col items-center p-4"><strong>Expense</strong><span className="text-red-600 text-xl">-&#x20B9;{outgoing}</span></h3>
+                </div>
+                <h4>Transactions</h4><hr></hr>
                 {transactions.length > 0 ? (
                     transactions.map((transaction, index) =>
                     (
-                        <ul key={index}>
+                        <ul key={index} className="shadow-lg p-4">
                             <li><strong>Transaction type </strong>{transaction.transactionType}</li>
                             <li><strong>Category </strong>{transaction.category}</li>
                             <li><strong>Date </strong>{new Date(transaction.date).toLocaleDateString()}</li>
@@ -265,7 +267,7 @@ function ExpenseTracker() {
                         </ul>
                     ))
                 ) : (
-                    <p>No transactions added yet.</p>
+                    <p className="text-gray-400">No transactions added yet.</p>
                 )}
             </div>
         </div>

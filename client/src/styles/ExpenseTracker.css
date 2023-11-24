@@ -5,3 +5,11 @@
     width: 30px;
     cursor: pointer;
 }
+
+.edit_icon{
+    color: #00ff00;
+}
+
+.delete_icon{
+    color: #ff0000;
+}
