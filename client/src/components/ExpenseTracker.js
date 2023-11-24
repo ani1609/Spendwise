@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
-import { ReactComponent as Edit } from '../icons/edit.svg';
-import { ReactComponent as Delete } from '../icons/delete.svg';
+import {ReactComponent as Edit} from '../icons/edit.svg';
+import {ReactComponent as Delete} from '../icons/delete.svg';
+import DoughnutChart from "./DoughnutChart";
 
 
-function ExpenseTracker() {
+function ExpenseTracker() 
+{
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [transactions, setTransactions] = useState([]);
     const [formData, setFormData] = useState({
@@ -205,7 +207,7 @@ function ExpenseTracker() {
                         >
                             <option value="NULL">Choose a category</option>
                             <option value="Food">Food</option>
-                            <option value="Transportation">Transportation</option>
+                            <option value="Travel">Travel</option>
                             <option value="Shopping">Shopping</option>
                             <option value="Bills">Bills</option>
                             <option value="Others">Others</option>
@@ -270,6 +272,7 @@ function ExpenseTracker() {
                     <p className="text-gray-400">No transactions added yet.</p>
                 )}
             </div>
+            {/* {transactions.length > 0 && <DoughnutChart transactions={transactions} />} */}
         </div>
     );
 }
