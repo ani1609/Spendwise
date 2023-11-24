@@ -134,7 +134,16 @@ const uploadTransactions = async (req, res) =>
         {
             return res.status(404).json({ message: "User not found" });
         }
-    
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let transactionId = '';
+        for (let i = 0; i < 10; i++) 
+        {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            transactionId += characters.charAt(randomIndex);
+        }
+
+        req.body.transactionId = transactionId;
         user.transactions.push(req.body);
         await user.save();
     

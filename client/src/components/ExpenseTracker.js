@@ -14,7 +14,8 @@ function ExpenseTracker()
         category: "",
         date: "",
         amount: "",
-        description: ""
+        description: "",
+        transactionId: ""
     });
     const [balance, setBalance] = useState(0);
     const [incoming, setIncoming] = useState(0);

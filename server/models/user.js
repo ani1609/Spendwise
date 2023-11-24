@@ -28,6 +28,11 @@ const transactionSchema = new mongoose.Schema
     description: 
     {
         type: String,
+    },
+    transactionId:
+    {
+        type: String,
+        required: true
     }
 });
 
