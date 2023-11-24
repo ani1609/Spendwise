@@ -129,10 +129,10 @@ function ExpenseTracker()
     }
 
     return (
-        <div className="ExpenseTracker_parent">
-            <div className="form_container">
+        <div className="ExpenseTracker_parent flex">
+            <div className="form_container border-2 p-4">
                 <h4>Add new transaction</h4>
-                <form>
+                <form className="flex flex-col gap-2">
                     <legend>Transaction Type</legend>
                     <label>
                         <input
@@ -142,7 +142,7 @@ function ExpenseTracker()
                         checked={formData.transactionType === "Income"}
                         onChange={handleChange}
                         required
-                        />
+                        />&nbsp;
                         Income
                     </label>
                     <label>
@@ -153,7 +153,7 @@ function ExpenseTracker()
                         checked={formData.transactionType === "Expense"}
                         onChange={handleChange}
                         required
-                        />
+                        />&nbsp;
                         Expense
                     </label>
                     <label htmlFor="category">Category</label>
@@ -188,6 +188,7 @@ function ExpenseTracker()
                         onChange={handleChange}
                         placeholder="Amount"
                         required
+                        className="border-2 p-2"
                     />
                     <label htmlFor="description">Description</label>
                     <input
@@ -197,12 +198,13 @@ function ExpenseTracker()
                         onChange={handleChange}
                         placeholder="Description"
                         required
+                        className="border-2 p-2"
                     />
-                    <button type="submit" onClick={handleSubmit}> Add Expense </button>
+                    <button type="submit" className="border-2 bg-violet-500 text-white p-2" onClick={handleSubmit}> Add Expense </button>
                 </form>
             </div>
 
-            <div className="WalletDetails_container">
+            <div className="WalletDetails_container border-2 p-4 flex flex-col gap-2">
                 <h2>Balance <strong>{balance}</strong></h2>
                 <h3><strong>Income </strong>{incoming}</h3>
                 <h3><strong>Expense </strong>{outgoing}</h3>
