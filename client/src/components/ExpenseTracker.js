@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
-import {ReactComponent as Edit} from '../icons/edit.svg';
-import {ReactComponent as Delete} from '../icons/delete.svg';
+import { ReactComponent as Edit } from '../icons/edit.svg';
+import { ReactComponent as Delete } from '../icons/delete.svg';
 import DoughnutChart from "./DoughnutChart";
 
 
-function ExpenseTracker() 
-{
+function ExpenseTracker() {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [transactions, setTransactions] = useState([]);
     const [formData, setFormData] = useState({
@@ -258,14 +257,16 @@ function ExpenseTracker()
                 {transactions.length > 0 ? (
                     transactions.map((transaction, index) =>
                     (
-                        <ul key={index} className="shadow-lg p-4">
-                            <li><strong>Transaction type </strong>{transaction.transactionType}</li>
-                            <li><strong>Category </strong>{transaction.category}</li>
-                            <li><strong>Date </strong>{new Date(transaction.date).toLocaleDateString()}</li>
-                            <li><strong>Amount </strong>{transaction.amount}</li>
-                            <li><strong>Description </strong>{transaction.description}</li>
-                            <li><Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} /></li>
-                            <li><Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} /></li>
+                        <ul key={index} className="shadow-lg p-4 w-96 h-20 overflow-hidden">
+                            <li className="text-xs text-gray-500">{new Date(transaction.date).toLocaleDateString()}</li>
+                            <div className="flex justify-between items-start">
+                                <li>{transaction.description}</li>
+                                <div className="flex items-center">
+                                    <li>&#x20B9; {transaction.amount}</li>
+                                    <li><Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} /></li>
+                                    <li><Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} /></li>
+                                </div>
+                            </div>
                         </ul>
                     ))
                 ) : (
