@@ -4,6 +4,11 @@ import "../styles/ExpenseTracker.css";
 import "../index.css";
 import { ReactComponent as Edit } from '../icons/edit.svg';
 import { ReactComponent as Delete } from '../icons/delete.svg';
+import { ReactComponent as Food } from '../icons/food.svg';
+import { ReactComponent as Travel } from '../icons/travel.svg';
+import { ReactComponent as Shopping } from '../icons/shopping.svg';
+import { ReactComponent as Bills } from '../icons/bills.svg';
+import { ReactComponent as Others } from '../icons/others.svg';
 import DoughnutChart from "./DoughnutChart";
 
 
@@ -188,6 +193,7 @@ function ExpenseTracker() {
                                     checked={formData.transactionType === "Income"}
                                     onChange={handleChange}
                                     required
+                                    className="cursor-pointer"
                                 />&nbsp;
                                 Income
                             </label>
@@ -199,6 +205,7 @@ function ExpenseTracker() {
                                     checked={formData.transactionType === "Expense"}
                                     onChange={handleChange}
                                     required
+                                    className="cursor-pointer"
                                 />&nbsp;
                                 Expense
                             </label>
@@ -209,6 +216,7 @@ function ExpenseTracker() {
                                 value={formData.category}
                                 onChange={handleChange}
                                 required
+                                className="cursor-pointer"
                             >
                                 <option value="NULL">Choose a category</option>
                                 <option value="Food">Food</option>
@@ -225,6 +233,7 @@ function ExpenseTracker() {
                                 onChange={handleChange}
                                 placeholder="Date"
                                 required
+                                className="cursor-pointer"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -261,20 +270,50 @@ function ExpenseTracker() {
                     </div>
                     <h4>Transactions</h4><hr></hr>
                     {transactions.length > 0 ? (
-                        transactions.map((transaction, index) =>
-                        (
-                            <ul key={index} className="transaction shadow-lg p-4 w-96 h-20 overflow-hidden">
-                                <li className="text-xs text-gray-500">{new Date(transaction.date).toLocaleDateString()}</li>
-                                <div className="flex justify-between items-start">
-                                    <li>{transaction.description}</li>
-                                    <div className="flex items-center">
-                                        <li>&#x20B9; {transaction.amount}</li>
-                                        <li><Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} /></li>
-                                        <li><Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} /></li>
-                                    </div>
-                                </div>
-                            </ul>
-                        ))
+                        <ul className="transactions_container flex flex-col gap-2">
+                            {transactions.map((transaction, index) => (
+                                transaction.transactionType === "Income" ?
+                                (   
+                                    <li key={index} className="income flex justify-between items-center border-2 rounded p-2">
+                                        <div className="icon_container">
+                                            {transaction.category === "Food" ? <Food className="icons" /> : null}
+                                            {transaction.category === "Travel" ? <Travel className="icons" /> : null}
+                                            {transaction.category === "Shopping" ? <Shopping className="icons" /> : null}
+                                            {transaction.category === "Bills" ? <Bills className="icons" /> : null}
+                                            {transaction.category === "Others" ? <Others className="icons" /> : null}
+                                        </div>
+                                        <div className="descDate_container">
+                                            <h4>{transaction.description}</h4>
+                                            <p>{new Date(transaction.date).toLocaleDateString()}</p>
+                                        </div>
+                                        <h1>+ {transaction.amount}</h1>
+                                        <div className="editDelete_container">
+                                            <Edit className="edit_icon" onClick={() => handleEdit(transaction._id, index)} />
+                                            <Delete className="delete_icon" onClick={() => handleDelete(transaction._id, index)} />
+                                        </div>
+                                    </li>
+                                ) : (
+                                    <li key={index} className="outcome flex justify-between items-center border-2 rounded p-2">
+                                        <div className="icon_container">
+                                            {transaction.category === "Food" ? <Food className="icons" /> : null}
+                                            {transaction.category === "Travel" ? <Travel className="icons" /> : null}
+                                            {transaction.category === "Shopping" ? <Shopping className="icons" /> : null}
+                                            {transaction.category === "Bills" ? <Bills className="icons" /> : null}
+                                            {transaction.category === "Others" ? <Others className="icons" /> : null}
+                                        </div>
+                                        <div className="descDate_container">
+                                            <h4>{transaction.description}</h4>
+                                            <p>{new Date(transaction.date).toLocaleDateString()}</p>
+                                        </div>
+                                        <h1>+ {transaction.amount}</h1>
+                                        <div className="editDelete_container">
+                                            <Edit className="edit_icon" onClick={() => handleEdit(transaction._id, index)} />
+                                            <Delete className="delete_icon" onClick={() => handleDelete(transaction._id, index)} />
+                                        </div>
+                                    </li>
+                                )
+                            ))}
+                        </ul>
                     ) : (
                         <p className="text-gray-400">No transactions added yet.</p>
                     )}
