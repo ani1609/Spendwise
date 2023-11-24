@@ -191,8 +191,8 @@ function ExpenseTracker()
     }
 
     return (
-        <div className="ExpenseTracker_parent flex">
-            <div className="form_container border-2 p-4">
+        <div className="ExpenseTracker_parent flex justify-evenly mt-10">
+            <div className="form_container border-2 p-8">
                 <h4>Add new transaction</h4>
                 <form className="flex flex-col gap-2">
                     <legend>Transaction Type</legend>
@@ -266,7 +266,7 @@ function ExpenseTracker()
                 </form>
             </div>
 
-            <div className="WalletDetails_container border-2 p-4 flex flex-col gap-2">
+            <div className="WalletDetails_container border-2 p-6 flex flex-col gap-2">
                 <h2>Balance <strong>{balance}</strong></h2>
                 <h3><strong>Income </strong>{incoming}</h3>
                 <h3><strong>Expense </strong>{outgoing}</h3>
