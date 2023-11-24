@@ -6,7 +6,6 @@ const { SECRET_KEY, SALT } = process.env;
 
 const login=async(req,res)=>
 {
-    console.log("got login request");
     try
     {
         const {email,password}=req.body;
@@ -31,8 +30,6 @@ const login=async(req,res)=>
 
 const signup = async (req, res) => 
 {
-    console.log("got signup request");
-    console.log(req.body);
     try
     {
         const user = await User.findOne({ email: req.body.email });
@@ -86,7 +83,6 @@ function authenticateJWT(req, res, next)
 
 const fetchTransactions = async (req, res) =>
 {
-    console.log("got fetchTransactions request");
     try 
     {
         const token = req.headers.authorization.split(' ')[1];
@@ -121,9 +117,6 @@ const fetchTransactions = async (req, res) =>
 
 const uploadTransactions = async (req, res) => 
 {
-    console.log("got uploadTransactions request");
-    console.log(req.body);
-  
     try 
     {
         const token = req.headers.authorization.split(' ')[1];
@@ -134,7 +127,16 @@ const uploadTransactions = async (req, res) =>
         {
             return res.status(404).json({ message: "User not found" });
         }
-    
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let transactionId = '';
+        for (let i = 0; i < 10; i++) 
+        {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            transactionId += characters.charAt(randomIndex);
+        }
+
+        req.body.transactionId = transactionId;
         user.transactions.push(req.body);
         await user.save();
     
@@ -159,10 +161,8 @@ const uploadTransactions = async (req, res) =>
     }
 };
 
-const deleteTransactcion = async (req, res) => 
+const editTransaction = async (req, res) =>
 {
-    console.log("got delete Transaction request");
-    console.log(req.body);
     try
     {
         const token=req.headers.authorization.split(' ')[1];
@@ -174,8 +174,75 @@ const deleteTransactcion = async (req, res) =>
             return res.status(404).json({message:"User not found"});
         }
 
-        user.transactions.splice(req.body.index,1);
+        const { transactionId, transactionType, category, date, amount, description } = req.body;
+
+        const transaction = user.transactions.find(
+            (transaction) => transaction.transactionId === transactionId
+        );
+
+        if (!transaction) 
+        {
+            return res.status(404).json({ message: "Transaction not found" });
+        }
+
+        transaction.transactionType = transactionType;
+        transaction.category = category;
+        transaction.date = date;
+        transaction.amount = amount;
+        transaction.description = description;
+
         await user.save();
+
+        res.status(200).json({ message: "Transaction updated successfully"});
+
+    }
+    catch(error)
+    {
+        console.error(error);
+
+        if(error.name==='TokenExpiredError')
+        {
+            return res.status(401).json({message:"Token expired"});
+        }
+        else if(error.name==='JsonWebTokenError')
+        {
+            return res.status(401).json({message:"Invalid token"});
+        }
+        else
+        {
+            return res.status(500).json({message:"Internal Server Error"});
+        }
+    }
+}
+
+const deleteTransactcion = async (req, res) => 
+{
+    try
+    {
+        const token=req.headers.authorization.split(' ')[1];
+        const decoded=jwt.verify(token,SECRET_KEY);
+        const user=await User.findById(decoded.id);
+
+        if(!user)
+        {
+            return res.status(404).json({message:"User not found"});
+        }
+
+        const transactionIdToDelete = req.body.transactionId;
+
+        const transactionIndex = user.transactions.findIndex(
+            (transaction) => transaction.transactionId === transactionIdToDelete
+        );
+
+        if (transactionIndex === -1) {
+            return res.status(404).json({ message: "Transaction not found" });
+        }
+
+        user.transactions.splice(transactionIndex, 1);
+        await user.save();
+
+        res.status(200).json({ message: "Transaction deleted successfully" });
+        
     }
     catch(error)
     {
@@ -202,5 +269,6 @@ module.exports = {
     authenticateJWT,
     fetchTransactions,
     uploadTransactions,
+    editTransaction,
     deleteTransactcion
 };
