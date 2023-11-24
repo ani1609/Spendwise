@@ -3,6 +3,7 @@ import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import {ReactComponent as Edit} from '../icons/edit.svg';
 import {ReactComponent as Delete} from '../icons/delete.svg';
+import { set } from "mongoose";
 
 
 function ExpenseTracker() 
@@ -14,11 +15,16 @@ function ExpenseTracker()
         category: "",
         date: "",
         amount: "",
-        description: ""
+        description: "",
+        transactionId: ""
     });
     const [balance, setBalance] = useState(0);
     const [incoming, setIncoming] = useState(0);
     const [outgoing, setOutgoing] = useState(0);
+    const [editEnabled, setEditEnabled] = useState(false);
+    const [editIndex, setEditIndex] = useState(0);
+    const [editTransactionId, setEditTransactionId] = useState(0);
+
 
 
     const fetchTransactions= async (userToken) =>
@@ -79,34 +85,91 @@ function ExpenseTracker()
     const handleSubmit = async (e) => 
     {
         e.preventDefault();
-        setTransactions([...transactions, formData]);
-        try 
+        if (editEnabled)
         {
-            const config = 
+            if (editIndex >= 0 && editIndex < transactions.length) 
             {
-                headers: 
+                const updatedTransaction = { ...transactions[editIndex], ...formData };
+                const updatedTransactions = [...transactions];
+                updatedTransactions[editIndex] = updatedTransaction;
+                setTransactions(updatedTransactions);
+            } 
+            else 
+            {
+                console.log("Invalid index");
+            }
+            try 
+            {
+                const config = 
                 {
-                    Authorization: `Bearer ${userToken}`,
-                },
-            };
-            const response = await axios.post("http://localhost:3000/api/users/uploadTransactions", formData, config);
-            console.log("Transaction added successfully");
+                    headers: 
+                    {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                };
+                const response = await axios.post("http://localhost:3000/api/users/editTransaction", formData, config);
+                console.log("Transaction edited successfully");
+                setFormData({
+                    transactionType: "",
+                    category: "",
+                    date: "",
+                    amount: "",
+                    description: "",
+                    transactionId: ""
+                });
+            }
+            catch (error) 
+            {
+                console.error("Error adding transaction:", error.message);
+            }
         }
-        catch (error) 
+        else
         {
-            console.error("Error adding transaction:", error.message);
+            setTransactions([...transactions, formData]);
+            try 
+            {
+                const config = 
+                {
+                    headers: 
+                    {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                };
+                const response = await axios.post("http://localhost:3000/api/users/uploadTransactions", formData, config);
+                console.log("Transaction added successfully");
+                setFormData({
+                    transactionType: "",
+                    category: "",
+                    date: "",
+                    amount: "",
+                    description: "",
+                    transactionId: ""
+                });
+            }
+            catch (error) 
+            {
+                console.error("Error adding transaction:", error.message);
+            }
         }
     };
 
-    const handleEdit = (index) =>
+    const handleEdit = (transactionId, index) =>
     {
+        setEditEnabled(true);
         console.log("Edit clicked at index ", index);
+        setEditIndex(index);
+        setEditTransactionId(transactionId);
+        const editedTransaction = { ...transactions[index] };
 
+        const date = new Date(editedTransaction.date);
+        const formattedDate = date.toISOString().split('T')[0];
+        editedTransaction.date = formattedDate;
+        setFormData(editedTransaction);
     }
 
-    const handleDelete = async (index) =>
+    const handleDelete = async (transactionId, index) =>
     {
-        console.log("Delete clicked at indexxx ", index);
+        console.log("Delete clicked at indexxx ", transactionId);
         const newTransactions = [...transactions];
         newTransactions.splice(index, 1);
         setTransactions(newTransactions);
@@ -119,7 +182,7 @@ function ExpenseTracker()
                     Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", {index}, config);
+            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", {transactionId}, config);
             console.log("Transaction deleted successfully");
         }
         catch (error) 
@@ -200,7 +263,7 @@ function ExpenseTracker()
                         required
                         className="border-2 p-2"
                     />
-                    <button type="submit" className="border-2 bg-violet-500 text-white p-2" onClick={handleSubmit}> Add Expense </button>
+                    <button type="submit" className="border-2 bg-violet-500 text-white p-2" onClick={handleSubmit}> {editEnabled? "Edit Transaction" : "Add Transaction"} </button>
                 </form>
             </div>
 
@@ -218,8 +281,8 @@ function ExpenseTracker()
                             <li><strong>Date </strong>{new Date(transaction.date).toLocaleDateString()}</li>
                             <li><strong>Amount </strong>{transaction.amount}</li>
                             <li><strong>Description </strong>{transaction.description}</li>
-                            <li><Edit className="edit_icon" onClick={()=>handleEdit(index)}/></li>
-                            <li><Delete className="delete_icon" onClick={()=>handleDelete(index)}/></li>
+                            <li><Edit className="edit_icon" onClick={()=>handleEdit(transaction.transactionId, index)}/></li>
+                            <li><Delete className="delete_icon" onClick={()=>handleDelete(transaction.transactionId, index)}/></li>
                         </ul>
                     ))
                 ) : (
