@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDb = require("./configDB/mongoDB");
-const { login, signup, authenticateJWT, fetchTransactions, uploadTransactions, deleteTransactcion } = require("./controllers/userController");
+const { login, signup, authenticateJWT, fetchTransactions, uploadTransactions, editTransaction, deleteTransactcion } = require("./controllers/userController");
 const cors=require('cors');
 
 // Connect to MongoDB
@@ -20,6 +20,7 @@ app.get('/api/user', authenticateJWT, (req, res) => {
 });
 app.get('/api/users/fetchTransactions', fetchTransactions);
 app.post('/api/users/uploadTransactions', uploadTransactions);
+app.post('/api/users/editTransaction',editTransaction);
 app.post('/api/users/deleteTransaction',deleteTransactcion);
 
 
