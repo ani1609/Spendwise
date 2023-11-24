@@ -1,8 +1,7 @@
 .navbar_parent
 {
     height: 70px;
-    width: 100vw;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
