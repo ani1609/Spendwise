@@ -183,8 +183,26 @@ const deleteTransactcion = async (req, res) =>
             return res.status(404).json({message:"User not found"});
         }
 
-        user.transactions.splice(req.body.index,1);
+        const transactionIdToDelete = req.body.transactionId;
+
+        // Find the index of the transaction with the given transactionId
+        const transactionIndex = user.transactions.findIndex(
+            (transaction) => transaction.transactionId === transactionIdToDelete
+        );
+
+        // Check if the transaction with the given transactionId exists
+        if (transactionIndex === -1) {
+            return res.status(404).json({ message: "Transaction not found" });
+        }
+
+        // Remove the transaction from the array
+        user.transactions.splice(transactionIndex, 1);
+
+        // Save the updated user object
         await user.save();
+
+        res.status(200).json({ message: "Transaction deleted successfully" });
+        
     }
     catch(error)
     {

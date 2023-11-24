@@ -105,9 +105,9 @@ function ExpenseTracker()
 
     }
 
-    const handleDelete = async (index) =>
+    const handleDelete = async (transactionId, index) =>
     {
-        console.log("Delete clicked at indexxx ", index);
+        console.log("Delete clicked at indexxx ", transactionId);
         const newTransactions = [...transactions];
         newTransactions.splice(index, 1);
         setTransactions(newTransactions);
@@ -120,7 +120,7 @@ function ExpenseTracker()
                     Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", {index}, config);
+            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", {transactionId}, config);
             console.log("Transaction deleted successfully");
         }
         catch (error) 
@@ -218,7 +218,7 @@ function ExpenseTracker()
                             <li><strong>Amount </strong>{transaction.amount}</li>
                             <li><strong>Description </strong>{transaction.description}</li>
                             <li><Edit className="edit_icon" onClick={()=>handleEdit(index)}/></li>
-                            <li><Delete className="delete_icon" onClick={()=>handleDelete(index)}/></li>
+                            <li><Delete className="delete_icon" onClick={()=>handleDelete(transaction.transactionId, index)}/></li>
                         </ul>
                     ))
                 ) : (
