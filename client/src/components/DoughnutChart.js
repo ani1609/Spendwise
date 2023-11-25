@@ -13,30 +13,40 @@ function DoughnutChart(props)
     const [othersExpenses, setOthersExpenses] = useState(0);
 
     useEffect(() => {
-        if (transactions) {
-          transactions.forEach((transaction) => {
-            if (transaction.transactionType === "Expense") {
-              switch (transaction.category) {
-                case "Food":
-                  setFoodExpenses((prev) => prev + transaction.amount);
-                  break;
-                case "Travel":
-                  setTravelExpenses((prev) => prev + transaction.amount);
-                  break;
-                case "Shopping":
-                  setShoppingExpenses((prev) => prev + transaction.amount);
-                  break;
-                case "Bills":
-                  setBillsExpenses((prev) => prev + transaction.amount);
-                  break;
-                case "Others":
-                  setOthersExpenses((prev) => prev + transaction.amount);
-                  break;
-                default:
-                  break;
-              }
-            }
-          });
+        if (transactions) 
+        {
+            setFoodExpenses(0);
+            setTravelExpenses(0);
+            setShoppingExpenses(0);
+            setBillsExpenses(0);
+            setOthersExpenses(0);
+
+            transactions.forEach((transaction) => 
+            {
+                if (transaction.transactionType === "Expense") 
+                {
+                    switch (transaction.category)
+                    {
+                        case "Food":
+                        setFoodExpenses((prev) => prev + transaction.amount);
+                        break;
+                        case "Travel":
+                        setTravelExpenses((prev) => prev + transaction.amount);
+                        break;
+                        case "Shopping":
+                        setShoppingExpenses((prev) => prev + transaction.amount);
+                        break;
+                        case "Bills":
+                        setBillsExpenses((prev) => prev + transaction.amount);
+                        break;
+                        case "Others":
+                        setOthersExpenses((prev) => prev + transaction.amount);
+                        break;
+                        default:
+                        break;
+                    }
+                }
+            });
         }
       }, [transactions]);
       
