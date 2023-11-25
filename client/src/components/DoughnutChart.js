@@ -19,7 +19,6 @@ function DoughnutChart(props)
     {
         if (transactions) 
         {
-            let totalExpenses = 0;
             setFoodExpenses(0);
             setTravelExpenses(0);
             setShoppingExpenses(0);
