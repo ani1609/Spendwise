@@ -319,7 +319,7 @@ function ExpenseTracker() {
                     )}
                 </div>
             </div>
-            {/* {transactions.length > 0 && <DoughnutChart transactions={transactions} />} */}
+            {transactions.length > 0 && <DoughnutChart transactions={transactions} />}
         </div>
     );
 }
