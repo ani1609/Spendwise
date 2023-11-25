@@ -46,7 +46,7 @@ function ExpenseTracker()
                     Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.get("http://localhost:3000/api/users/fetchTransactions", config);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/fetchTransactions`, config);
             console.log(response.data.transactions);
             setTransactions(response.data.transactions);
         }
@@ -107,7 +107,7 @@ function ExpenseTracker()
                         Authorization: `Bearer ${userToken}`,
                     },
                 };
-                const response = await axios.post("http://localhost:3000/api/users/editTransaction", formData, config);
+                const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/editTransaction`, formData, config);
                 console.log("Transaction edited successfully");
                 setFormData({
                     transactionType: "",
@@ -137,7 +137,7 @@ function ExpenseTracker()
                         Authorization: `Bearer ${userToken}`,
                     },
                 };
-                const response = await axios.post("http://localhost:3000/api/users/uploadTransactions", formData, config);
+                const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/uploadTransactions`, formData, config);
                 console.log("Transaction added successfully");
                 setFormData({
                     transactionType: "",
@@ -184,7 +184,7 @@ function ExpenseTracker()
                     Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", { transactionId }, config);
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/deleteTransaction`, { transactionId }, config);
             console.log("Transaction deleted successfully");
             toast.success("Transaction deleted successfully.");
         }
