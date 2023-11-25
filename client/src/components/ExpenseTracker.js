@@ -14,7 +14,6 @@ import { ReactComponent as Others } from '../icons/others.svg';
 import DoughnutChart from "./DoughnutChart";
 
 
-
 function ExpenseTracker() 
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
