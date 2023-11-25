@@ -8,4 +8,6 @@ body
 {
     margin: 0;
     padding: 0;
+
+    --primary: #c465c9;
 }

@@ -38,6 +38,17 @@
     width: 100%;
 }
 
+.form_container
+{
+    height: 383.5px;
+}
+
+.form_container form button 
+{
+    background-color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
 .WalletDetails_container
 {
     width: 422.5px;
@@ -79,6 +90,8 @@
 .transactions_container
 {
     margin-top: 15px;
+    max-height: calc(100vh - 410px);
+    overflow: auto;
 }
 
 .income, .outcome
@@ -124,7 +137,7 @@
 {
     height: 25px;
     width: 25px;
-    fill: #c465c9;
+    fill: var(--primary);
 }
 
 .descDate_container
@@ -173,22 +186,29 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease-in-out;
+    width: 0px;
+    height: 100%;
 }
 
 .income:hover .editDelete_container, .outcome:hover .editDelete_container
 {
-    display: flex;
-    opacity: 1;
+    width: 60px;
 }
 
-.edit_icon, .delete_icon
+.edit_icon
+{
+    fill: var(--primary);
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+.delete_icon
 {
     height: 25px;
     width: 25px;
     cursor: pointer;
+    fill: #f53838;
 }
 
 .edit_icon
