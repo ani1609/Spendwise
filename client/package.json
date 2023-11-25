@@ -23,6 +23,7 @@
     "react": "18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-dom": "18.2.0",
+    "react-icons": "^4.12.0",
     "react-scripts": "5.0.1",
     "react-toastify": "9.1.1",
     "ts-node": "10.9.1",
