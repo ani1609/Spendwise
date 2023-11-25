@@ -176,7 +176,7 @@ function ExpenseTracker() {
     return (
         <div className="expenseTracker_parent">
             <div className="balance_container border-2 rounded">
-                <h3>Your Balance</h3>
+                <h3>Your Balance-</h3>
                 <h1>&#x20B9;{balance}</h1>
             </div>
             <div className="formTransactions_container flex justify-evenly">

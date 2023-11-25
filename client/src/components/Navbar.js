@@ -4,6 +4,7 @@ import Login from './Login';
 import Signup from './Signup';
 import axios from "axios";
 import {ReactComponent as Logout} from '../icons/logout.svg';
+import { SiMoneygram } from "react-icons/si";
 
 
 function Navbar() 
@@ -51,7 +52,7 @@ function Navbar()
 
     return (
         <div className="navbar_parent z-10 absolute top-0 text-white">
-            <h1>SPENDWISE</h1>
+            <h1 className="flex gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
             {userToken?
                 <div className="profile_container">
                     <h4>{user?.name?.split(' ')[0]}</h4>
