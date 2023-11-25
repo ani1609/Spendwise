@@ -12,6 +12,7 @@ import { ReactComponent as Shopping } from '../icons/shopping.svg';
 import { ReactComponent as Bills } from '../icons/bills.svg';
 import { ReactComponent as Others } from '../icons/others.svg';
 import DoughnutChart from "./DoughnutChart";
+import { set } from "mongoose";
 
 
 function ExpenseTracker() 
@@ -118,6 +119,7 @@ function ExpenseTracker()
                     transactionId: ""
                 });
                 toast.success("Transaction edited successfully.");
+                setEditEnabled(false);
             }
             catch (error) 
             {
