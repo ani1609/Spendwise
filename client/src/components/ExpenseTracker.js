@@ -177,7 +177,7 @@ function ExpenseTracker() {
         <div className="expenseTracker_parent">
             <div className="balance_container border-2 rounded">
                 <h3>Your Balance</h3>
-                <h1>&#x20B9; {balance}</h1>
+                <h1>&#x20B9;{balance}</h1>
             </div>
             <div className="formTransactions_container flex justify-evenly">
                 <div className="form_container border-2 rounded p-8">
@@ -257,7 +257,7 @@ function ExpenseTracker() {
                                 required
                                 className="border-2 p-2"
                             />
-                            <button type="submit" className="border-2 bg-violet-500 mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                            <button type="submit" className="border-2 mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                         </div>
                     </form>
                 </div>
@@ -286,10 +286,10 @@ function ExpenseTracker() {
                                             <h4>{transaction.description}</h4>
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
-                                        <h1>+ {transaction.amount}</h1>
+                                        <h1>+{transaction.amount}</h1>
                                         <div className="editDelete_container">
-                                            <Edit className="edit_icon" onClick={() => handleEdit(transaction._id, index)} />
-                                            <Delete className="delete_icon" onClick={() => handleDelete(transaction._id, index)} />
+                                            <Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} />
+                                            <Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} />
                                         </div>
                                     </li>
                                 ) : (
@@ -305,10 +305,10 @@ function ExpenseTracker() {
                                             <h4>{transaction.description}</h4>
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
-                                        <h1>+ {transaction.amount}</h1>
+                                        <h1>-{transaction.amount}</h1>
                                         <div className="editDelete_container">
-                                            <Edit className="edit_icon" onClick={() => handleEdit(transaction._id, index)} />
-                                            <Delete className="delete_icon" onClick={() => handleDelete(transaction._id, index)} />
+                                            <Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} />
+                                            <Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} />
                                         </div>
                                     </li>
                                 )

@@ -234,7 +234,8 @@ const deleteTransactcion = async (req, res) =>
             (transaction) => transaction.transactionId === transactionIdToDelete
         );
 
-        if (transactionIndex === -1) {
+        if (transactionIndex === -1) 
+        {
             return res.status(404).json({ message: "Transaction not found" });
         }
 
