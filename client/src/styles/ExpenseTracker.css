@@ -38,6 +38,11 @@
     width: 100%;
 }
 
+.form_container
+{
+    height: 383.5px;
+}
+
 .form_container form button 
 {
     background-color: var(--primary);
@@ -85,6 +90,8 @@
 .transactions_container
 {
     margin-top: 15px;
+    max-height: calc(100vh - 410px);
+    overflow: auto;
 }
 
 .income, .outcome
