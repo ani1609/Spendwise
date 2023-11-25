@@ -19,6 +19,7 @@ function DoughnutChart(props)
     {
         if (transactions) 
         {
+            let flag = false;
             setFoodExpenses(0);
             setTravelExpenses(0);
             setShoppingExpenses(0);
@@ -30,6 +31,7 @@ function DoughnutChart(props)
                 if (transaction.transactionType === "Expense") 
                 {
                     setShowChart(true);
+                    flag = true;
                     switch (transaction.category)
                     {
                         case "Food":
@@ -51,11 +53,11 @@ function DoughnutChart(props)
                         break;
                     }
                 }
-                else
-                {
-                    setShowChart(false);
-                }
             });
+            if (!flag) 
+            {
+                setShowChart(false);
+            }
         }
       }, [transactions]);
       
