@@ -23,7 +23,7 @@ function Navbar()
                 Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.get("http://localhost:3000/api/user", config);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
             setUser(response.data.user);
             console.log(response.data.user);
         }
