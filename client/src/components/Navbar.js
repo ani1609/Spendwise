@@ -51,7 +51,7 @@ function Navbar()
 
     return (
         <div className="navbar_parent z-10 absolute top-0 text-white">
-            <h1>Expense Tracker</h1>
+            <h1>SPENDWISE</h1>
             {userToken?
                 <div className="profile_container">
                     <h4>{user?.name?.split(' ')[0]}</h4>
