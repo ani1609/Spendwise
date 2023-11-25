@@ -190,3 +190,13 @@
     width: 25px;
     cursor: pointer;
 }
+
+.edit_icon
+{
+    fill: #65c971;
+}
+
+.delete_icon
+{
+    fill: #f53838;
+}
