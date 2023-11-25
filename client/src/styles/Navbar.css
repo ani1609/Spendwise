@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500;600&display=swap');
+
 .navbar_parent
 {
     height: 70px;
@@ -11,8 +13,10 @@
 
 .navbar_parent h1
 {
-    padding: 0;
     margin: 0;
+    letter-spacing: 0.5px;
+    font-size: 35px;
+    font-family: 'Barlow Condensed', sans-serif;
 }
 
 .profile_container
@@ -23,11 +27,19 @@
     gap: 20px;
 }
 
+.profile_container h4
+{
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 18px;
+}
+
 .logout_icon
 {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     cursor: pointer;
+    fill: white;
 }
 
 .login_signup_container
