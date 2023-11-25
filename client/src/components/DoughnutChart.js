@@ -1,18 +1,22 @@
 import React ,{ useState, useEffect} from "react";
 import  Chart  from "react-apexcharts";
 import "../styles/DoughnutChart.css";
+import "../index.css";
 
 function DoughnutChart(props) 
 {
 
     const { transactions } = props;
+    const [showChart, setShowChart] = useState(false);
     const [foodExpenses, setFoodExpenses] = useState(0);
     const [travelExpenses, setTravelExpenses] = useState(0);
     const [shoppingExpenses, setShoppingExpenses] = useState(0);
     const [billsExpenses, setBillsExpenses] = useState(0);
     const [othersExpenses, setOthersExpenses] = useState(0);
 
-    useEffect(() => {
+
+    useEffect(() => 
+    {
         if (transactions) 
         {
             setFoodExpenses(0);
@@ -25,6 +29,7 @@ function DoughnutChart(props)
             {
                 if (transaction.transactionType === "Expense") 
                 {
+                    setShowChart(true);
                     switch (transaction.category)
                     {
                         case "Food":
@@ -46,6 +51,10 @@ function DoughnutChart(props)
                         break;
                     }
                 }
+                else
+                {
+                    setShowChart(false);
+                }
             });
         }
       }, [transactions]);
@@ -55,7 +64,7 @@ function DoughnutChart(props)
     return(
         <React.Fragment>
             <div className="chart_container">
-                <Chart 
+                {showChart ? (<Chart 
                     type="donut"
                     width={450}
                     height={450}
@@ -73,7 +82,11 @@ function DoughnutChart(props)
 
                     }}
                 >
-                </Chart>
+                </Chart>)
+                :
+                (
+                    <p>Add your expenses to see meaningful insights here!</p>
+                )}
             </div>
         </React.Fragment>
     );

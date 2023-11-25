@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ReactComponent as Edit } from '../icons/edit.svg';
 import { ReactComponent as Delete } from '../icons/delete.svg';
 import { ReactComponent as Food } from '../icons/food.svg';
@@ -12,7 +14,8 @@ import { ReactComponent as Others } from '../icons/others.svg';
 import DoughnutChart from "./DoughnutChart";
 
 
-function ExpenseTracker() {
+function ExpenseTracker() 
+{
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [transactions, setTransactions] = useState([]);
     const [formData, setFormData] = useState({
@@ -32,8 +35,10 @@ function ExpenseTracker() {
 
 
 
-    const fetchTransactions = async (userToken) => {
-        try {
+    const fetchTransactions = async (userToken) => 
+    {
+        try 
+        {
             const config =
             {
                 headers:
@@ -50,7 +55,8 @@ function ExpenseTracker() {
         }
     };
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         if (userToken) {
             fetchTransactions(userToken);
         }
@@ -60,10 +66,12 @@ function ExpenseTracker() {
         let incoming = 0;
         let outgoing = 0;
         transactions.forEach(transaction => {
-            if (transaction.transactionType === "Income") {
+            if (transaction.transactionType === "Income") 
+            {
                 incoming += transaction.amount;
             }
-            else {
+            else 
+            {
                 outgoing += transaction.amount;
             }
         });
@@ -77,9 +85,11 @@ function ExpenseTracker() {
         setFormData({ ...formData, [e.target.name]: targetValue });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => 
+    {
         e.preventDefault();
-        if (editEnabled) {
+        if (editEnabled) 
+        {
             if (editIndex >= 0 && editIndex < transactions.length) {
                 const updatedTransaction = { ...transactions[editIndex], ...formData };
                 const updatedTransactions = [...transactions];
@@ -107,14 +117,18 @@ function ExpenseTracker() {
                     description: "",
                     transactionId: ""
                 });
+                toast.success("Transaction edited successfully.");
             }
-            catch (error) {
+            catch (error) 
+            {
                 console.error("Error adding transaction:", error.message);
             }
         }
-        else {
+        else 
+        {
             setTransactions([...transactions, formData]);
-            try {
+            try 
+            {
                 const config =
                 {
                     headers:
@@ -132,6 +146,7 @@ function ExpenseTracker() {
                     description: "",
                     transactionId: ""
                 });
+                toast.success("Transaction added successfully.");
             }
             catch (error) {
                 console.error("Error adding transaction:", error.message);
@@ -139,7 +154,8 @@ function ExpenseTracker() {
         }
     };
 
-    const handleEdit = (transactionId, index) => {
+    const handleEdit = (transactionId, index) => 
+    {
         setEditEnabled(true);
         console.log("Edit clicked at index ", index);
         setEditIndex(index);
@@ -152,12 +168,14 @@ function ExpenseTracker() {
         setFormData(editedTransaction);
     }
 
-    const handleDelete = async (transactionId, index) => {
+    const handleDelete = async (transactionId, index) => 
+    {
         console.log("Delete clicked at indexxx ", transactionId);
         const newTransactions = [...transactions];
         newTransactions.splice(index, 1);
         setTransactions(newTransactions);
-        try {
+        try 
+        {
             const config =
             {
                 headers:
@@ -167,8 +185,10 @@ function ExpenseTracker() {
             };
             const response = await axios.post("http://localhost:3000/api/users/deleteTransaction", { transactionId }, config);
             console.log("Transaction deleted successfully");
+            toast.success("Transaction deleted successfully.");
         }
-        catch (error) {
+        catch (error) 
+        {
             console.error("Error adding transaction:", error.message);
         }
     }
@@ -320,6 +340,7 @@ function ExpenseTracker() {
                 </div>
             </div>
             {transactions.length > 0 && <DoughnutChart transactions={transactions} />}
+            <ToastContainer />
         </div>
     );
 }
