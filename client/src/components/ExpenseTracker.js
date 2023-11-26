@@ -15,6 +15,7 @@ import {ReactComponent as Plus} from '../icons/plus1.svg';
 import DoughnutChart from "./DoughnutChart";
 
 
+
 function ExpenseTracker() 
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
@@ -32,7 +33,7 @@ function ExpenseTracker()
     const [outgoing, setOutgoing] = useState(0);
     const [editEnabled, setEditEnabled] = useState(false);
     const [editIndex, setEditIndex] = useState(0);
-    const [editTransactionId, setEditTransactionId] = useState(0);
+    const [transactionsLoading, setTransactionsLoading] = useState(true);
 
 
 
@@ -48,8 +49,9 @@ function ExpenseTracker()
                 },
             };
             const response = await axios.get("https://spendwise-server.vercel.app/api/users/fetchTransactions", config);
-            console.log(response.data.transactions);
+            // console.log("transactions are ",response.data.transactions);
             setTransactions(response.data.transactions);
+            setTransactionsLoading(false);
         }
         catch (error) {
             console.error("Error fetching transactions:", error);
@@ -93,6 +95,11 @@ function ExpenseTracker()
         {
             toast.error("Please select a transaction type.");
             return;
+        }
+        if (formData.transactionType === "Income" && formData.category !== "NULL")
+        {
+            setFormData({ ...formData, category: "NULL" });
+            console.log("Category set to NULL");
         }
         if (formData.transactionType === "Expense" && formData.category === "")
         {
@@ -186,7 +193,6 @@ function ExpenseTracker()
         setEditEnabled(true);
         console.log("Edit clicked at index ", index);
         setEditIndex(index);
-        setEditTransactionId(transactionId);
         const editedTransaction = { ...transactions[index] };
 
         const date = new Date(editedTransaction.date);
@@ -359,7 +365,7 @@ function ExpenseTracker()
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-gray-400">No transactions added yet.</p>
+                        transactionsLoading ? <p className="text-gray-400">Fetching your previous transactions (if any)...</p> : <p className="text-gray-400">No transactions added yet.</p>
                     )}
                 </div>
             </div>

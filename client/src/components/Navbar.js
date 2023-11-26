@@ -26,7 +26,7 @@ function Navbar()
             };
             const response = await axios.get("https://spendwise-server.vercel.app/api/user", config);
             setUser(response.data.user);
-            console.log(response.data.user);
+            // console.log(response.data.user);
         }
         catch (error)
         {
