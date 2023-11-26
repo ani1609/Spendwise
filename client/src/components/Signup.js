@@ -59,14 +59,14 @@ function Signup()
 
     return(
         <div className="signup_form_container">
-            <form onSubmit={handleSignup} className='p-2 flex gap-2'>
+            <h1>Create Your Account</h1>
+            <form onSubmit={handleSignup}>
                 <input 
                     type='text'
                     placeholder='Name'
                     value={signupData.name}
                     onChange={(e)=>setSignupData({...signupData, name: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input
                     type='email'
@@ -74,7 +74,6 @@ function Signup()
                     value={signupData.email}
                     onChange={(e)=>setSignupData({...signupData, email: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input 
                     type='password'
@@ -82,7 +81,6 @@ function Signup()
                     value={signupData.password}
                     onChange={(e)=>setSignupData({...signupData, password: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input
                     type='password'
@@ -90,7 +88,6 @@ function Signup()
                     value={signupData.confirmPassword}
                     onChange={(e)=>setSignupData({...signupData, confirmPassword: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <button type='submit' className='p-2 bg-violet-500'>Sign up</button>
             </form>

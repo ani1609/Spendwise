@@ -44,14 +44,14 @@ function Login()
 
     return(
         <div className="login_form_container">
-            <form onSubmit={handleLogin} className='p-2 flex gap-2'>
+            <h1>Welcome Back</h1>
+            <form onSubmit={handleLogin}>
                 <input
                     type='email'
                     placeholder='Email'
                     value={loginData.email}
                     onChange={(e)=>setLoginData({...loginData, email: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input
                     type='password'
@@ -59,9 +59,8 @@ function Login()
                     value={loginData.password}
                     onChange={(e)=>setLoginData({...loginData, password: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
-                <button type='submit' className='p-2 bg-violet-500'>Log in</button>
+                <button type='submit'>Log in</button>
             </form>
         </div>
     );
