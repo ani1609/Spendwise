@@ -43,7 +43,7 @@ function Login()
 
 
     return(
-        <div className="login_form_container">
+        <div className="login_form_container" onClick={(e)=> e.stopPropagation()}>
             <h1>Welcome Back</h1>
             <form onSubmit={handleLogin}>
                 <input
