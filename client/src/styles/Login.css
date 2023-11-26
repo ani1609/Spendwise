@@ -112,3 +112,12 @@
         transform: translateY(0px);
     }
 }
+
+.login_form_container p
+{
+    color: red;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+    margin: -12px auto 0 0;
+}
