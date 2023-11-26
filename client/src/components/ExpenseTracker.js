@@ -11,7 +11,7 @@ import { ReactComponent as Travel } from '../icons/travel.svg';
 import { ReactComponent as Shopping } from '../icons/shopping.svg';
 import { ReactComponent as Bills } from '../icons/bills.svg';
 import { ReactComponent as Others } from '../icons/others.svg';
-import {ReactComponent as Plus} from '../icons/plus.svg';
+import {ReactComponent as Plus} from '../icons/plus1.svg';
 import DoughnutChart from "./DoughnutChart";
 
 
@@ -232,7 +232,7 @@ function ExpenseTracker()
                     <form className="flex gap-4">
                         <div className="flex flex-col gap-2">
                             <legend>Transaction Type</legend>
-                            <label>
+                            <label style={{ cursor: 'pointer' }}>
                                 <input
                                     type="radio"
                                     name="transactionType"
@@ -244,7 +244,7 @@ function ExpenseTracker()
                                 />&nbsp;
                                 Income
                             </label>
-                            <label>
+                            <label style={{ cursor: 'pointer' }}>
                                 <input
                                     type="radio"
                                     name="transactionType"
