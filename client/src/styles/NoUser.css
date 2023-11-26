@@ -1,0 +1,15 @@
+.noUser_container
+{
+    width: 100vw;
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.noUser_container img
+{
+    width: 50%;
+    object-fit: cover;
+    object-position: center;
+}
