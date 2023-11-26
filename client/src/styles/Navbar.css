@@ -50,3 +50,59 @@
     gap: 20px;
 }
 
+.login_signup_container button
+{
+    height: 40px;
+    width: 100px;
+    border: none;
+    outline: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+    background-color: white;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.login_parent, .signup_parent
+{
+    width: 100vw;
+    height: calc(100vh - 70px);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 70px;
+    left: 0;
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    z-index: 100;
+}
+
+@keyframes fadeIn
+{
+    0%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+.login_parent::before, .signup_parent::before
+{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(24, 24, 24, 0.5);
+    z-index: -1;
+}
