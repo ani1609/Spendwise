@@ -126,15 +126,15 @@
 
 .icon_container
 {
-    padding: 10px;
+    padding: 12px;
     background-color: #f7f2f8;
     border-radius: 50%;
 }
 
 .icons
 {
-    height: 25px;
-    width: 25px;
+    height: 29px;
+    width: 29px;
     fill: var(--primary);
 }
 
@@ -153,12 +153,15 @@
 .descDate_container h4
 {
     margin: 0;
+    font-size: 15px;
+    letter-spacing: 0.5px;
 }
 
 .descDate_container p
 {
     margin: 0;
-    font-size: 12px;
+    font-size: 10px;
+    letter-spacing: 0.3px;
 }
 
 .income h1
@@ -217,4 +220,11 @@
 .delete_icon
 {
     fill: #f53838;
+}
+
+.Toastify
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }

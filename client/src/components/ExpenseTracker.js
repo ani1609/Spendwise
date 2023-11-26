@@ -11,6 +11,7 @@ import { ReactComponent as Travel } from '../icons/travel.svg';
 import { ReactComponent as Shopping } from '../icons/shopping.svg';
 import { ReactComponent as Bills } from '../icons/bills.svg';
 import { ReactComponent as Others } from '../icons/others.svg';
+import {ReactComponent as Plus} from '../icons/plus.svg';
 import DoughnutChart from "./DoughnutChart";
 
 
@@ -88,6 +89,31 @@ function ExpenseTracker()
     const handleSubmit = async (e) => 
     {
         e.preventDefault();
+        if (formData.transactionType === "")
+        {
+            toast.error("Please select a transaction type.");
+            return;
+        }
+        if (formData.transactionType === "Expense" && formData.category === "")
+        {
+            toast.error("Please select a category.");
+            return;
+        }
+        if (formData.date === "")
+        {
+            toast.error("Please select a date.");
+            return;
+        }
+        if (formData.amount === "")
+        {
+            toast.error("Please enter an amount.");
+            return;
+        }
+        if (formData.description === "")
+        {
+            toast.error("Please enter a description.");
+            return;
+        }
         if (editEnabled) 
         {
             if (editIndex >= 0 && editIndex < transactions.length) {
@@ -237,7 +263,8 @@ function ExpenseTracker()
                                 value={formData.category}
                                 onChange={handleChange}
                                 required
-                                className="cursor-pointer"
+                                style={{ cursor: formData.transactionType === "Income" ? "auto" : "pointer" }}
+                                disabled={formData.transactionType === "Income"}
                             >
                                 <option value="NULL">Choose a category</option>
                                 <option value="Food">Food</option>
@@ -297,11 +324,7 @@ function ExpenseTracker()
                                 (   
                                     <li key={index} className="income flex justify-between items-center border-2 rounded p-2">
                                         <div className="icon_container">
-                                            {transaction.category === "Food" ? <Food className="icons" /> : null}
-                                            {transaction.category === "Travel" ? <Travel className="icons" /> : null}
-                                            {transaction.category === "Shopping" ? <Shopping className="icons" /> : null}
-                                            {transaction.category === "Bills" ? <Bills className="icons" /> : null}
-                                            {transaction.category === "Others" ? <Others className="icons" /> : null}
+                                            <Plus className="icons" />
                                         </div>
                                         <div className="descDate_container">
                                             <h4>{transaction.description}</h4>
