@@ -310,6 +310,7 @@ function ExpenseTracker()
                                 placeholder="Description"
                                 required
                                 className="border-2 p-2"
+                                autoComplete="off"
                             />
                             <button type="submit" className=" mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                         </div>

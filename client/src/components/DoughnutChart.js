@@ -68,8 +68,8 @@ function DoughnutChart(props)
             <div className="chart_container">
                 {showChart ? (<Chart 
                     type="donut"
-                    width={450}
-                    height={450}
+                    width={420}
+                    height={420}
 
                     series={[foodExpenses, travelExpenses, shoppingExpenses, billsExpenses, othersExpenses]}
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import '../index.css';
 import '../styles/Signup.css';
 import axios from "axios";
+import { set } from "mongoose";
 
 function Signup()
 {
@@ -17,15 +18,15 @@ function Signup()
     const handleSignup = async (e) =>
     {
         e.preventDefault();
-        console.log(signupData);
+        if(signupData.password !== signupData.confirmPassword)
+        {
+            setUserExists(false);
+            setPasswordUnmatched(true);
+            console.error('Passwords do not match');
+            return;
+        }
         try
         {
-            if(signupData.password !== signupData.confirmPassword)
-            {
-                setPasswordUnmatched(true);
-                console.error('Passwords do not match');
-                return;
-            }
             const response = await axios.post('https://spendwise-server.vercel.app/api/users/signup', {
                 name: signupData.name+" ",
                 email: signupData.email,
@@ -44,13 +45,13 @@ function Signup()
         }
         catch(error)
         {
-            // if (error.response.status === 409)
-            // {
-            //     setUserExists(true);
-            //     console.error(error.response.data.message);
-            //     return;
-            // }
-            // console.error(error.response.data.message);
+            if (error.response.status === 409)
+            {
+                setPasswordUnmatched(false);
+                setUserExists(true);
+                return;
+            }
+            console.error(error.response.data.message);
             console.log(error);
         }
     }
@@ -89,6 +90,8 @@ function Signup()
                     onChange={(e)=>setSignupData({...signupData, confirmPassword: e.target.value})}
                     required
                 />
+                {passwordUnmatched && <p>Passwords do not match</p>}
+                {userExists && <p>User already exists</p>}
                 <button type='submit' className='p-2 bg-violet-500'>Sign up</button>
             </form>
         </div>

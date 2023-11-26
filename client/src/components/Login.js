@@ -60,6 +60,7 @@ function Login()
                     onChange={(e)=>setLoginData({...loginData, password: e.target.value})}
                     required
                 />
+                {invalidEmail && <p className="error_message">Invalid email or password</p>}
                 <button type='submit'>Log in</button>
             </form>
         </div>
