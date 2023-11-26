@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import '../index.css';
 import '../styles/Signup.css';
 import axios from "axios";
-import { set } from "mongoose";
 
 function Signup()
 {
