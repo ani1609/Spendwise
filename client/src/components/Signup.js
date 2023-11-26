@@ -26,7 +26,7 @@ function Signup()
                 console.error('Passwords do not match');
                 return;
             }
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, {
+            const response = await axios.post('https://spendwise-server.vercel.app/api/users/signup', {
                 name: signupData.name+" ",
                 email: signupData.email,
                 password: signupData.password,
