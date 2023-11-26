@@ -145,7 +145,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 4px;
+    gap: 5px;
     margin-right: auto;
     margin-left: 10px;
 }
@@ -154,12 +154,14 @@
 {
     margin: 0;
     font-size: 15px;
+    letter-spacing: 0.5px;
 }
 
 .descDate_container p
 {
     margin: 0;
     font-size: 10px;
+    letter-spacing: 0.3px;
 }
 
 .income h1
