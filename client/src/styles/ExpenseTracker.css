@@ -109,7 +109,7 @@
     right: -1.5px;
     width: 8px;
     background-color: #1cd503;
-    border-radius: 2px 1px 1px 2px;
+    border-radius: 1px 2px 2px 1px;
 }
 
 .outcome::after
@@ -121,7 +121,7 @@
     right: -1.5px;
     width: 8px;
     background-color: #f53838;
-
+    border-radius: 1px 2px 2px 1px;
 }
 
 .icon_container
