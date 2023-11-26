@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Navbar.css";
+import "../index.css";
 import Login from './Login';
 import Signup from './Signup';
 import axios from "axios";
@@ -23,7 +24,7 @@ function Navbar()
                 Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.get("http://localhost:3000/api/user", config);
+            const response = await axios.get("https://spendwise-server.vercel.app/api/user", config);
             setUser(response.data.user);
             console.log(response.data.user);
         }
@@ -60,8 +61,8 @@ function Navbar()
                 </div>
                 :
                 <div className="login_signup_container">
-                    <button className="login_button" onClick={()=>setShowLoginForm(true)}>Login</button>
-                    <button className="signup_button" onClick={()=>setShowSignupForm(true)}>Signup</button>
+                    <button onClick={()=>setShowLoginForm(true)}>Login</button>
+                    <button onClick={()=>setShowSignupForm(true)}>Signup</button>
                 </div>
             }
 
