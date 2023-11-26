@@ -126,15 +126,15 @@
 
 .icon_container
 {
-    padding: 10px;
+    padding: 12px;
     background-color: #f7f2f8;
     border-radius: 50%;
 }
 
 .icons
 {
-    height: 25px;
-    width: 25px;
+    height: 29px;
+    width: 29px;
     fill: var(--primary);
 }
 
@@ -145,7 +145,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 5px;
+    gap: 4px;
     margin-right: auto;
     margin-left: 10px;
 }
@@ -153,12 +153,13 @@
 .descDate_container h4
 {
     margin: 0;
+    font-size: 15px;
 }
 
 .descDate_container p
 {
     margin: 0;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .income h1
@@ -217,4 +218,11 @@
 .delete_icon
 {
     fill: #f53838;
+}
+
+.Toastify
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
