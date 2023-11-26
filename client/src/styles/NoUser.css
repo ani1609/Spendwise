@@ -1,7 +1,8 @@
 .noUser_container
 {
     width: 100vw;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 80px);
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center; 
