@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "name": "spendwise",
     "builds": [
        { "src": "index.js", "use": "@vercel/node" }
     ],
