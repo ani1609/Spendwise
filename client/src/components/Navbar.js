@@ -61,17 +61,17 @@ function Navbar()
                 </div>
                 :
                 <div className="login_signup_container">
-                    <button onClick={()=>setShowLoginForm(true)}>Login</button>
-                    <button onClick={()=>setShowSignupForm(true)}>Signup</button>
+                    <button onClick={()=>{setShowLoginForm(true); setShowSignupForm(false)}}>Login</button>
+                    <button onClick={()=>{setShowSignupForm(true); setShowLoginForm(false)}}>Signup</button>
                 </div>
             }
 
             {showLoginForm &&
-                <div className="login_parent" ><Login/></div>
+                <div className="login_parent"  onClick={()=> setShowLoginForm(false)}><Login/></div>
             }
 
             {showSignupForm &&
-                <div className="signup_parent" ><Signup/></div>
+                <div className="signup_parent"  onClick={()=> setShowSignupForm(false)}><Signup/></div>
             }
         </div>
     );
