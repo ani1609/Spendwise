@@ -53,7 +53,8 @@ function ExpenseTracker()
             setTransactions(response.data.transactions);
             setTransactionsLoading(false);
         }
-        catch (error) {
+        catch (error) 
+        {
             console.error("Error fetching transactions:", error);
         }
     };
@@ -65,10 +66,12 @@ function ExpenseTracker()
         }
     }, [userToken]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         let incoming = 0;
         let outgoing = 0;
-        transactions.forEach(transaction => {
+        transactions.forEach(transaction => 
+        {
             if (transaction.transactionType === "Income") 
             {
                 incoming += transaction.amount;
@@ -83,7 +86,8 @@ function ExpenseTracker()
         setBalance(incoming - outgoing);
     }, [transactions]);
 
-    const handleChange = (e) => {
+    const handleChange = (e) => 
+    {
         const targetValue = e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value;
         setFormData({ ...formData, [e.target.name]: targetValue });
     };
@@ -123,16 +127,8 @@ function ExpenseTracker()
         }
         if (editEnabled) 
         {
-            if (editIndex >= 0 && editIndex < transactions.length) {
-                const updatedTransaction = { ...transactions[editIndex], ...formData };
-                const updatedTransactions = [...transactions];
-                updatedTransactions[editIndex] = updatedTransaction;
-                setTransactions(updatedTransactions);
-            }
-            else {
-                console.log("Invalid index");
-            }
-            try {
+            try 
+            {
                 const config =
                 {
                     headers:
@@ -141,7 +137,7 @@ function ExpenseTracker()
                     },
                 };
                 const response = await axios.post("https://spendwise-server.vercel.app/api/users/editTransaction", formData, config);
-                console.log("Transaction edited successfully");
+                // console.log("Transaction edited successfully");
                 setFormData({
                     transactionType: "",
                     category: "",
@@ -150,17 +146,27 @@ function ExpenseTracker()
                     description: "",
                     transactionId: ""
                 });
+                if (editIndex >= 0 && editIndex < transactions.length) 
+                {
+                    const updatedTransaction = { ...transactions[editIndex], ...formData };
+                    const updatedTransactions = [...transactions];
+                    updatedTransactions[editIndex] = updatedTransaction;
+                    setTransactions(updatedTransactions);
+                }
+                else 
+                {
+                    console.log("Invalid index");
+                }
                 toast.success("Transaction edited successfully.");
                 setEditEnabled(false);
             }
             catch (error) 
             {
-                console.error("Error adding transaction:", error.message);
+                console.error("Error editing transaction:", error.message);
             }
         }
         else 
         {
-            setTransactions([...transactions, formData]);
             try 
             {
                 const config =
@@ -171,7 +177,7 @@ function ExpenseTracker()
                     },
                 };
                 const response = await axios.post("https://spendwise-server.vercel.app/api/users/uploadTransactions", formData, config);
-                console.log("Transaction added successfully");
+                // console.log("Transaction added successfully");
                 setFormData({
                     transactionType: "",
                     category: "",
@@ -180,9 +186,11 @@ function ExpenseTracker()
                     description: "",
                     transactionId: ""
                 });
+                setTransactions([...transactions, formData]);
                 toast.success("Transaction added successfully.");
             }
-            catch (error) {
+            catch (error) 
+            {
                 console.error("Error adding transaction:", error.message);
             }
         }
@@ -191,7 +199,7 @@ function ExpenseTracker()
     const handleEdit = (transactionId, index) => 
     {
         setEditEnabled(true);
-        console.log("Edit clicked at index ", index);
+        // console.log("Edit clicked at index ", index);
         setEditIndex(index);
         const editedTransaction = { ...transactions[index] };
 
@@ -203,10 +211,7 @@ function ExpenseTracker()
 
     const handleDelete = async (transactionId, index) => 
     {
-        console.log("Delete clicked at indexxx ", transactionId);
-        const newTransactions = [...transactions];
-        newTransactions.splice(index, 1);
-        setTransactions(newTransactions);
+        // console.log("Delete clicked at indexxx ", transactionId);
         try 
         {
             const config =
@@ -217,12 +222,15 @@ function ExpenseTracker()
                 },
             };
             const response = await axios.post("https://spendwise-server.vercel.app/api/users/deleteTransaction", { transactionId }, config);
-            console.log("Transaction deleted successfully");
+            // console.log("Transaction deleted successfully");
+            const newTransactions = [...transactions];
+            newTransactions.splice(index, 1);
+            setTransactions(newTransactions);
             toast.success("Transaction deleted successfully.");
         }
         catch (error) 
         {
-            console.error("Error adding transaction:", error.message);
+            console.error("Error deleting transaction:", error.message);
         }
     }
 
