@@ -39,6 +39,7 @@
 .form_container
 {
     height: 383.5px;
+    box-sizing: border-box;
 }
 
 .form_container form button 
@@ -229,3 +230,48 @@
     bottom: 0;
 }
 
+
+
+
+/* --------responsiveness--------- */
+
+@media only screen and (max-width: 870px)
+{
+    .formTransactions_container
+    {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+@media only screen and (max-width: 480px)
+{
+    .expenseTracker_parent
+    {
+        box-sizing: border-box;
+        padding: 0 20px;
+    }
+
+    .form_container, .WalletDetails_container, .transactions_container, .income, .outcome
+    {
+        width: 100%;
+    }
+
+    .form_container
+    {
+        padding: 20px;
+    }
+
+    .form_container form
+    {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .form_container form div
+    {
+        width: 48%;
+    }
+}

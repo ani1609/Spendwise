@@ -106,3 +106,15 @@
     background-color: rgba(24, 24, 24, 0.5);
     z-index: -1;
 }
+
+
+/* ---------responsiveness----- */
+
+@media only screen and (max-width: 480px)
+{
+    .navbar_parent
+    {
+        padding: 0px 10px;
+    }
+
+}
