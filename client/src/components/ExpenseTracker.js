@@ -320,7 +320,7 @@ function ExpenseTracker()
                                 className="border-2 p-2"
                                 autoComplete="off"
                             />
-                            <button type="submit" className=" mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                            <button type="submit" className=" mt-4 text-white hover:text-gray-500 hover:bg-white border-[#c465c9] p-2 border transition-all duration-500" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                         </div>
                     </form>
                 </div>
@@ -345,7 +345,7 @@ function ExpenseTracker()
                                             <h4>{transaction.description}</h4>
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
-                                        <h1>+{transaction.amount}</h1>
+                                        <h1>+&#x20B9;{transaction.amount}</h1>
                                         <div className="editDelete_container">
                                             <Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} />
                                             <Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} />
@@ -364,7 +364,7 @@ function ExpenseTracker()
                                             <h4>{transaction.description}</h4>
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
-                                        <h1>-{transaction.amount}</h1>
+                                        <h1>-&#x20B9;{transaction.amount}</h1>
                                         <div className="editDelete_container">
                                             <Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} />
                                             <Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} />
