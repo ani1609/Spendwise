@@ -8,11 +8,10 @@ import {ReactComponent as Logout} from '../icons/logout.svg';
 import { SiMoneygram } from "react-icons/si";
 
 
-function Navbar() 
+function Navbar(props) 
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [showLoginForm, setShowLoginForm] = useState(false);
-    const [showSignupForm, setShowSignupForm] = useState(false);
     const [user, setUser] = useState({});
 
     const fetchDataFromProtectedAPI = async (userToken) => 
@@ -61,8 +60,8 @@ function Navbar()
                 </div>
                 :
                 <div className="login_signup_container">
-                    <button onClick={()=>{setShowLoginForm(true); setShowSignupForm(false)}}>Login</button>
-                    <button onClick={()=>{setShowSignupForm(true); setShowLoginForm(false)}}>Signup</button>
+                    <button onClick={()=>{setShowLoginForm(true); props.setShowSignupForm(false)}}>Login</button>
+                    <button onClick={()=>{props.setShowSignupForm(true); setShowLoginForm(false)}}>Signup</button>
                 </div>
             }
 
@@ -70,8 +69,8 @@ function Navbar()
                 <div className="login_parent"  onClick={()=> setShowLoginForm(false)}><Login/></div>
             }
 
-            {showSignupForm &&
-                <div className="signup_parent"  onClick={()=> setShowSignupForm(false)}><Signup/></div>
+            {props.showSignupForm &&
+                <div className="signup_parent"  onClick={()=> props.setShowSignupForm(false)}><Signup/></div>
             }
         </div>
     );
