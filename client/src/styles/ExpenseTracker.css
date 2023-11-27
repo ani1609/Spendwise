@@ -1,5 +1,4 @@
-.expenseTracker_parent
-{
+.expenseTracker_parent {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,8 +7,7 @@
     font-family: 'Lato', sans-serif;
 }
 
-.balance_container
-{
+.balance_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,90 +17,77 @@
     padding: 15px 30px;
 }
 
-.balance_container h3
-{
+.balance_container h3 {
     font-size: 16px;
     letter-spacing: 0.5px;
 }
 
-.balance_container h1
-{
+.balance_container h1 {
     font-size: 22px;
     letter-spacing: 0.5px;
 }
 
-.formTransactions_container
-{
+.formTransactions_container {
     width: 100%;
 }
 
-.form_container
-{
+.form_container {
     height: 383.5px;
     box-sizing: border-box;
 }
 
-.form_container form button 
-{
+.form_container form button {
     background-color: var(--primary);
     letter-spacing: 0.5px;
 }
 
-.WalletDetails_container
-{
+.WalletDetails_container {
     width: 422.5px;
 }
 
-.incomeExpense_container
-{
+.incomeExpense_container {
     padding: 15px 30px;
 }
 
-.incomeExpense_container h3
-{
+.incomeExpense_container h3 {
     font-size: 16px;
     letter-spacing: 0.5px;
 }
 
-.incomeExpense_container h3 span
-{
+.incomeExpense_container h3 span {
     font-size: 22px;
     margin-top: 8px;
 }
 
-.WalletDetails_container h4
-{
+.WalletDetails_container h4 {
     font-size: 16px;
     letter-spacing: 0.5px;
     margin-top: 20px;
     margin-bottom: 3px;
 }
 
-.WalletDetails_container p
-{
+.WalletDetails_container p {
     font-size: 14px;
     letter-spacing: 0.5px;
     margin-top: 5px;
 }
 
 
-.transactions_container
-{
+.transactions_container {
     margin-top: 15px;
     max-height: calc(100vh - 410px);
     overflow: auto;
 }
 
-.income, .outcome
-{
+.income,
+.outcome {
     width: 422.5px;
     box-sizing: border-box;
     height: 70px;
     position: relative;
 }
 
-.income::after
-{
+.income::after {
     content: '';
     position: absolute;
     top: -2px;
@@ -113,8 +98,7 @@
     border-radius: 1px 2px 2px 1px;
 }
 
-.outcome::after
-{
+.outcome::after {
     content: '';
     position: absolute;
     top: -2px;
@@ -125,22 +109,19 @@
     border-radius: 1px 2px 2px 1px;
 }
 
-.icon_container
-{
+.icon_container {
     padding: 12px;
     background-color: #f7f2f8;
     border-radius: 50%;
 }
 
-.icons
-{
+.icons {
     height: 29px;
     width: 29px;
     fill: var(--primary);
 }
 
-.descDate_container
-{
+.descDate_container {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -151,30 +132,26 @@
     margin-left: 10px;
 }
 
-.descDate_container h4
-{
+.descDate_container h4 {
     margin: 0;
     font-size: 15px;
     letter-spacing: 0.5px;
 }
 
-.descDate_container p
-{
+.descDate_container p {
     margin: 0;
     font-size: 10px;
     letter-spacing: 0.3px;
 }
 
-.income h1
-{
+.income h1 {
     margin: 0;
     font-size: 16px;
     color: #1cd503;
     margin-right: 10px;
 }
 
-.outcome h1
-{
+.outcome h1 {
     margin: 0;
     font-size: 16px;
     color: #f53838;
@@ -182,8 +159,7 @@
 }
 
 
-.editDelete_container
-{
+.editDelete_container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,38 +169,34 @@
     height: 100%;
 }
 
-.income:hover .editDelete_container, .outcome:hover .editDelete_container
-{
+.income:hover .editDelete_container,
+.outcome:hover .editDelete_container {
     width: 60px;
 }
 
-.edit_icon
-{
+.edit_icon {
     fill: var(--primary);
     height: 25px;
     width: 25px;
     cursor: pointer;
 }
-.delete_icon
-{
+
+.delete_icon {
     height: 25px;
     width: 25px;
     cursor: pointer;
     fill: #f53838;
 }
 
-.edit_icon
-{
+.edit_icon {
     fill: #65c971;
 }
 
-.delete_icon
-{
+.delete_icon {
     fill: #f53838;
 }
 
-.Toastify
-{
+.Toastify {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -235,10 +207,8 @@
 
 /* --------responsiveness--------- */
 
-@media only screen and (max-width: 870px)
-{
-    .formTransactions_container
-    {
+@media only screen and (max-width: 870px) {
+    .formTransactions_container {
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -246,32 +216,35 @@
     }
 }
 
-@media only screen and (max-width: 480px)
-{
-    .expenseTracker_parent
-    {
+@media only screen and (max-width: 480px) {
+    .expenseTracker_parent {
         box-sizing: border-box;
         padding: 0 20px;
     }
 
-    .form_container, .WalletDetails_container, .transactions_container, .income, .outcome
-    {
+    .form_container,
+    .WalletDetails_container,
+    .transactions_container,
+    .income,
+    .outcome {
         width: 100%;
     }
 
-    .form_container
-    {
+    .form_container {
         padding: 20px;
     }
 
-    .form_container form
-    {
+    .form_container form {
         width: 100%;
         justify-content: space-between;
     }
 
-    .form_container form div
-    {
+    .form_container form div {
         width: 48%;
+    }
+
+    .balance_container {
+        margin-top: 75px;
+        color: black;
     }
 }
