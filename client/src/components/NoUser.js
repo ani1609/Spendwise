@@ -1,6 +1,6 @@
 import "../styles/NoUser.css";
 import "../index.css";
-import Default from "../images/default_cropped.png";
+import Default from "../images/default.png";
 
 
 function NoUser()
