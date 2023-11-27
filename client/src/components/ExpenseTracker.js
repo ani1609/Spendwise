@@ -65,10 +65,12 @@ function ExpenseTracker()
         }
     }, [userToken]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         let incoming = 0;
         let outgoing = 0;
-        transactions.forEach(transaction => {
+        transactions.forEach(transaction => 
+        {
             if (transaction.transactionType === "Income") 
             {
                 incoming += transaction.amount;
@@ -83,7 +85,8 @@ function ExpenseTracker()
         setBalance(incoming - outgoing);
     }, [transactions]);
 
-    const handleChange = (e) => {
+    const handleChange = (e) => 
+    {
         const targetValue = e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value;
         setFormData({ ...formData, [e.target.name]: targetValue });
     };
@@ -123,16 +126,8 @@ function ExpenseTracker()
         }
         if (editEnabled) 
         {
-            if (editIndex >= 0 && editIndex < transactions.length) {
-                const updatedTransaction = { ...transactions[editIndex], ...formData };
-                const updatedTransactions = [...transactions];
-                updatedTransactions[editIndex] = updatedTransaction;
-                setTransactions(updatedTransactions);
-            }
-            else {
-                console.log("Invalid index");
-            }
-            try {
+            try 
+            {
                 const config =
                 {
                     headers:
@@ -150,6 +145,17 @@ function ExpenseTracker()
                     description: "",
                     transactionId: ""
                 });
+                if (editIndex >= 0 && editIndex < transactions.length) 
+                {
+                    const updatedTransaction = { ...transactions[editIndex], ...formData };
+                    const updatedTransactions = [...transactions];
+                    updatedTransactions[editIndex] = updatedTransaction;
+                    setTransactions(updatedTransactions);
+                }
+                else 
+                {
+                    console.log("Invalid index");
+                }
                 toast.success("Transaction edited successfully.");
                 setEditEnabled(false);
             }
@@ -160,7 +166,6 @@ function ExpenseTracker()
         }
         else 
         {
-            setTransactions([...transactions, formData]);
             try 
             {
                 const config =
@@ -180,6 +185,7 @@ function ExpenseTracker()
                     description: "",
                     transactionId: ""
                 });
+                setTransactions([...transactions, formData]);
                 toast.success("Transaction added successfully.");
             }
             catch (error) {
@@ -203,10 +209,7 @@ function ExpenseTracker()
 
     const handleDelete = async (transactionId, index) => 
     {
-        console.log("Delete clicked at indexxx ", transactionId);
-        const newTransactions = [...transactions];
-        newTransactions.splice(index, 1);
-        setTransactions(newTransactions);
+        // console.log("Delete clicked at indexxx ", transactionId);
         try 
         {
             const config =
@@ -217,7 +220,10 @@ function ExpenseTracker()
                 },
             };
             const response = await axios.post("https://spendwise-server.vercel.app/api/users/deleteTransaction", { transactionId }, config);
-            console.log("Transaction deleted successfully");
+            // console.log("Transaction deleted successfully");
+            const newTransactions = [...transactions];
+            newTransactions.splice(index, 1);
+            setTransactions(newTransactions);
             toast.success("Transaction deleted successfully.");
         }
         catch (error) 
