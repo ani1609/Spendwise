@@ -1,14 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection } from "firebase/firestore";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCDFF6j0TLPNg6Xt4xt9gb0O78yYy0S_Gw",
-    authDomain: "spendwise-5b126.firebaseapp.com",
-    projectId: "spendwise-5b126",
-    storageBucket: "spendwise-5b126.appspot.com",
-    messagingSenderId: "420096794526",
-    appId: "1:420096794526:web:15676956e8030bedbd808f",
-    measurementId: "G-FV9WBK5NVY"
+const firebaseConfig = 
+{
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
