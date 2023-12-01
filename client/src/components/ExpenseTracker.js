@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
+import { addDoc, query, where, onSnapshot, orderBy, updateDoc, getDocs, deleteDoc} from 'firebase/firestore';
+import { transactionsCollection } from '../firebaseConfig';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactComponent as Edit } from '../icons/edit.svg';
@@ -19,8 +21,10 @@ import DoughnutChart from "./DoughnutChart";
 function ExpenseTracker() 
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
+    const [user, setUser] = useState({});
     const [transactions, setTransactions] = useState([]);
     const [formData, setFormData] = useState({
+        email: "",
         transactionType: "",
         category: "",
         date: "",
@@ -32,39 +36,49 @@ function ExpenseTracker()
     const [incoming, setIncoming] = useState(0);
     const [outgoing, setOutgoing] = useState(0);
     const [editEnabled, setEditEnabled] = useState(false);
-    const [editIndex, setEditIndex] = useState(0);
-    const [transactionsLoading, setTransactionsLoading] = useState(true);
+    const [transactionsLoading, setTransactionsLoading] = useState(false);
 
 
-
-    const fetchTransactions = async (userToken) => 
+    const fetchDataFromProtectedAPI = async (userToken) => 
     {
         try 
         {
-            const config =
-            {
-                headers:
-                {
-                    Authorization: `Bearer ${userToken}`,
+            const config = {
+                headers: {
+                Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.get("https://spendwise-server.vercel.app/api/users/fetchTransactions", config);
-            // console.log("transactions are ",response.data.transactions);
-            setTransactions(response.data.transactions);
-            setTransactionsLoading(false);
+            const response = await axios.get("https://spendwise-server.vercel.app/api/user", config);
+            setUser(response.data.user);
+            console.log(response.data.user);
         }
-        catch (error) 
+        catch (error)
         {
-            console.error("Error fetching transactions:", error);
+            console.error("Error fetching data:", error);
         }
     };
 
-    useEffect(() => 
+    useEffect(() =>
     {
-        if (userToken) {
-            fetchTransactions(userToken);
+        if (userToken)
+        {
+            fetchDataFromProtectedAPI(userToken);
         }
-    }, [userToken]);
+    }
+    , [userToken]);
+
+
+    function generateTransactionId()
+    {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let transactionId = '';
+        for (let i = 0; i < 10; i++) 
+        {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            transactionId += characters.charAt(randomIndex);
+        }
+        return transactionId;
+    }
 
     useEffect(() => 
     {
@@ -92,6 +106,23 @@ function ExpenseTracker()
         setFormData({ ...formData, [e.target.name]: targetValue });
     };
 
+    useEffect(() => 
+    {
+        if (user && user.email) 
+        {
+            const q = query(
+                transactionsCollection,
+                where('email', '==', user.email),
+                orderBy('created_at', 'asc') // or 'asc' for ascending order
+            );
+        
+            return onSnapshot(q, (snapshot) => {
+                const updatedTransactions = snapshot.docs.map((doc) => doc.data());
+                setTransactions(updatedTransactions);
+            });
+        }
+    }, [user]);
+
     const handleSubmit = async (e) => 
     {
         e.preventDefault();
@@ -103,7 +134,6 @@ function ExpenseTracker()
         if (formData.transactionType === "Income" && formData.category !== "NULL")
         {
             setFormData({ ...formData, category: "NULL" });
-            console.log("Category set to NULL");
         }
         if (formData.transactionType === "Expense" && formData.category === "")
         {
@@ -127,71 +157,75 @@ function ExpenseTracker()
         }
         if (editEnabled) 
         {
+            console.log("edit clicked ", formData.transactionId);
             try 
             {
-                const config =
+                const querySnapshot = await getDocs(
+                  query(transactionsCollection, where('transactionId', '==', formData.transactionId))
+                );
+              
+                if (querySnapshot.empty) 
                 {
-                    headers:
-                    {
-                        Authorization: `Bearer ${userToken}`,
-                    },
-                };
-                const response = await axios.post("https://spendwise-server.vercel.app/api/users/editTransaction", formData, config);
-                // console.log("Transaction edited successfully");
-                setFormData({
-                    transactionType: "",
-                    category: "",
-                    date: "",
-                    amount: "",
-                    description: "",
-                    transactionId: ""
-                });
-                if (editIndex >= 0 && editIndex < transactions.length) 
-                {
-                    const updatedTransaction = { ...transactions[editIndex], ...formData };
-                    const updatedTransactions = [...transactions];
-                    updatedTransactions[editIndex] = updatedTransaction;
-                    setTransactions(updatedTransactions);
-                }
+                    toast.error('Transaction not found.');
+                } 
                 else 
                 {
-                    console.log("Invalid index");
+                    const transactionDoc = querySnapshot.docs[0].ref;
+                    const transactionObject = 
+                    {
+                        transactionType: formData.transactionType,
+                        category: formData.category,
+                        date: formData.date,
+                        amount: formData.amount,
+                        description: formData.description,
+                    };
+                
+                    await updateDoc(transactionDoc, transactionObject);
+                    setFormData({
+                        transactionType: "",
+                        category: "",
+                        date: "",
+                        amount: "",
+                        description: ""
+                    });
+                    setEditEnabled(false);
+                    toast.success('Transaction edited successfully.');
                 }
-                toast.success("Transaction edited successfully.");
-                setEditEnabled(false);
-            }
+            } 
             catch (error) 
             {
-                console.error("Error editing transaction:", error.message);
+                toast.error('Error editing transaction.');
             }
         }
         else 
         {
             try 
             {
-                const config =
-                {
-                    headers:
-                    {
-                        Authorization: `Bearer ${userToken}`,
-                    },
+                const transactionObject = 
+                {   
+                    email: user.email,
+                    transactionType: formData.transactionType,
+                    category: formData.category,
+                    date: formData.date,
+                    amount: formData.amount,
+                    description: formData.description,
+                    transactionId: generateTransactionId(),
+                    created_at: new Date(),
                 };
-                const response = await axios.post("https://spendwise-server.vercel.app/api/users/uploadTransactions", formData, config);
-                // console.log("Transaction added successfully");
+                await addDoc(transactionsCollection, transactionObject);
+                // console.log('Transaction ID:', newTransactionRef.id);
                 setFormData({
                     transactionType: "",
                     category: "",
                     date: "",
                     amount: "",
-                    description: "",
-                    transactionId: ""
+                    description: ""
                 });
-                setTransactions([...transactions, formData]);
                 toast.success("Transaction added successfully.");
-            }
+            } 
             catch (error) 
             {
-                console.error("Error adding transaction:", error.message);
+                toast.error('Error adding transaction.');
             }
         }
     };
@@ -199,10 +233,7 @@ function ExpenseTracker()
     const handleEdit = (transactionId, index) => 
     {
         setEditEnabled(true);
-        // console.log("Edit clicked at index ", index);
-        setEditIndex(index);
         const editedTransaction = { ...transactions[index] };
-
         const date = new Date(editedTransaction.date);
         const formattedDate = date.toISOString().split('T')[0];
         editedTransaction.date = formattedDate;
@@ -211,26 +242,26 @@ function ExpenseTracker()
 
     const handleDelete = async (transactionId, index) => 
     {
-        // console.log("Delete clicked at indexxx ", transactionId);
         try 
         {
-            const config =
+            const querySnapshot = await getDocs(
+                query(transactionsCollection, where('transactionId', '==', transactionId))
+            );
+            
+            if (querySnapshot.empty) 
             {
-                headers:
-                {
-                    Authorization: `Bearer ${userToken}`,
-                },
-            };
-            const response = await axios.post("https://spendwise-server.vercel.app/api/users/deleteTransaction", { transactionId }, config);
-            // console.log("Transaction deleted successfully");
-            const newTransactions = [...transactions];
-            newTransactions.splice(index, 1);
-            setTransactions(newTransactions);
-            toast.success("Transaction deleted successfully.");
+                toast.error('Transaction not found.');
+            }
+            else 
+            {
+                const transactionDoc = querySnapshot.docs[0].ref;
+                await deleteDoc(transactionDoc);
+                toast.success('Transaction deleted successfully.');
+            }
         }
         catch (error) 
         {
-            console.error("Error deleting transaction:", error.message);
+            toast.error("Error deleting transaction.");
         }
     }
 
