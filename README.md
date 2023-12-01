@@ -1,1 +1,1 @@
-# 5th Semester Innovative Project
+In our fast-paced lives, juggling multiple tasks has become challenging, leading to forgetfulness about transactions and balances. To address this, we've developed a user-friendly expense tracker using development tools. Continuously evolving in R&D, it's designed for simplicity and productivity. While free to use, premium features may be available.
