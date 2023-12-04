@@ -31,7 +31,8 @@
 
 ## About The Project
 
-![spendwiseSS](https://github.com/ani1609/Spendwise/assets/89239354/110b0d57-7d1f-49f8-a3d7-7b7ce7863c7d)
+![spendwiseSS](https://github.com/ani1609/Spendwise/assets/89239354/9297e584-f8e7-4dd6-aec2-01841bda01f4)
+
 
 Spendwise: Your intuitive, user-friendly expense tracker. Seamlessly manage and understand your finances with simplicity and precision. Track, analyze, and take control of your expenses effortlessly.
 
