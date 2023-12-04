@@ -1,9 +1,9 @@
 <br/>
 <p align="center">
-  <h3 align="center">Spendwise - Your User-Friendly Expense Tracker</h3>
+  <h3 align="left">Spendwise</h3>
 
   <p align="left">
-    Spendwise: Empowering Your Finances, One Transaction at a Time!
+    Your User-Friendly Expense Tracker Empowering Your Finances.
     <br/>
     <br/>
     <a href="https://github.com/ani1609/Spendwise"><strong>Explore the docs »</strong></a>
