@@ -51,9 +51,9 @@ Spendwise is powered by a modern tech stack:
 
 **Express.js:** Streamlined API development.
 
-**MongoDB:** Authentication.
+**MongoDB:** User profile and authentication.
 
-**Firebase:** Real-time updates.
+**Firebase:** Real-time handling of the transactions of the users.
 
 This combination ensures a seamless and powerful expense tracking experience.
 
@@ -97,7 +97,7 @@ npm install
 npm start
 ```
 
-The client will be accessible at http://localhost:4000 in your browser.
+The client will be running on http://localhost:4000 in your browser.
 
 
 **Server (Backend)**
@@ -120,7 +120,7 @@ npm install
 nodemon start
 ```
 
-The server will be running at http://localhost:3000
+The server will be running on http://localhost:3000
 
 
 
