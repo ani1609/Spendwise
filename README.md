@@ -72,30 +72,6 @@ npm install npm@latest -g
 
 ### Installation
 
-**Server (Backend)**
-
-1. Navigate to the Server Directory:
-
-```sh
-cd Spendwise/server
-```
-
-2. Install Dependencies:
-
-```sh
-npm install
-```
-
-3. Start the server
-
-```sh
-nodemon start
-```
-
-The server will be running at http://localhost:3000
-
-
-
 **Client (Frontend)**
 1. Clone the Repository:
 
@@ -120,9 +96,33 @@ npm install
 ```sh
 npm start
 ```
-(press enter again to redirect the app on port http://localhost:3001)
 
-The client will be accessible at http://localhost:3001 in your browser.
+The client will be accessible at http://localhost:4000 in your browser.
+
+
+**Server (Backend)**
+
+1. Navigate to the Server Directory:
+
+```sh
+cd Spendwise/server
+```
+
+2. Install Dependencies:
+
+```sh
+npm install
+```
+
+3. Start the server
+
+```sh
+nodemon start
+```
+
+The server will be running at http://localhost:3000
+
+
 
 ## Roadmap
 
