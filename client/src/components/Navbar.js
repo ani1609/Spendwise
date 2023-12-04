@@ -23,7 +23,7 @@ function Navbar(props)
                 Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.get("https://spendwise-server.vercel.app/api/user", config);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
             setUser(response.data.user);
             // console.log(response.data.user);
         }
@@ -39,8 +39,7 @@ function Navbar(props)
         {
             fetchDataFromProtectedAPI(userToken);
         }
-    }
-    , [userToken]);
+    }, [userToken]);
 
 
     const handleLogout = () =>
