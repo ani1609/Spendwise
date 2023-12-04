@@ -51,7 +51,6 @@ Spendwise is powered by a modern tech stack:
 
 This combination ensures a seamless and powerful expense tracking experience.
 
-* []()
 
 ## Getting Started
 
