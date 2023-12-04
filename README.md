@@ -147,4 +147,10 @@ The client will be accessible at http://localhost:3001 in your browser.
 * [Ankit Kumar Chowdhury](https://github.com/ani1609) - *Organisation Admin*
 * [Niladri Sekhar Adhikary](https://github.com/niladrix719) - *Organisation Admin*
 
+### Code Contributors
+
+<a href="https://github.com/ani1609/spendwise/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ani1609/spendwise" />
+</a>
+
 
