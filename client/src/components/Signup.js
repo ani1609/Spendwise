@@ -26,7 +26,7 @@ function Signup()
         }
         try
         {
-            const response = await axios.post('https://spendwise-server.vercel.app/api/users/signup', {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, {
                 name: signupData.name+" ",
                 email: signupData.email,
                 password: signupData.password,
