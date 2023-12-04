@@ -138,7 +138,6 @@ The server will be running on http://localhost:3000
    - Add basic filtering options for expenses based on categories, dates, or amounts.
    - Implement a search feature to easily locate specific transactions.
 
-### Creating A Pull Request
 
 
 
