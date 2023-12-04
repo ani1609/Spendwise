@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <h3 align="left">Spendwise</h3>
+  <h1 align="left">Spendwise</h1>
 
   <p align="left">
     Your User-Friendly Expense Tracker Empowering Your Finances.
