@@ -2,8 +2,8 @@
 <p align="center">
   <h3 align="center">Spendwise - Your User-Friendly Expense Tracker</h3>
 
-  <p align="center">
-    Welcome to Spendwise, your go-to solution for managing your expenses with ease and efficiency. In today's fast-paced world, keeping track of your transactions and balances can be a daunting task. Spendwise is here to simplify that process for you. This open-source expense tracker is designed with user-friendliness in mind, using cutting-edge development tools to offer a seamless experience.
+  <p align="left">
+    Spendwise: Empowering Your Finances, One Transaction at a Time!
     <br/>
     <br/>
     <a href="https://github.com/ani1609/Spendwise"><strong>Explore the docs »</strong></a>
@@ -32,19 +32,9 @@
 
 ## About The Project
 
-![Screen Shot](images/screenshot.png)
+![spendwiseSS](https://github.com/ani1609/Spendwise/assets/89239354/110b0d57-7d1f-49f8-a3d7-7b7ce7863c7d)
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need.
-
-Here's why:
-
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue.
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+Spendwise: Your intuitive, user-friendly expense tracker. Seamlessly manage and understand your finances with simplicity and precision. Track, analyze, and take control of your expenses effortlessly.
 
 ## Built With
 
@@ -61,9 +51,6 @@ This combination ensures a seamless and powerful expense tracking experience.
 * []()
 
 ## Getting Started
-
-Installation
-
 
 ### Prerequisites
 
