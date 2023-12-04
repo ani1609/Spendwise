@@ -17,7 +17,12 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/ani1609/Spendwise?color=dark-green) ![Forks](https://img.shields.io/github/forks/ani1609/Spendwise?style=social) ![Stargazers](https://img.shields.io/github/stars/ani1609/Spendwise?style=social) ![Issues](https://img.shields.io/github/issues/ani1609/Spendwise) ![License](https://img.shields.io/github/license/ani1609/Spendwise) 
+![Contributors](https://img.shields.io/github/contributors/ani1609/Spendwise?color=dark-green) ![Forks](https://img.shields.io/github/forks/ani1609/Spendwise?style=social) ![Stargazers](https://img.shields.io/github/stars/ani1609/Spendwise?style=social) ![Issues](https://img.shields.io/github/issues/ani1609/Spendwise) ![License](https://img.shields.io/github/license/ani1609/Spendwise)
+
+## Community
+We would love to hear from you! We communicate on Slack:
+
+[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://join.slack.com/t/spendwisegroup/shared_invite/zt-28g7vaeb4-ZZbfrM8cpb6j~EEoWvWR2A)
 
 ## Table Of Contents
 
