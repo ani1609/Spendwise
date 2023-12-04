@@ -28,7 +28,6 @@
   * [Installation](#installation)
 * [Roadmap](#roadmap)
 * [Authors](#authors)
-* [Acknowledgements](#acknowledgements)
 
 ## About The Project
 
@@ -40,11 +39,15 @@ Spendwise: Your intuitive, user-friendly expense tracker. Seamlessly manage and 
 
 Spendwise is powered by a modern tech stack:
 
-React: Dynamic user interfaces.
-Node.js: Efficient server-side scripting.
-Express.js: Streamlined API development.
-MongoDB: Authentication.
-Firebase: Real-time updates.
+**React:** Dynamic user interfaces.
+
+**Node.js:** Efficient server-side scripting.
+
+**Express.js:** Streamlined API development.
+
+**MongoDB:** Authentication.
+
+**Firebase:** Real-time updates.
 
 This combination ensures a seamless and powerful expense tracking experience.
 
