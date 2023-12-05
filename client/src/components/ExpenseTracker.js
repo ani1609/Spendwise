@@ -36,7 +36,7 @@ function ExpenseTracker()
     const [incoming, setIncoming] = useState(0);
     const [outgoing, setOutgoing] = useState(0);
     const [editEnabled, setEditEnabled] = useState(false);
-    const [transactionsLoading, setTransactionsLoading] = useState(false);
+    const [transactionsLoading, setTransactionsLoading] = useState(true);
 
 
     const fetchDataFromProtectedAPI = async (userToken) => 
@@ -116,9 +116,14 @@ function ExpenseTracker()
                 orderBy('created_at', 'asc') // or 'asc' for ascending order
             );
         
-            return onSnapshot(q, (snapshot) => {
+            return onSnapshot(q, (snapshot) => 
+            {
                 const updatedTransactions = snapshot.docs.map((doc) => doc.data());
                 setTransactions(updatedTransactions);
+                if (transactionsLoading) 
+                {
+                    setTransactionsLoading(false);
+                }
             });
         }
     }, [user]);

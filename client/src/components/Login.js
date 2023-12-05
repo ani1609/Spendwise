@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import '../index.css';
 import '../styles/Login.css';
 import axios from "axios";
@@ -32,10 +32,9 @@ function Login()
             if (error.response.status === 401)
             {
                 setInvalidEmail(true);
-                console.error(error.response.data.message);
                 return;
             }
-            console.error(error.response.data.message);
+            console.error(error);
         }
     }
 
