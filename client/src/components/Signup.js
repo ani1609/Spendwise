@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import '../index.css';
 import '../styles/Signup.css';
 import axios from "axios";
@@ -50,7 +50,6 @@ function Signup()
                 setUserExists(true);
                 return;
             }
-            console.error(error.response.data.message);
             console.log(error);
         }
     }
