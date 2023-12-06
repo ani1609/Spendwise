@@ -67,26 +67,29 @@ npm install npm@latest -g
 
 ### Installation
 
-**Client (Frontend)**
-1. Clone the Repository:
+1. Fork the repository
+
+2. Clone Your Forked Repository:
 
 ```sh
-git clone https://github.com/ani1609/Spendwise.git
+git clone https://github.com/<your_username>/Spendwise.git
 ```
 
-2. Navigate to the Client Directory:
+**Client (Frontend)**
+
+3. Navigate to the Client Directory:
 
 ```sh
 cd Spendwise/client
 ```
 
-3. Install Dependencies:
+4. Install Dependencies:
 
 ```sh
 npm install
 ```
 
-4. Start the Application:
+5. Start the Application:
 
 ```sh
 npm run dev
