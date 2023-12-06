@@ -11,9 +11,7 @@
   </p>
 </p>
 
-<p align="center">
 ![Contributors](https://img.shields.io/github/contributors/ani1609/Spendwise?color=dark-green) ![Forks](https://img.shields.io/github/forks/ani1609/Spendwise?style=social) ![Stargazers](https://img.shields.io/github/stars/ani1609/Spendwise?style=social) ![Issues](https://img.shields.io/github/issues/ani1609/Spendwise) ![License](https://img.shields.io/github/license/ani1609/Spendwise)
-</p>
 
 ## Community
 We would love to hear from you! We communicate on Slack:
