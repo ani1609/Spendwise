@@ -1,16 +1,10 @@
 <br/>
 <p align="center">
-  <h1 align="left">Spendwise</h1>
+  <h1 align="center">Spendwise</h1>
 
-  <p align="left">
+  <p align="center">
     Your User-Friendly Expense Tracker Empowering Your Finances.
     <br/>
-    <br/>
-    <a href="https://github.com/ani1609/Spendwise"><strong>Explore the docs »</strong></a>
-    <br/>
-    <br/>
-    <a href="https://github.com/ani1609/Spendwise">View Demo</a>
-    .
     <a href="https://github.com/ani1609/Spendwise/issues">Report Bug</a>
     .
     <a href="https://github.com/ani1609/Spendwise/issues">Request Feature</a>
@@ -31,8 +25,9 @@ We would love to hear from you! We communicate on Slack:
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Roadmap](#roadmap)
+* [Future Plans](#future-plans)
 * [Authors](#authors)
+* [Code Contributors](#code-contributors)
 
 ## About The Project
 
@@ -94,7 +89,7 @@ npm install
 4. Start the Application:
 
 ```sh
-npm start
+npm run dev
 ```
 
 The client will be running on http://localhost:4000 in your browser.
@@ -117,14 +112,14 @@ npm install
 3. Start the server
 
 ```sh
-nodemon start
+npm run dev
 ```
 
 The server will be running on http://localhost:3000
 
 
 
-## Roadmap
+## Future Plans
 
 1. **User-Friendly Interface:**
    - Improve the current user interface for simplicity and clarity.

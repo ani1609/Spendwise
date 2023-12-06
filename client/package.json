@@ -12,6 +12,7 @@
         "@testing-library/react": "13.4.0",
         "@testing-library/user-event": "14.4.3",
         "axios": "^1.6.2",
+        "cross-env": "^7.0.3",
         "dotenv": "^16.3.1",
         "firebase": "^10.7.0",
         "react": "18.2.0",
@@ -26,10 +27,11 @@
         "tailwindcss": "^3.3.5"
     },
     "scripts": {
-        "start": "PORT=4000 react-scripts start",
+        "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --watchAll=false '--testResultsProcessor=<rootDir>/custom-reporter' '--silent' '--maxWorkers=2' ./",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "dev": "cross-env PORT=4000 REACT_APP_SERVER_URL=https://spendwise-server.vercel.app REACT_APP_FIREBASE_API_KEY=AIzaSyDbvYGftIoYn0v1950g-OWbdumI9jvSw-Q REACT_APP_FIREBASE_AUTH_DOMAIN=spendwise-test.firebaseapp.com REACT_APP_FIREBASE_PROJECT_ID=spendwise-test REACT_APP_FIREBASE_STORAGE_BUCKET=spendwise-test.appspot.com REACT_APP_FIREBASE_MESSAGING_SENDER_ID=386580529563 REACT_APP_FIREBASE_APP_ID=1:386580529563:web:ac1663fb5c0f827b01e13e REACT_APP_FIREBASE_MEASUREMENT_ID=G-HV1TP1YC5B react-scripts start"
     },
     "browserslist": [
         ">0.2%",
