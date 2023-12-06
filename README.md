@@ -25,7 +25,7 @@ We would love to hear from you! We communicate on Slack:
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Idea List](#idea-list)
+* [Ideas List](#ideas-list)
 * [Authors](#authors)
 * [Code Contributors](#code-contributors)
 
@@ -122,7 +122,7 @@ The server will be running on http://localhost:3000
 
 
 
-## Idea List
+## Ideas List
 
 1. **Development Simplification:**
    - Make the project easily deployable through Docker for streamlined development.
