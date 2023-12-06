@@ -124,19 +124,25 @@ The server will be running on http://localhost:3000
 
 ## Future Plans
 
-1. **User-Friendly Interface:**
+1. **Development Simplification:**
+   - Make the project easily deployable through Docker for streamlined development.
+   - Enable compatibility with Codespaces and Gitpod to facilitate collaborative coding.
+
+3. **User-Friendly Interface:**
    - Improve the current user interface for simplicity and clarity.
    - Implement basic user feedback mechanisms.
 
-2. **Enhance Expense Categorisation:**
+4. **Enhance Expense Categorisation:**
    - Extend the categorisation system with subcategories or tags.
    - Explore ways to improve the visibility and usability of categories.
 
-3. **Implement Filters and Search:**
+5. **Implement Filters and Search:**
    - Add basic filtering options for expenses based on categories, dates, or amounts.
    - Implement a search feature to easily locate specific transactions.
 
-
+6. **Codebase Refinement and Documentation:**
+   - Implement consistent coding standards and practices for improved readability and maintainability.
+   - Create thorough documentation covering project architecture, API endpoints, and key code modules.
 
 
 ## Authors
