@@ -48,8 +48,8 @@ function ExpenseTracker()
                 Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
-            // const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
+            // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
             setUser(response.data.user);
             // console.log(response.data.user);
         }

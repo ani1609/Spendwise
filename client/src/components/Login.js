@@ -18,8 +18,8 @@ function Login()
         e.preventDefault();
         try
         {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/login`, loginData);
-            // const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, loginData);
+            // const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/login`, loginData);
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, loginData);
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setInvalidEmail(false);
             setLoginData({
