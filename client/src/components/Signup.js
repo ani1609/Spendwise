@@ -26,11 +26,12 @@ function Signup()
         }
         try
         {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, {
-                name: signupData.name+" ",
-                email: signupData.email,
-                password: signupData.password,
-            });
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/signup`, signupData);
+            // const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, {
+            //     name: signupData.name+" ",
+            //     email: signupData.email,
+            //     password: signupData.password,
+            // });
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setUserExists(false);
             setPasswordUnmatched(false);
