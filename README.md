@@ -5,6 +5,8 @@
   <p align="center">
     Your User-Friendly Expense Tracker Empowering Your Finances.
     <br/>
+    <a href="https://kwoc.kossiitkgp.org">Kharagpur Winter of Code</a>
+    .
     <a href="https://github.com/ani1609/Spendwise/issues/new/choose">Report Bug</a>
     .
     <a href="https://github.com/ani1609/Spendwise/issues/new/choose">Request Feature</a>
