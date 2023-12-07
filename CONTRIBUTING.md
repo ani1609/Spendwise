@@ -35,7 +35,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 1. Fork the project and clone it to your local machine. Follow the [setup](https://github.com/ani1609/Spendwise/blob/master/SETUP.md) guideline.
 2. Always take a pull from the remote repository to your master branch to keep it at par with the main project(updated repository).
         
-        git pull upstream master
+        git pull upstream main
         
 3. Create a branch. For example, if you are going to work on issue number #44 (which is, say, a new feature for ‘forgot password’ management):
 
