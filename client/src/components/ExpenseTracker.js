@@ -123,16 +123,18 @@ function ExpenseTracker()
             return onSnapshot(q, (snapshot) => 
             {
                 let updatedTransactions = snapshot.docs.map((doc) => doc.data());
-                console.log(updatedTransactions)
-              
-               
-                if (transactionType && transactionType != 'all')
-                    updatedTransactions=  updatedTransactions.filter(item => item.transactionType == transactionType)
-                if (dateFillter)
-                    updatedTransactions = updatedTransactions.filter(item => item.date == dateFillter)
                 setTransactions(updatedTransactions);
+                let transactiontype = localStorage.getItem('transactionType') ? localStorage.getItem('transactionType') : ''
+                let datefiter=localStorage.getItem('dateFilter')?localStorage.getItem('dateFilter'):''
+               
+                if (transactiontype && transactiontype != 'all')
+                    updatedTransactions=  updatedTransactions.filter(item => item.transactionType == transactiontype)
+                if (datefiter) {
+                    updatedTransactions = updatedTransactions.filter(item => item.date == datefiter) 
+                }
+                 
                 setTransactionFilter(updatedTransactions)
-                console.log('hehe',transactionType,dateFillter)
+            
                 if (transactionsLoading) 
                 {
                     setTransactionsLoading(false);
@@ -140,7 +142,11 @@ function ExpenseTracker()
             });
         }
     }, [user]);
-
+    useEffect(() => {
+        localStorage.removeItem('transactionType') 
+        localStorage.removeItem('dateFilter')
+      
+    },[])
     const handleSubmit = async (e) => 
     {
         e.preventDefault();
@@ -251,7 +257,9 @@ function ExpenseTracker()
     const handleEdit = (transactionId, index) => 
     {
         setEditEnabled(true);
-        const editedTransaction = { ...transactions[index] };
+
+        const editedTransaction = { ...transactions.filter(e=>e.transactionId==transactionId)[0] };
+        console.log(editedTransaction,transactions,transactionId)
         const date = new Date(editedTransaction.date);
         const formattedDate = date.toISOString().split('T')[0];
         editedTransaction.date = formattedDate;
@@ -288,6 +296,7 @@ function ExpenseTracker()
             if (dateFillter)
             transactionnews = transactionnews.filter(item => item.date == dateFillter)
             setTransactionFilter(transactionnews)
+           
         }
           
         else
@@ -296,10 +305,14 @@ function ExpenseTracker()
             if (dateFillter)
             transactionnews = transactionnews.filter(item => item.date == dateFillter)
             setTransactionFilter(transactionnews)
-            console.log(transactionnews)
+           
         }
+        if (e.target.value) {
+            localStorage.setItem('transactionType',e.target.value)
+        }
+        else  localStorage.removeItem('transactionType')
         setTransactionType(e.target.value)
-    
+       
 
     }
     const newTransaction = () => {
@@ -314,9 +327,10 @@ function ExpenseTracker()
             
                 transactionsfilter=  transactionsfilter.filter(item => item.transactionType == transactionType)
                 setTransactionFilter(transactionsfilter)
-            
+            localStorage.setItem('dateFilter',e.target.value)
         }
         else {
+         
             let transactionsfilter=transactions
          
             if (transactionType && transactionType!='all')
@@ -324,9 +338,11 @@ function ExpenseTracker()
             transactionsfilter=  transactionsfilter.filter(item => item.transactionType == transactionType)
          
             setTransactionFilter(transactionsfilter)
+            localStorage.removeItem('dateFilter')
         }
    
         setDateFilter(e.target.value)
+       
     }
     return (
         <div className="expenseTracker_parent">
