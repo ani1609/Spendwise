@@ -22,7 +22,10 @@ function ExpenseTracker()
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [user, setUser] = useState({});
+    const [dateFillter,setDateFilter]=useState('')
     const [transactions, setTransactions] = useState([]);
+    const [transactionFilter, setTransactionFilter] = useState([]);
+    const [transactionType,setTransactionType]=useState('')
     const [formData, setFormData] = useState({
         email: "",
         transactionType: "",
@@ -119,8 +122,19 @@ function ExpenseTracker()
         
             return onSnapshot(q, (snapshot) => 
             {
-                const updatedTransactions = snapshot.docs.map((doc) => doc.data());
+                let updatedTransactions = snapshot.docs.map((doc) => doc.data());
                 setTransactions(updatedTransactions);
+                let transactiontype = localStorage.getItem('transactionType') ? localStorage.getItem('transactionType') : ''
+                let datefiter=localStorage.getItem('dateFilter')?localStorage.getItem('dateFilter'):''
+               
+                if (transactiontype && transactiontype != 'all')
+                    updatedTransactions=  updatedTransactions.filter(item => item.transactionType == transactiontype)
+                if (datefiter) {
+                    updatedTransactions = updatedTransactions.filter(item => item.date == datefiter) 
+                }
+                 
+                setTransactionFilter(updatedTransactions)
+            
                 if (transactionsLoading) 
                 {
                     setTransactionsLoading(false);
@@ -128,7 +142,11 @@ function ExpenseTracker()
             });
         }
     }, [user]);
-
+    useEffect(() => {
+        localStorage.removeItem('transactionType') 
+        localStorage.removeItem('dateFilter')
+      
+    },[])
     const handleSubmit = async (e) => 
     {
         e.preventDefault();
@@ -239,7 +257,9 @@ function ExpenseTracker()
     const handleEdit = (transactionId, index) => 
     {
         setEditEnabled(true);
-        const editedTransaction = { ...transactions[index] };
+
+        const editedTransaction = { ...transactions.filter(e=>e.transactionId==transactionId)[0] };
+        console.log(editedTransaction,transactions,transactionId)
         const date = new Date(editedTransaction.date);
         const formattedDate = date.toISOString().split('T')[0];
         editedTransaction.date = formattedDate;
@@ -270,7 +290,60 @@ function ExpenseTracker()
             toast.error("Error deleting transaction.");
         }
     }
+    const TransactionTypeChange = (e) => {
+        if (e.target.value == 'all') {
+            let transactionnews = transactions
+            if (dateFillter)
+            transactionnews = transactionnews.filter(item => item.date == dateFillter)
+            setTransactionFilter(transactionnews)
+           
+        }
+          
+        else
+        {
+            let transactionnews = transactions.filter(item => item.transactionType == e.target.value)
+            if (dateFillter)
+            transactionnews = transactionnews.filter(item => item.date == dateFillter)
+            setTransactionFilter(transactionnews)
+           
+        }
+        if (e.target.value) {
+            localStorage.setItem('transactionType',e.target.value)
+        }
+        else  localStorage.removeItem('transactionType')
+        setTransactionType(e.target.value)
+       
 
+    }
+    const newTransaction = () => {
+        setEditEnabled(false)
+        let addedTransaction={transactionType:'',category:'',date:'',description:'',amount:''}
+        setFormData(addedTransaction)
+    }
+    const changeDateFilter = (e) => {
+        if (e.target.value) {
+            let transactionsfilter = transactions.filter(item => item.date == e.target.value)
+            if (transactionType && transactionType!='all') 
+            
+                transactionsfilter=  transactionsfilter.filter(item => item.transactionType == transactionType)
+                setTransactionFilter(transactionsfilter)
+            localStorage.setItem('dateFilter',e.target.value)
+        }
+        else {
+         
+            let transactionsfilter=transactions
+         
+            if (transactionType && transactionType!='all')
+                
+            transactionsfilter=  transactionsfilter.filter(item => item.transactionType == transactionType)
+         
+            setTransactionFilter(transactionsfilter)
+            localStorage.removeItem('dateFilter')
+        }
+   
+        setDateFilter(e.target.value)
+       
+    }
     return (
         <div className="expenseTracker_parent">
             <div className="balance_container border-2 rounded">
@@ -279,7 +352,27 @@ function ExpenseTracker()
             </div>
             <div className="formTransactions_container flex justify-evenly">
                 <div className="form_container border-2 rounded p-8">
-                    <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
+                    <div className="form-title">
+                    {
+                        editEnabled
+                            ?
+                            <>
+                                <h4 className="font-bold text-lg mb-10 edittransaction">Edit transaction
+                                
+                                
+                                </h4>
+                                <button type="button" class="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
+                            </>
+                         
+                            : <>
+                                <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
+                                
+                            </>
+                         
+                    }
+                    </div>
+                   
+                 
                     <form className="flex gap-4">
                         <div className="flex flex-col gap-2">
                             <legend>Transaction Type</legend>
@@ -368,10 +461,37 @@ function ExpenseTracker()
                         <h3 className="flex flex-col items-center">Income<span className="text-green-600 text-xl">+ &#x20B9;{incoming}</span></h3>
                         <h3 className="flex flex-col items-center">Expense<span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span></h3>
                     </div>
-                    <h4>Transactions</h4><hr></hr>
-                    {transactions.length > 0 ? (
+                    <div className="transaction-group row d-flex">
+                      
+                        <div class="form-group col-md-4">
+                            <h4>Transactions</h4>
+                            
+                        <select id="inputState" class="form-control " onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                            <option value={''} hidden>Choose Transaction Type</option>
+                            <option value={'all'}>All</option>
+                            <option value={'Income'}>Income</option>
+                            <option value={'Expense'}>Expense</option>
+                        </select>
+                        </div>
+                        <input
+                                type="date"
+                                name="date"
+                                value={dateFillter}
+                                onChange={(e)=>changeDateFilter(e)}
+                                placeholder="Date"
+                                required
+                                className="cursor-pointer max_with"
+                            />
+
+                    </div>
+                
+                    
+                    
+                    <hr></hr>
+                    {transactionFilter.length > 0 ? (
                         <ul className="transactions_container flex flex-col gap-2">
-                            {transactions.map((transaction, index) => (
+                         
+                            {transactionFilter.map((transaction, index) => (
                                 transaction.transactionType === "Income" ?
                                 (   
                                     <li key={index} className="income flex justify-between items-center border-2 rounded p-2">
