@@ -47,6 +47,20 @@
     background-color: var(--primary);
     letter-spacing: 0.5px;
 }
+.form-title{
+    display: flex;
+   
+}
+.edittransaction{
+    max-width:50%;
+}
+.btn-new{
+    margin-left: 30%;
+    padding: 5px 20px;
+   background-color: 
+   #0eb3eb ;
+   border-radius: 5px;
+}
 
 .WalletDetails_container 
 {
@@ -84,7 +98,6 @@
     letter-spacing: 0.5px;
     margin-top: 5px;
 }
-
 
 .transactions_container 
 {
