@@ -5,7 +5,6 @@ import "../index.css";
 
 function DoughnutChart(props) 
 {
-
     const { transactions } = props;
     const [showChart, setShowChart] = useState(false);
     const [foodExpenses, setFoodExpenses] = useState(0);
@@ -13,7 +12,6 @@ function DoughnutChart(props)
     const [shoppingExpenses, setShoppingExpenses] = useState(0);
     const [billsExpenses, setBillsExpenses] = useState(0);
     const [othersExpenses, setOthersExpenses] = useState(0);
-
 
     useEffect(() => 
     {
@@ -65,7 +63,7 @@ function DoughnutChart(props)
 
     return(
         <React.Fragment>
-            <div className="chart_container p-5 scale-90 sm:scale-125">
+            <div className="chart_container p-5">
                 {showChart ? (<Chart 
                     type="donut"
                     width={420}
