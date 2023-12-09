@@ -65,7 +65,7 @@ function DoughnutChart(props)
 
     return(
         <React.Fragment>
-            <div className="chart_container">
+            <div className="chart_container p-5 scale-90 sm:scale-125">
                 {showChart ? (<Chart 
                     type="donut"
                     width={420}
