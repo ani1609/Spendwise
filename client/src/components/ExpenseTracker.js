@@ -15,6 +15,7 @@ import { ReactComponent as Bills } from '../icons/bills.svg';
 import { ReactComponent as Others } from '../icons/others.svg';
 import {ReactComponent as Plus} from '../icons/plus1.svg';
 import DoughnutChart from "./DoughnutChart";
+import MyLoader from "./TransactionLoading";
 
 
 
@@ -531,7 +532,7 @@ function ExpenseTracker()
                             ))}
                         </ul>
                     ) : (
-                        transactionsLoading ? <p className="text-gray-400">Fetching your previous transactions (if any)...</p> : <p className="text-gray-400">No transactions added yet.</p>
+                        transactionsLoading ? <MyLoader/> : <p className="text-gray-400">No transactions added yet.</p>
                     )}
                 </div>
             </div>
