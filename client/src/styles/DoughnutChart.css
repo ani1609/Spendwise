@@ -4,4 +4,5 @@
     letter-spacing: 0.5px;
     width: 100%;
     max-width: 420px;
+    box-sizing: border-box;
 }
