@@ -66,8 +66,8 @@ function DoughnutChart(props)
             <div className="chart_container p-5">
                 {showChart ? (<Chart 
                     type="donut"
-                    width={420}
-                    height={420}
+                    width="100%"
+                    height="480"
 
                     series={[foodExpenses, travelExpenses, shoppingExpenses, billsExpenses, othersExpenses]}
 
@@ -79,6 +79,9 @@ function DoughnutChart(props)
                                 colors: "#000000"
                             }
                         },
+                        
+
+                        
 
                     }}
                 >
