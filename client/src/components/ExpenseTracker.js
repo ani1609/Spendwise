@@ -345,6 +345,9 @@ function ExpenseTracker()
         setDateFilter(e.target.value)
        
     }
+    
+    const descriptionChars = screen.width <= 480 ? 20 : screen.width <= 768 ? 25 : 30;
+
     return (
         <div className="expenseTracker_parent">
             <div className="balance_container border-2 rounded">
@@ -500,7 +503,7 @@ function ExpenseTracker()
                                             <Plus className="icons" />
                                         </div>
                                         <div className="descDate_container">
-                                            <h4>{transaction.description}</h4>
+                                            {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0,descriptionChars)+"..."}</h4> : <h4>{transaction.description}</h4>}
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
                                         <h1>+&#x20B9;{transaction.amount}</h1>
@@ -519,7 +522,7 @@ function ExpenseTracker()
                                             {transaction.category === "Others" ? <Others className="icons" /> : null}
                                         </div>
                                         <div className="descDate_container">
-                                            <h4>{transaction.description}</h4>
+                                        {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0,descriptionChars)+"..."}</h4> : <h4>{transaction.description}</h4>}
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
                                         <h1>-&#x20B9;{transaction.amount}</h1>
