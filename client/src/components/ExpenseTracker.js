@@ -408,7 +408,7 @@ function ExpenseTracker()
                                 value={formData.category}
                                 onChange={handleChange}
                                 required
-                                style={{ cursor: formData.transactionType === "Income" ? "auto" : "pointer" }}
+                                style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
                                 disabled={formData.transactionType === "Income"}
                             >
                                 <option value="NULL">Choose a category</option>
