@@ -224,7 +224,113 @@ function ExpenseTracker()
                 <h1>&#x20B9;{balance}</h1>
             </div>
             <div className="formTransactions_container flex justify-evenly">
+<<<<<<< HEAD
                 <TransactionForm editEnabled={editEnabled} setEditEnabled={setEditEnabled} user={user} formData={formData} setFormData={setFormData} />
+=======
+                <div className="form_container border-2 rounded p-8">
+                    <div className="form-title">
+                    {
+                        editEnabled
+                            ?
+                            <>
+                                <h4 className="font-bold text-lg mb-10 edittransaction">Edit transaction
+                                
+                                
+                                </h4>
+                                <button type="button" class="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
+                            </>
+                         
+                            : <>
+                                <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
+                                
+                            </>
+                         
+                    }
+                    </div>
+                   
+                 
+                    <form className="flex gap-4">
+                        <div className="flex flex-col gap-2">
+                            <legend>Transaction Type</legend>
+                            <label style={{ cursor: 'pointer' }}>
+                                <input
+                                    type="radio"
+                                    name="transactionType"
+                                    value="Income"
+                                    checked={formData.transactionType === "Income"}
+                                    onChange={handleChange}
+                                    required
+                                    className="cursor-pointer"
+                                />&nbsp;
+                                Income
+                            </label>
+                            <label style={{ cursor: 'pointer' }}>
+                                <input
+                                    type="radio"
+                                    name="transactionType"
+                                    value="Expense"
+                                    checked={formData.transactionType === "Expense"}
+                                    onChange={handleChange}
+                                    required
+                                    className="cursor-pointer"
+                                />&nbsp;
+                                Expense
+                            </label>
+                            <label htmlFor="category" className="mt-4">Category</label>
+                            <select
+                                id="category"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                required
+                                style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
+                                disabled={formData.transactionType === "Income"}
+                            >
+                                <option value="NULL">Choose a category</option>
+                                <option value="Food">Food</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Bills">Bills</option>
+                                <option value="Others">Others</option>
+                            </select>
+                            <label htmlFor="date" className="mt-4">Date</label>
+                            <input
+                                type="date"
+                                name="date"
+                                value={formData.date}
+                                onChange={handleChange}
+                                placeholder="Date"
+                                required
+                                className="cursor-pointer"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="amount">Amount</label>
+                            <input
+                                type="number"
+                                name="amount"
+                                value={formData.amount}
+                                onChange={handleChange}
+                                placeholder="Amount"
+                                required
+                                className="border-2 p-2"
+                            />
+                            <label htmlFor="description" className="mt-4">Description</label>
+                            <input
+                                type="text"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                placeholder="Description"
+                                required
+                                className="border-2 p-2"
+                                autoComplete="off"
+                            />
+                            <button type="submit" className=" mt-4 text-white hover:text-gray-500 hover:bg-white border-[#c465c9] p-2 border transition-all duration-500" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                        </div>
+                    </form>
+                </div>
+>>>>>>> 0ddaa0c (FIX: Disabled cursor on disabled category)
             
 
                 <div className="WalletDetails_container flex flex-col">
