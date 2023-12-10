@@ -8,7 +8,7 @@
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    padding: 0px 50px;
+    padding: 0px 50px;  
 }
 
 .navbar_parent h1
@@ -117,4 +117,38 @@
         padding: 0px 10px;
     }
 
+}
+
+
+/* padding to 30px for screen widths<=768px */
+
+@media only screen and (max-width: 768px) {
+    .navbar_parent {
+       
+        padding: 0px 30px;
+        
+    }
+
+    .navbar_parent h1 {
+        font-size: 30px;
+    }
+
+    .profile_container {
+        gap: 10px;
+    }
+
+    .profile_container h4 {
+        font-size: 16px;
+    }
+
+    .login_signup_container {
+        gap: 10px;
+    }
+
+
+    .login_signup_container button {
+        height: 30px;
+        width: 80px;
+        font-size: 15px;
+    }
 }
