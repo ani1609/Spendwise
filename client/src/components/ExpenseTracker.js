@@ -369,7 +369,7 @@ function ExpenseTracker()
                                 
                                 
                                 </h4>
-                                <button type="button" class="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
+                                <button type="button" class="btn-new m-4 text-white hover:text-gray-500 hover:bg-white bg-[#c465c9] border-[#c465c9] px-3 border transition-all duration-500" onClick={()=>newTransaction()} >New</button>
                             </>
                          
                             : <>
