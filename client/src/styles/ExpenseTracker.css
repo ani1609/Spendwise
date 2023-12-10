@@ -299,4 +299,7 @@
         margin-top: 75px;
         color: black;
     }
+    .editDelete_container{
+        width: 60px;
+    }
 }
