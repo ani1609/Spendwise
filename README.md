@@ -157,6 +157,6 @@ The server will be running on http://localhost:3000
 
 ### Code Contributors
 
-<a href="https://github.com/ani1609/spendwise/graphs/contributors">
+<a href="https://github.com/ani1609/Spendwise/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ani1609/spendwise" />
 </a>
