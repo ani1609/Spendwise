@@ -61,7 +61,7 @@ function Login()
                     required
                 />
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
-                <button type='submit' style={{ width: '100%' }}>Log in</button>
+                <button type='submit'>Log in</button>
             </form>
         </div>
     );
