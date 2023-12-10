@@ -360,16 +360,16 @@ function ExpenseTracker()
             </div>
             <div className="formTransactions_container flex justify-evenly">
                 <div className="form_container border-2 rounded p-8">
-                    <div className="form-title">
+                    <div className="form-title flex flex-col items-center">
                     {
                         editEnabled
                             ?
                             <>
-                                <h4 className="font-bold text-lg mb-10 edittransaction">Edit transaction
+                                <h4 className="font-bold text-lg mb-2 ">Edit transaction
                                 
                                 
                                 </h4>
-                                <button type="button" class="btn-new m-4 text-white hover:text-gray-500 hover:bg-white bg-[#c465c9] border-[#c465c9] px-3 border transition-all duration-500" onClick={()=>newTransaction()} >New</button>
+                                <button type="button" class="m-2 text-white hover:text-gray-500 hover:bg-white bg-[#c465c9] border-[#c465c9] py-1 px-4 border transition-all duration-500 " onClick={()=>newTransaction()} >New</button>
                             </>
                          
                             : <>
