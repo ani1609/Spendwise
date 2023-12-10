@@ -131,7 +131,7 @@ function ExpenseTracker()
                
                 if (transactiontype && transactiontype != 'all')
                     updatedTransactions=  updatedTransactions.filter(item => item.transactionType == transactiontype)
-                if (categoryFilter) {
+                if (categoryFilter && categoryFilter != 'all') {
                     updatedTransactions = updatedTransactions.filter(item => item.category === categoryFilter);
                 }
                 if (datefiter) {
@@ -484,6 +484,7 @@ function ExpenseTracker()
                         <div>
                             <select id="categoryFilter" class="form-control col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
                                 <option value='' hidden>Choose Category</option>
+                                <option value='all'>All</option>
                                 <option value='Food'>Food</option>
                                 <option value='Travel'>Travel</option>
                                 <option value='Shopping'>Shopping</option>
