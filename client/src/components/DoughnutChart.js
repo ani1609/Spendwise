@@ -67,7 +67,7 @@ function DoughnutChart(props)
                 {showChart ? (<Chart 
                     type="donut"
                     width="100%"
-                    height="480"
+                    height="450"
 
                     series={[foodExpenses, travelExpenses, shoppingExpenses, billsExpenses, othersExpenses]}
 
