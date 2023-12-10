@@ -41,6 +41,7 @@ function ExpenseTracker()
     const [outgoing, setOutgoing] = useState(0);
     const [editEnabled, setEditEnabled] = useState(false);
     const [transactionsLoading, setTransactionsLoading] = useState(true);
+    const [categoryFilter, setCategoryFilter] = useState('');
 
 
     const fetchDataFromProtectedAPI = async (userToken) => 
@@ -130,6 +131,9 @@ function ExpenseTracker()
                
                 if (transactiontype && transactiontype != 'all')
                     updatedTransactions=  updatedTransactions.filter(item => item.transactionType == transactiontype)
+                if (categoryFilter && categoryFilter != 'all') {
+                    updatedTransactions = updatedTransactions.filter(item => item.category === categoryFilter);
+                }
                 if (datefiter) {
                     updatedTransactions = updatedTransactions.filter(item => item.date == datefiter) 
                 }
@@ -142,7 +146,7 @@ function ExpenseTracker()
                 }
             });
         }
-    }, [user]);
+    }, [user, transactionType, categoryFilter, dateFillter]);
     useEffect(() => {
         localStorage.removeItem('transactionType') 
         localStorage.removeItem('dateFilter')
@@ -313,9 +317,12 @@ function ExpenseTracker()
         }
         else  localStorage.removeItem('transactionType')
         setTransactionType(e.target.value)
-       
+        setCategoryFilter('');
 
     }
+    const CategoryChange = (e) => {
+        setCategoryFilter(e.target.value);
+    };
     const newTransaction = () => {
         setEditEnabled(false)
         let addedTransaction={transactionType:'',category:'',date:'',description:'',amount:''}
@@ -411,7 +418,7 @@ function ExpenseTracker()
                                 value={formData.category}
                                 onChange={handleChange}
                                 required
-                                style={{ cursor: formData.transactionType === "Income" ? "auto" : "pointer" }}
+                                style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
                                 disabled={formData.transactionType === "Income"}
                             >
                                 <option value="NULL">Choose a category</option>
@@ -476,6 +483,17 @@ function ExpenseTracker()
                             <option value={'Income'}>Income</option>
                             <option value={'Expense'}>Expense</option>
                         </select>
+                        </div>
+                        <div>
+                            <select id="categoryFilter" class="form-control col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                                <option value='' hidden>Choose Category</option>
+                                <option value='all'>All</option>
+                                <option value='Food'>Food</option>
+                                <option value='Travel'>Travel</option>
+                                <option value='Shopping'>Shopping</option>
+                                <option value='Bills'>Bills</option>
+                                <option value='Others'>Others</option>
+                            </select>
                         </div>
                         <input
                                 type="date"
