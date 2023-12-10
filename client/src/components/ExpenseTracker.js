@@ -62,42 +62,6 @@ function ExpenseTracker()
             console.error("Error fetching data:", error);
         }
     };
-    // Function to fetch and update transactions with filters
-    const fetchAndUpdateTransactions = async () => 
-    {
-        const q = query(
-            transactionsCollection,
-            where('email', '==', user.email),
-            orderBy('created_at', 'asc')
-        );
-
-        try {
-            const querySnapshot = await getDocs(q);
-            const updatedTransactions = querySnapshot.docs.map((doc) => doc.data());
-            setTransactions(updatedTransactions);
-
-             // Apply category and date filters to the updated transactions
-            let filteredTransactions = updatedTransactions;
-
-            if (selectedCategory !== '') {
-                filteredTransactions = filteredTransactions.filter(item => item.category === selectedCategory);
-             }
-
-            if (dateFillter !== '') {
-                filteredTransactions = filteredTransactions.filter(item => item.date === dateFillter);
-             }
-
-            setTransactionFilter(filteredTransactions);
-
-            if (transactionsLoading) {
-                setTransactionsLoading(false);
-            }
-         } 
-         catch (error) 
-         {
-            console.error("Error fetching updated transactions:", error);
-         }
-    };
 
     useEffect(() =>
     {
@@ -289,8 +253,6 @@ function ExpenseTracker()
                 toast.error('Error adding transaction.');
             }
         }
-        // Fetch and update transactions after submitting
-        await fetchAndUpdateTransactions();
     };
 
     const handleEdit = (transactionId, index) => 
@@ -328,8 +290,6 @@ function ExpenseTracker()
         {
             toast.error("Error deleting transaction.");
         }
-        // Fetch and update transactions after submitting
-        await fetchAndUpdateTransactions();
     }
     const TransactionTypeChange = (e) => {
         if (e.target.value == 'all') {
