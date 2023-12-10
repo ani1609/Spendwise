@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
@@ -42,7 +42,7 @@ function ExpenseTracker()
     const [editEnabled, setEditEnabled] = useState(false);
     const [transactionsLoading, setTransactionsLoading] = useState(true);
     const [categoryFilter, setCategoryFilter] = useState('');
-
+    const [descriptionChars, setDescriptionChars] = useState(0);
 
     const fetchDataFromProtectedAPI = async (userToken) => 
     {
@@ -352,6 +352,18 @@ function ExpenseTracker()
         setDateFilter(e.target.value)
        
     }
+
+    useLayoutEffect(()=>{
+        function updateSize() {
+            const width = window.innerWidth;
+            setDescriptionChars(width <= 320 ? 5 : width <= 375 ? 8 :
+                    width <= 480 ? 12 : width <= 768 ? 20 : 22)
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, [])
+
     return (
         <div className="expenseTracker_parent">
             <div className="balance_container border-2 rounded">
@@ -518,7 +530,7 @@ function ExpenseTracker()
                                             <Plus className="icons" />
                                         </div>
                                         <div className="descDate_container">
-                                            <h4>{transaction.description}</h4>
+                                            {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0,descriptionChars)+"..."}</h4> : <h4>{transaction.description}</h4>}
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
                                         <h1>+&#x20B9;{transaction.amount}</h1>
@@ -537,7 +549,7 @@ function ExpenseTracker()
                                             {transaction.category === "Others" ? <Others className="icons" /> : null}
                                         </div>
                                         <div className="descDate_container">
-                                            <h4>{transaction.description}</h4>
+                                        {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0,descriptionChars)+"..."}</h4> : <h4>{transaction.description}</h4>}
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
                                         <h1>-&#x20B9;{transaction.amount}</h1>
