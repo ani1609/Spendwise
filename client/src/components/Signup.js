@@ -87,7 +87,7 @@ function Signup()
                 />
                 {passwordUnmatched && <p>Passwords do not match</p>}
                 {userExists && <p>User already exists</p>}
-                <button type='submit' className='p-2 bg-violet-500'>Sign up</button>
+                <button type='submit'>Sign up</button>
             </form>
         </div>
     );
