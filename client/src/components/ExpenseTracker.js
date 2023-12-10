@@ -41,7 +41,6 @@ function ExpenseTracker()
     const [outgoing, setOutgoing] = useState(0);
     const [editEnabled, setEditEnabled] = useState(false);
     const [transactionsLoading, setTransactionsLoading] = useState(true);
-    const [selectedCategory, setSelectedCategory] = useState('');
 
 
     const fetchDataFromProtectedAPI = async (userToken) => 
@@ -304,7 +303,6 @@ function ExpenseTracker()
         const formattedDate = date.toISOString().split('T')[0];
         editedTransaction.date = formattedDate;
         setFormData(editedTransaction);
-        setSelectedCategory(editedTransaction.category);
     }
 
     const handleDelete = async (transactionId, index) => 
@@ -312,7 +310,7 @@ function ExpenseTracker()
         try 
         {
             const querySnapshot = await getDocs(
-                query(transactionsCollection, where('transactionId', '==', transactionId,where('category', '==', selectedCategory)))
+                query(transactionsCollection, where('transactionId', '==', transactionId))
             );
             
             if (querySnapshot.empty) 
@@ -386,12 +384,6 @@ function ExpenseTracker()
    
         setDateFilter(e.target.value)
        
-    }
-    const handleCategoryChange = (e) => {
-        const category = e.target.value;
-        const filteredTransactions = category === '' ? transactions : transactions.filter((transaction) => transaction.category === category);
-        setTransactionFilter(filteredTransactions);
-        setSelectedCategory(category);
     }
     return (
         <div className="expenseTracker_parent">
@@ -521,16 +513,6 @@ function ExpenseTracker()
                             <option value={'Income'}>Income</option>
                             <option value={'Expense'}>Expense</option>
                         </select>
-                        </div>
-                        <div>
-                            <select value={selectedCategory} onChange={(e) => handleCategoryChange(e)}>
-                                <option value=''>All Categories</option>
-                                <option value='Food'>Food</option>
-                                <option value='Travel'>Travel</option>
-                                <option value='Shopping'>Shopping</option>
-                                <option value='Bills'>Bills</option>
-                                <option value='Others'>Others</option>
-                            </select>
                         </div>
                         <input
                                 type="date"
