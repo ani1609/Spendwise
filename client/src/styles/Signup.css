@@ -138,6 +138,6 @@
     letter-spacing: 0.5px;
     margin: -12px auto 0 0;
 }
-button{
+.signup_form_container form button{
     width: 8rem;
 }
