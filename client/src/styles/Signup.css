@@ -16,7 +16,7 @@
 {
     color: var(--primary);
     font-weight: 600;
-    font-size: 35px;
+    font-size: 31px;
     margin: 0;
     opacity: 0;
     animation-name: fadeInSlideIn;
@@ -35,7 +35,7 @@
     justify-content: center;
     align-items: center;
     gap: 25px;
-    width: 100%;
+    width: 20rem;
 }
 
 .signup_form_container form input

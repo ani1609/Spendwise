@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     gap: 40px;
-    padding: 30px 60px;
+    padding: 30px 50px;
     border-radius: 5px;
     transition: 0.5s ease-in-out;
     background-color: rgba(65, 65, 65, 0.833);
@@ -34,12 +34,13 @@
     justify-content: center;
     align-items: center;
     gap: 25px;
-    width: 100%;
+    width: 20rem;
 }
 
 .login_form_container form input
 {
     font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     padding: 10px 15px;
     box-sizing: border-box;
@@ -51,14 +52,12 @@
     width: 100%;
     opacity: 0;
     background-color: rgb(230, 230, 230);
-    font-family: 'Lato', sans-serif;
-    letter-spacing: 0.5px;
     color: #888888;
 }
 
 .login_form_container form input::placeholder
 {
-    color: var(--light_secondary-font);
+    color: #888888;
 }
 
 .login_form_container button
@@ -71,12 +70,13 @@
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     opacity: 0;
     animation-name: fadeInSlideIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-    animation-delay: 900ms;
+    animation-delay: 1300ms;
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.5px;
 }
