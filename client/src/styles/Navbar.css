@@ -1,51 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500;600&display=swap');
 
-.navbar_parent {
+.navbar_parent
+{
     height: 70px;
     width: 100%;
-    padding: 0px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
+    padding: 0px 50px;  
 }
 
-
-.navbar_parent h1 {
+.navbar_parent h1
+{
     margin: 0;
     letter-spacing: 0.5px;
     font-size: 35px;
     font-family: 'Barlow Condensed', sans-serif;
 }
 
-.profile_container {
+.profile_container
+{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
 
-.profile_container h4 {
+.profile_container h4
+{
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.5px;
     font-size: 18px;
 }
 
-.logout_icon {
+.logout_icon
+{
     height: 25px;
     width: 25px;
     cursor: pointer;
     fill: white;
 }
 
-.login_signup_container {
+.login_signup_container
+{
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
 }
 
-.login_signup_container button {
+.login_signup_container button
+{
     height: 35px;
     width: 90px;
     border: none;
@@ -60,8 +66,8 @@
     font-weight: 500;
 }
 
-.login_parent,
-.signup_parent {
+.login_parent, .signup_parent
+{
     width: 100vw;
     height: calc(100vh - 70px);
     position: absolute;
@@ -70,7 +76,7 @@
     align-items: center;
     top: 70px;
     left: 0;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(3px);
     opacity: 0;
     animation-name: fadeIn;
     animation-duration: 0.3s;
@@ -78,9 +84,21 @@
     z-index: 100;
 }
 
+@keyframes fadeIn
+{
+    0%
+    {
+        opacity: 0;
+    }
 
-.login_parent::before,
-.signup_parent::before {
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+.login_parent::before, .signup_parent::before
+{
     content: '';
     position: absolute;
     height: 100%;
@@ -89,12 +107,25 @@
     z-index: -1;
 }
 
+
 /* ---------responsiveness----- */
+
+@media only screen and (max-width: 480px)
+{
+    .navbar_parent
+    {
+        padding: 0px 10px;
+    }
+
+}
+
+
+/* padding to 30px for screen widths<=768px */
 
 @media only screen and (max-width: 768px) {
     .navbar_parent {
-        height: 60px;
-        padding: 0px 20px;
+       
+        padding: 0px 30px;
         
     }
 
@@ -119,44 +150,5 @@
         height: 30px;
         width: 80px;
         font-size: 15px;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    .navbar_parent {
-        height: 50px;
-        padding: 0px 30px;
-    }
-
-    .navbar_parent h1 {
-        font-size: 25px;
-    }
-
-    .profile_container {
-        gap: 5px;
-    }
-
-    .profile_container h4 {
-        font-size: 14px;
-    }
-
-    .login_signup_container {
-        gap: 5px;
-    }
-
-    .login_signup_container button {
-        height: 25px;
-        width: 70px;
-        font-size: 14px;
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
     }
 }
