@@ -1,4 +1,13 @@
 .bg-violet{
-  height: 5rem;
-  background-color: #c465c9;
+    height: 5rem;
+    background-color: #c465c9;
 }
+
+.bg
+{
+    z-index: -1;
+}
+
+
+
+

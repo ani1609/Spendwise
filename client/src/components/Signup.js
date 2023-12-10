@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import '../index.css';
 import '../styles/Signup.css';
 import axios from "axios";
@@ -17,20 +17,17 @@ function Signup()
     const handleSignup = async (e) =>
     {
         e.preventDefault();
-        console.log(signupData);
+        if(signupData.password !== signupData.confirmPassword)
+        {
+            setUserExists(false);
+            setPasswordUnmatched(true);
+            console.error('Passwords do not match');
+            return;
+        }
         try
         {
-            if(signupData.password !== signupData.confirmPassword)
-            {
-                setPasswordUnmatched(true);
-                console.error('Passwords do not match');
-                return;
-            }
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, {
-                name: signupData.name+" ",
-                email: signupData.email,
-                password: signupData.password,
-            });
+            // const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/signup`, signupData);
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, signupData);
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setUserExists(false);
             setPasswordUnmatched(false);
@@ -44,13 +41,12 @@ function Signup()
         }
         catch(error)
         {
-            // if (error.response.status === 409)
-            // {
-            //     setUserExists(true);
-            //     console.error(error.response.data.message);
-            //     return;
-            // }
-            // console.error(error.response.data.message);
+            if (error.response.status === 409)
+            {
+                setPasswordUnmatched(false);
+                setUserExists(true);
+                return;
+            }
             console.log(error);
         }
     }
@@ -58,15 +54,15 @@ function Signup()
 
 
     return(
-        <div className="signup_form_container">
-            <form onSubmit={handleSignup} className='p-2 flex gap-2'>
+        <div className="signup_form_container" onClick={(e)=> e.stopPropagation()}>
+            <h1>Create Your Account</h1>
+            <form onSubmit={handleSignup}>
                 <input 
                     type='text'
                     placeholder='Name'
                     value={signupData.name}
                     onChange={(e)=>setSignupData({...signupData, name: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input
                     type='email'
@@ -74,7 +70,6 @@ function Signup()
                     value={signupData.email}
                     onChange={(e)=>setSignupData({...signupData, email: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input 
                     type='password'
@@ -82,7 +77,6 @@ function Signup()
                     value={signupData.password}
                     onChange={(e)=>setSignupData({...signupData, password: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input
                     type='password'
@@ -90,9 +84,10 @@ function Signup()
                     value={signupData.confirmPassword}
                     onChange={(e)=>setSignupData({...signupData, confirmPassword: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
-                <button type='submit' className='p-2 bg-violet-500'>Sign up</button>
+                {passwordUnmatched && <p>Passwords do not match</p>}
+                {userExists && <p>User already exists</p>}
+                <button type='submit' className='p-2 bg-violet-500' style={{ width: '100%' }}>Sign up</button>
             </form>
         </div>
     );

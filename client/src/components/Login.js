@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import '../index.css';
 import '../styles/Login.css';
 import axios from "axios";
@@ -18,6 +18,7 @@ function Login()
         e.preventDefault();
         try
         {
+            // const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/login`, loginData);
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, loginData);
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setInvalidEmail(false);
@@ -32,10 +33,9 @@ function Login()
             if (error.response.status === 401)
             {
                 setInvalidEmail(true);
-                console.error(error.response.data.message);
                 return;
             }
-            console.error(error.response.data.message);
+            console.error(error);
         }
     }
 
@@ -43,15 +43,15 @@ function Login()
 
 
     return(
-        <div className="login_form_container">
-            <form onSubmit={handleLogin} className='p-2 flex gap-2'>
+        <div className="login_form_container" onClick={(e)=> e.stopPropagation()}>
+            <h1>Welcome Back</h1>
+            <form onSubmit={handleLogin}>
                 <input
                     type='email'
                     placeholder='Email'
                     value={loginData.email}
                     onChange={(e)=>setLoginData({...loginData, email: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
                 <input
                     type='password'
@@ -59,9 +59,9 @@ function Login()
                     value={loginData.password}
                     onChange={(e)=>setLoginData({...loginData, password: e.target.value})}
                     required
-                    className='bg-transparent outline-none border-b-2 border-white'
                 />
-                <button type='submit' className='p-2 bg-violet-500'>Log in</button>
+                {invalidEmail && <p className="error_message">Invalid email or password</p>}
+                <button type='submit' style={{ width: '100%' }}>Log in</button>
             </form>
         </div>
     );

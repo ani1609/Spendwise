@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Navbar.css";
+import "../index.css";
 import Login from './Login';
 import Signup from './Signup';
 import axios from "axios";
@@ -7,11 +8,10 @@ import {ReactComponent as Logout} from '../icons/logout.svg';
 import { SiMoneygram } from "react-icons/si";
 
 
-function Navbar() 
+function Navbar(props) 
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [showLoginForm, setShowLoginForm] = useState(false);
-    const [showSignupForm, setShowSignupForm] = useState(false);
     const [user, setUser] = useState({});
 
     const fetchDataFromProtectedAPI = async (userToken) => 
@@ -23,9 +23,10 @@ function Navbar()
                 Authorization: `Bearer ${userToken}`,
                 },
             };
+            // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
             setUser(response.data.user);
-            console.log(response.data.user);
+            // console.log(response.data.user);
         }
         catch (error)
         {
@@ -39,8 +40,7 @@ function Navbar()
         {
             fetchDataFromProtectedAPI(userToken);
         }
-    }
-    , [userToken]);
+    }, [userToken]);
 
 
     const handleLogout = () =>
@@ -60,17 +60,17 @@ function Navbar()
                 </div>
                 :
                 <div className="login_signup_container">
-                    <button className="login_button" onClick={()=>setShowLoginForm(true)}>Login</button>
-                    <button className="signup_button" onClick={()=>setShowSignupForm(true)}>Signup</button>
+                    <button onClick={()=>{setShowLoginForm(true); props.setShowSignupForm(false)}}>Login</button>
+                    <button onClick={()=>{props.setShowSignupForm(true); setShowLoginForm(false)}}>Signup</button>
                 </div>
             }
 
             {showLoginForm &&
-                <div className="login_parent" ><Login/></div>
+                <div className="login_parent"  onClick={()=> setShowLoginForm(false)}><Login/></div>
             }
 
-            {showSignupForm &&
-                <div className="signup_parent" ><Signup/></div>
+            {props.showSignupForm &&
+                <div className="signup_parent"  onClick={()=> props.setShowSignupForm(false)}><Signup/></div>
             }
         </div>
     );

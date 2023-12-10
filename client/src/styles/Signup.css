@@ -1,0 +1,140 @@
+.signup_form_container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 30px 50px;
+    border-radius: 5px;
+    transition: 0.5s ease-in-out;
+    background-color: rgba(65, 65, 65, 0.833);
+}
+
+
+.signup_form_container h1
+{
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 35px;
+    margin: 0;
+    opacity: 0;
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 300ms;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+}
+
+
+.signup_form_container form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+}
+
+.signup_form_container form input
+{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    transition: 0.5s ease-in-out;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    transition: 0.5s ease-in-out;
+    width: 100%;
+    opacity: 0;
+    background-color: rgb(230, 230, 230);
+    color: #888888;
+}
+
+.signup_form_container form input::placeholder
+{
+    color: #888888;
+}
+
+.signup_form_container button
+{
+    margin-top: 10px;
+    color: #EDEDED;
+    background-color: var(--primary);
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    opacity: 0;
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 1300ms;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.signup_form_container form input:nth-child(1)
+{
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 500ms;
+}
+
+.signup_form_container form input:nth-child(2)
+{
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 700ms;
+}
+
+.signup_form_container form input:nth-child(3)
+{
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 900ms;
+}
+
+.signup_form_container form input:nth-child(4)
+{
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 1100ms;
+}
+
+
+@keyframes fadeInSlideIn
+{
+    0%
+    {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100%
+    {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.signup_form_container p
+{
+    color: red;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+    margin: -12px auto 0 0;
+}

@@ -1,0 +1,38 @@
+.noUser_container
+{
+    width: 100vw;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.noUser_container img
+{
+    width: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* --------responsiveness-------- */
+
+@media only screen and (max-width: 1080px)
+{
+    .noUser_container img
+    {
+        width: 70%;
+    }
+}
+
+
+@media only screen and (max-width: 768px)
+{
+    .noUser_container img
+    {
+        width: 90%;
+    }
+}

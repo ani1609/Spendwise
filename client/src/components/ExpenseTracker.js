@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
+import { addDoc, query, where, onSnapshot, orderBy, updateDoc, getDocs, deleteDoc} from 'firebase/firestore';
+import { transactionsCollection } from '../firebaseConfig';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactComponent as Edit } from '../icons/edit.svg';
@@ -11,14 +13,22 @@ import { ReactComponent as Travel } from '../icons/travel.svg';
 import { ReactComponent as Shopping } from '../icons/shopping.svg';
 import { ReactComponent as Bills } from '../icons/bills.svg';
 import { ReactComponent as Others } from '../icons/others.svg';
+import {ReactComponent as Plus} from '../icons/plus1.svg';
 import DoughnutChart from "./DoughnutChart";
+import MyLoader from "./TransactionLoading";
+
 
 
 function ExpenseTracker() 
 {
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
+    const [user, setUser] = useState({});
+    const [dateFillter,setDateFilter]=useState('')
     const [transactions, setTransactions] = useState([]);
+    const [transactionFilter, setTransactionFilter] = useState([]);
+    const [transactionType,setTransactionType]=useState('')
     const [formData, setFormData] = useState({
+        email: "",
         transactionType: "",
         category: "",
         date: "",
@@ -30,42 +40,58 @@ function ExpenseTracker()
     const [incoming, setIncoming] = useState(0);
     const [outgoing, setOutgoing] = useState(0);
     const [editEnabled, setEditEnabled] = useState(false);
-    const [editIndex, setEditIndex] = useState(0);
-    const [editTransactionId, setEditTransactionId] = useState(0);
+    const [transactionsLoading, setTransactionsLoading] = useState(true);
+    const [categoryFilter, setCategoryFilter] = useState('');
 
 
-
-    const fetchTransactions = async (userToken) => 
+    const fetchDataFromProtectedAPI = async (userToken) => 
     {
         try 
         {
-            const config =
-            {
-                headers:
-                {
-                    Authorization: `Bearer ${userToken}`,
+            const config = {
+                headers: {
+                Authorization: `Bearer ${userToken}`,
                 },
             };
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/fetchTransactions`, config);
-            console.log(response.data.transactions);
-            setTransactions(response.data.transactions);
+            // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
+            setUser(response.data.user);
+            // console.log(response.data.user);
         }
-        catch (error) {
-            console.error("Error fetching transactions:", error);
+        catch (error)
+        {
+            console.error("Error fetching data:", error);
         }
     };
 
+    useEffect(() =>
+    {
+        if (userToken)
+        {
+            fetchDataFromProtectedAPI(userToken);
+        }
+    }
+    , [userToken]);
+
+
+    function generateTransactionId()
+    {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let transactionId = '';
+        for (let i = 0; i < 10; i++) 
+        {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            transactionId += characters.charAt(randomIndex);
+        }
+        return transactionId;
+    }
+
     useEffect(() => 
     {
-        if (userToken) {
-            fetchTransactions(userToken);
-        }
-    }, [userToken]);
-
-    useEffect(() => {
         let incoming = 0;
         let outgoing = 0;
-        transactions.forEach(transaction => {
+        transactions.forEach(transaction => 
+        {
             if (transaction.transactionType === "Income") 
             {
                 incoming += transaction.amount;
@@ -80,77 +106,155 @@ function ExpenseTracker()
         setBalance(incoming - outgoing);
     }, [transactions]);
 
-    const handleChange = (e) => {
+    const handleChange = (e) => 
+    {
         const targetValue = e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value;
         setFormData({ ...formData, [e.target.name]: targetValue });
     };
 
+    useEffect(() => 
+    {
+        if (user && user.email) 
+        {
+            const q = query(
+                transactionsCollection,
+                where('email', '==', user.email),
+                orderBy('created_at', 'asc') // or 'asc' for ascending order
+            );
+        
+            return onSnapshot(q, (snapshot) => 
+            {
+                let updatedTransactions = snapshot.docs.map((doc) => doc.data());
+                setTransactions(updatedTransactions);
+                let transactiontype = localStorage.getItem('transactionType') ? localStorage.getItem('transactionType') : ''
+                let datefiter=localStorage.getItem('dateFilter')?localStorage.getItem('dateFilter'):''
+               
+                if (transactiontype && transactiontype != 'all')
+                    updatedTransactions=  updatedTransactions.filter(item => item.transactionType == transactiontype)
+                if (categoryFilter && categoryFilter != 'all') {
+                    updatedTransactions = updatedTransactions.filter(item => item.category === categoryFilter);
+                }
+                if (datefiter) {
+                    updatedTransactions = updatedTransactions.filter(item => item.date == datefiter) 
+                }
+                 
+                setTransactionFilter(updatedTransactions)
+            
+                if (transactionsLoading) 
+                {
+                    setTransactionsLoading(false);
+                }
+            });
+        }
+    }, [user, transactionType, categoryFilter, dateFillter]);
+    useEffect(() => {
+        localStorage.removeItem('transactionType') 
+        localStorage.removeItem('dateFilter')
+      
+    },[])
     const handleSubmit = async (e) => 
     {
         e.preventDefault();
+        if (formData.transactionType === "")
+        {
+            toast.error("Please select a transaction type.");
+            return;
+        }
+        if (formData.transactionType === "Income" && formData.category !== "NULL")
+        {
+            setFormData({ ...formData, category: "NULL" });
+        }
+        if (formData.transactionType === "Expense" && formData.category === "")
+        {
+            toast.error("Please select a category.");
+            return;
+        }
+        if (formData.date === "")
+        {
+            toast.error("Please select a date.");
+            return;
+        }
+        if (formData.amount === "")
+        {
+            toast.error("Please enter an amount.");
+            return;
+        }
+        if (formData.description === "")
+        {
+            toast.error("Please enter a description.");
+            return;
+        }
         if (editEnabled) 
         {
-            if (editIndex >= 0 && editIndex < transactions.length) {
-                const updatedTransaction = { ...transactions[editIndex], ...formData };
-                const updatedTransactions = [...transactions];
-                updatedTransactions[editIndex] = updatedTransaction;
-                setTransactions(updatedTransactions);
-            }
-            else {
-                console.log("Invalid index");
-            }
-            try {
-                const config =
+            console.log("edit clicked ", formData.transactionId);
+            try 
+            {
+                const querySnapshot = await getDocs(
+                  query(transactionsCollection, where('transactionId', '==', formData.transactionId))
+                );
+              
+                if (querySnapshot.empty) 
                 {
-                    headers:
+                    toast.error('Transaction not found.');
+                } 
+                else 
+                {
+                    const transactionDoc = querySnapshot.docs[0].ref;
+                    const transactionObject = 
                     {
-                        Authorization: `Bearer ${userToken}`,
-                    },
-                };
-                const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/editTransaction`, formData, config);
-                console.log("Transaction edited successfully");
-                setFormData({
-                    transactionType: "",
-                    category: "",
-                    date: "",
-                    amount: "",
-                    description: "",
-                    transactionId: ""
-                });
-                toast.success("Transaction edited successfully.");
-                setEditEnabled(false);
-            }
+                        transactionType: formData.transactionType,
+                        category: formData.category,
+                        date: formData.date,
+                        amount: formData.amount,
+                        description: formData.description,
+                    };
+                
+                    await updateDoc(transactionDoc, transactionObject);
+                    setFormData({
+                        transactionType: "",
+                        category: "",
+                        date: "",
+                        amount: "",
+                        description: ""
+                    });
+                    setEditEnabled(false);
+                    toast.success('Transaction edited successfully.');
+                }
+            } 
             catch (error) 
             {
-                console.error("Error adding transaction:", error.message);
+                toast.error('Error editing transaction.');
             }
         }
         else 
         {
-            setTransactions([...transactions, formData]);
             try 
             {
-                const config =
-                {
-                    headers:
-                    {
-                        Authorization: `Bearer ${userToken}`,
-                    },
+                const transactionObject = 
+                {   
+                    email: user.email,
+                    transactionType: formData.transactionType,
+                    category: formData.category,
+                    date: formData.date,
+                    amount: formData.amount,
+                    description: formData.description,
+                    transactionId: generateTransactionId(),
+                    created_at: new Date(),
                 };
-                const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/uploadTransactions`, formData, config);
-                console.log("Transaction added successfully");
+                await addDoc(transactionsCollection, transactionObject);
+                // console.log('Transaction ID:', newTransactionRef.id);
                 setFormData({
                     transactionType: "",
                     category: "",
                     date: "",
                     amount: "",
-                    description: "",
-                    transactionId: ""
+                    description: ""
                 });
                 toast.success("Transaction added successfully.");
-            }
-            catch (error) {
-                console.error("Error adding transaction:", error.message);
+            } 
+            catch (error) 
+            {
+                toast.error('Error adding transaction.');
             }
         }
     };
@@ -158,11 +262,9 @@ function ExpenseTracker()
     const handleEdit = (transactionId, index) => 
     {
         setEditEnabled(true);
-        console.log("Edit clicked at index ", index);
-        setEditIndex(index);
-        setEditTransactionId(transactionId);
-        const editedTransaction = { ...transactions[index] };
 
+        const editedTransaction = { ...transactions.filter(e=>e.transactionId==transactionId)[0] };
+        console.log(editedTransaction,transactions,transactionId)
         const date = new Date(editedTransaction.date);
         const formattedDate = date.toISOString().split('T')[0];
         editedTransaction.date = formattedDate;
@@ -171,29 +273,85 @@ function ExpenseTracker()
 
     const handleDelete = async (transactionId, index) => 
     {
-        console.log("Delete clicked at indexxx ", transactionId);
-        const newTransactions = [...transactions];
-        newTransactions.splice(index, 1);
-        setTransactions(newTransactions);
         try 
         {
-            const config =
+            const querySnapshot = await getDocs(
+                query(transactionsCollection, where('transactionId', '==', transactionId))
+            );
+            
+            if (querySnapshot.empty) 
             {
-                headers:
-                {
-                    Authorization: `Bearer ${userToken}`,
-                },
-            };
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/deleteTransaction`, { transactionId }, config);
-            console.log("Transaction deleted successfully");
-            toast.success("Transaction deleted successfully.");
+                toast.error('Transaction not found.');
+            }
+            else 
+            {
+                const transactionDoc = querySnapshot.docs[0].ref;
+                await deleteDoc(transactionDoc);
+                toast.success('Transaction deleted successfully.');
+            }
         }
         catch (error) 
         {
-            console.error("Error adding transaction:", error.message);
+            toast.error("Error deleting transaction.");
         }
     }
+    const TransactionTypeChange = (e) => {
+        if (e.target.value == 'all') {
+            let transactionnews = transactions
+            if (dateFillter)
+            transactionnews = transactionnews.filter(item => item.date == dateFillter)
+            setTransactionFilter(transactionnews)
+           
+        }
+          
+        else
+        {
+            let transactionnews = transactions.filter(item => item.transactionType == e.target.value)
+            if (dateFillter)
+            transactionnews = transactionnews.filter(item => item.date == dateFillter)
+            setTransactionFilter(transactionnews)
+           
+        }
+        if (e.target.value) {
+            localStorage.setItem('transactionType',e.target.value)
+        }
+        else  localStorage.removeItem('transactionType')
+        setTransactionType(e.target.value)
+        setCategoryFilter('');
 
+    }
+    const CategoryChange = (e) => {
+        setCategoryFilter(e.target.value);
+    };
+    const newTransaction = () => {
+        setEditEnabled(false)
+        let addedTransaction={transactionType:'',category:'',date:'',description:'',amount:''}
+        setFormData(addedTransaction)
+    }
+    const changeDateFilter = (e) => {
+        if (e.target.value) {
+            let transactionsfilter = transactions.filter(item => item.date == e.target.value)
+            if (transactionType && transactionType!='all') 
+            
+                transactionsfilter=  transactionsfilter.filter(item => item.transactionType == transactionType)
+                setTransactionFilter(transactionsfilter)
+            localStorage.setItem('dateFilter',e.target.value)
+        }
+        else {
+         
+            let transactionsfilter=transactions
+         
+            if (transactionType && transactionType!='all')
+                
+            transactionsfilter=  transactionsfilter.filter(item => item.transactionType == transactionType)
+         
+            setTransactionFilter(transactionsfilter)
+            localStorage.removeItem('dateFilter')
+        }
+   
+        setDateFilter(e.target.value)
+       
+    }
     return (
         <div className="expenseTracker_parent">
             <div className="balance_container border-2 rounded">
@@ -202,11 +360,31 @@ function ExpenseTracker()
             </div>
             <div className="formTransactions_container flex justify-evenly">
                 <div className="form_container border-2 rounded p-8">
-                    <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
+                    <div className="form-title">
+                    {
+                        editEnabled
+                            ?
+                            <>
+                                <h4 className="font-bold text-lg mb-10 edittransaction">Edit transaction
+                                
+                                
+                                </h4>
+                                <button type="button" class="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
+                            </>
+                         
+                            : <>
+                                <h4 className="font-bold text-lg mb-10">Add new transaction</h4>
+                                
+                            </>
+                         
+                    }
+                    </div>
+                   
+                 
                     <form className="flex gap-4">
                         <div className="flex flex-col gap-2">
                             <legend>Transaction Type</legend>
-                            <label>
+                            <label style={{ cursor: 'pointer' }}>
                                 <input
                                     type="radio"
                                     name="transactionType"
@@ -218,7 +396,7 @@ function ExpenseTracker()
                                 />&nbsp;
                                 Income
                             </label>
-                            <label>
+                            <label style={{ cursor: 'pointer' }}>
                                 <input
                                     type="radio"
                                     name="transactionType"
@@ -237,7 +415,8 @@ function ExpenseTracker()
                                 value={formData.category}
                                 onChange={handleChange}
                                 required
-                                className="cursor-pointer"
+                                style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
+                                disabled={formData.transactionType === "Income"}
                             >
                                 <option value="NULL">Choose a category</option>
                                 <option value="Food">Food</option>
@@ -277,8 +456,9 @@ function ExpenseTracker()
                                 placeholder="Description"
                                 required
                                 className="border-2 p-2"
+                                autoComplete="off"
                             />
-                            <button type="submit" className="border-2 mt-4 text-white p-2" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                            <button type="submit" className=" mt-4 text-white hover:text-gray-500 hover:bg-white border-[#c465c9] p-2 border transition-all duration-500" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                         </div>
                     </form>
                 </div>
@@ -289,25 +469,59 @@ function ExpenseTracker()
                         <h3 className="flex flex-col items-center">Income<span className="text-green-600 text-xl">+ &#x20B9;{incoming}</span></h3>
                         <h3 className="flex flex-col items-center">Expense<span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span></h3>
                     </div>
-                    <h4>Transactions</h4><hr></hr>
-                    {transactions.length > 0 ? (
+                    <div className="transaction-group row d-flex">
+                      
+                        <div class="form-group col-md-4">
+                            <h4>Transactions</h4>
+                            
+                        <select id="inputState" class="form-control " onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                            <option value={''} hidden>Choose Transaction Type</option>
+                            <option value={'all'}>All</option>
+                            <option value={'Income'}>Income</option>
+                            <option value={'Expense'}>Expense</option>
+                        </select>
+                        </div>
+                        <div>
+                            <select id="categoryFilter" class="form-control col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                                <option value='' hidden>Choose Category</option>
+                                <option value='all'>All</option>
+                                <option value='Food'>Food</option>
+                                <option value='Travel'>Travel</option>
+                                <option value='Shopping'>Shopping</option>
+                                <option value='Bills'>Bills</option>
+                                <option value='Others'>Others</option>
+                            </select>
+                        </div>
+                        <input
+                                type="date"
+                                name="date"
+                                value={dateFillter}
+                                onChange={(e)=>changeDateFilter(e)}
+                                placeholder="Date"
+                                required
+                                className="cursor-pointer max_with"
+                            />
+
+                    </div>
+                
+                    
+                    
+                    <hr></hr>
+                    {transactionFilter.length > 0 ? (
                         <ul className="transactions_container flex flex-col gap-2">
-                            {transactions.map((transaction, index) => (
+                         
+                            {transactionFilter.map((transaction, index) => (
                                 transaction.transactionType === "Income" ?
                                 (   
                                     <li key={index} className="income flex justify-between items-center border-2 rounded p-2">
                                         <div className="icon_container">
-                                            {transaction.category === "Food" ? <Food className="icons" /> : null}
-                                            {transaction.category === "Travel" ? <Travel className="icons" /> : null}
-                                            {transaction.category === "Shopping" ? <Shopping className="icons" /> : null}
-                                            {transaction.category === "Bills" ? <Bills className="icons" /> : null}
-                                            {transaction.category === "Others" ? <Others className="icons" /> : null}
+                                            <Plus className="icons" />
                                         </div>
                                         <div className="descDate_container">
                                             <h4>{transaction.description}</h4>
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
-                                        <h1>+{transaction.amount}</h1>
+                                        <h1>+&#x20B9;{transaction.amount}</h1>
                                         <div className="editDelete_container">
                                             <Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} />
                                             <Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} />
@@ -326,7 +540,7 @@ function ExpenseTracker()
                                             <h4>{transaction.description}</h4>
                                             <p>{new Date(transaction.date).toLocaleDateString()}</p>
                                         </div>
-                                        <h1>-{transaction.amount}</h1>
+                                        <h1>-&#x20B9;{transaction.amount}</h1>
                                         <div className="editDelete_container">
                                             <Edit className="edit_icon" onClick={() => handleEdit(transaction.transactionId, index)} />
                                             <Delete className="delete_icon" onClick={() => handleDelete(transaction.transactionId, index)} />
@@ -336,7 +550,7 @@ function ExpenseTracker()
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-gray-400">No transactions added yet.</p>
+                        transactionsLoading ? <MyLoader/> : <p className="text-gray-400">No transactions added yet.</p>
                     )}
                 </div>
             </div>
