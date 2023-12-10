@@ -625,21 +625,21 @@ function ExpenseTracker() {
                         <h3 className="flex flex-col items-center">Income<span className="text-green-600 text-xl">+ &#x20B9;{incoming}</span></h3>
                         <h3 className="flex flex-col items-center">Expense<span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span></h3>
                     </div>
-                    <div className="transaction-group row d-flex">
-                      
+                    <div className="transaction-group row flex flex-col mb-2">
+                    <h4 className="font-bold">Transactions</h4>
+                    <div className="flex justify-between">
                         <div class="form-group col-md-4">
-                            <h4>Transactions</h4>
                             
-                        <select id="inputState" class="form-control " onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
-                            <option value={''} hidden>Choose Transaction Type</option>
+                        <select id="inputState" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                            <option value={''} hidden>Type</option>
                             <option value={'all'}>All</option>
                             <option value={'Income'}>Income</option>
                             <option value={'Expense'}>Expense</option>
                         </select>
                         </div>
                         <div>
-                            <select id="categoryFilter" class="form-control col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
-                                <option value='' hidden>Choose Category</option>
+                            <select id="categoryFilter" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                                <option value='' hidden>Category</option>
                                 <option value='all'>All</option>
                                 <option value='Food'>Food</option>
                                 <option value='Travel'>Travel</option>
@@ -655,9 +655,9 @@ function ExpenseTracker() {
                                 onChange={(e)=>changeDateFilter(e)}
                                 placeholder="Date"
                                 required
-                                className="cursor-pointer max_with"
+                                className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-7 px-1"
                             />
-
+                        </div>
                     </div>
                 
                     
