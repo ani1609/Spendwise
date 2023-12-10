@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
@@ -42,7 +42,7 @@ function ExpenseTracker()
     const [editEnabled, setEditEnabled] = useState(false);
     const [transactionsLoading, setTransactionsLoading] = useState(true);
     const [categoryFilter, setCategoryFilter] = useState('');
-
+    const [descriptionChars, setDescriptionChars] = useState(0);
 
     const fetchDataFromProtectedAPI = async (userToken) => 
     {
@@ -353,8 +353,16 @@ function ExpenseTracker()
        
     }
 
-    const descriptionChars = screen.width <= 320 ? 5 :
-        screen.width <= 480 ? 10 : screen.width <= 768 ? 20 : 22;
+    useLayoutEffect(()=>{
+        function updateSize() {
+            const width = window.innerWidth;
+            setDescriptionChars(width <= 320 ? 5 : width <= 375 ? 8 :
+                    width <= 480 ? 12 : width <= 768 ? 20 : 22)
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, [])
 
     return (
         <div className="expenseTracker_parent">
