@@ -525,7 +525,7 @@ function ExpenseTracker() {
                                 
                                 
                                 </h4>
-                                <button type="button" class="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
+                                <button type="button" className="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
                             </>
                          
                             : <>
@@ -628,9 +628,9 @@ function ExpenseTracker() {
                     <div className="transaction-group row flex flex-col mb-2">
                     <h4 className="font-bold">Transactions</h4>
                     <div className="flex justify-between">
-                        <div class="form-group col-md-4">
+                        <div className="form-group col-md-4">
                             
-                        <select id="inputState" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                        <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
                             <option value={''} hidden>Type</option>
                             <option value={'all'}>All</option>
                             <option value={'Income'}>Income</option>
@@ -638,7 +638,7 @@ function ExpenseTracker() {
                         </select>
                         </div>
                         <div>
-                            <select id="categoryFilter" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                            <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
                                 <option value='' hidden>Category</option>
                                 <option value='all'>All</option>
                                 <option value='Food'>Food</option>
