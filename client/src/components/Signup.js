@@ -90,7 +90,7 @@ function Signup()
                 <button type='submit' className='p-2 bg-violet-500' style={{ width: '100%' }}>Sign up</button>
                 <button className="p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" style={{ width: '100%', backgroundColor:"white", color:"black" }}>
                     <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
-                    <span>Login with Google</span>
+                    <span>Continue with Google</span>
                 </button>
             </form>
         </div>
