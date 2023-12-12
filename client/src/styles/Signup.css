@@ -63,7 +63,7 @@
 
 .signup_form_container button
 {
-    margin-top: 10px;
+    margin-top: 0px;
     color: #EDEDED;
     background-color: var(--primary);
     cursor: pointer;
@@ -77,7 +77,7 @@
     animation-name: fadeInSlideIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-    animation-delay: 1300ms;
+    animation-delay: 1500ms;
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.5px;
 }
