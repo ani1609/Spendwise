@@ -124,3 +124,26 @@
 .login_form_container form button{
     width: 8rem;
 }
+.login_form_container h4{
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#button2 img {
+    width: 30px;
+    margin: 0 30px 0 0;
+   
+}
+#button2 {
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 15px;
+    font-family: 'Montserrat', sans-serif;
+    display:flex;
+    align-items: center;
+    border: 2px solid #fff;
+}
