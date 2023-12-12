@@ -138,3 +138,22 @@
     letter-spacing: 0.5px;
     margin: -12px auto 0 0;
 }
+
+/* Media query for screens below 420px */
+@media (max-width: 420px) {
+    .signup_form_container {
+        padding: 20px; 
+    }
+
+    .signup_form_container h1 {
+        font-size: 28px; 
+    }
+
+    .signup_form_container form input {
+        font-size: 12px;
+    }
+
+    .signup_form_container button {
+        font-size: 14px;
+    }
+}
