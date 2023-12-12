@@ -32,7 +32,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 
 ## How to contribute
 
-1. Fork the project and clone it to your local machine. Follow the [setup](https://github.com/ani1609/Spendwise/blob/master/SETUP.md) guideline.
+1. Fork the project and clone it to your local machine. Follow the [setup](https://github.com/ani1609/Spendwise#getting-started) guideline.
 2. Always take a pull from the remote repository to your master branch to keep it at par with the main project(updated repository).
         
         git pull upstream main
