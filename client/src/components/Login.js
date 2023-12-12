@@ -10,15 +10,17 @@ function Login()
         email: '',
         password: ''
     });
+    const [loading, setLoading] = useState(false);
 
 
 
     const handleLogin = async (e) =>
     {
         e.preventDefault();
+        setLoading(true);
         try
         {
-            // const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/login`, loginData);
+            // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/login, loginData);
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, loginData);
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setInvalidEmail(false);
@@ -30,12 +32,17 @@ function Login()
         }
         catch(error)
         {
+            setLoading(false);
             if (error.response.status === 401)
             {
                 setInvalidEmail(true);
                 return;
             }
             console.error(error);
+        }
+        finally
+        {
+            setLoading(false);
         }
     }
 
@@ -61,7 +68,13 @@ function Login()
                     required
                 />
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
-                <button type='submit' style={{ width: '100%' }}>Log in</button>
+                <button type='submit' style={{ width: '100%' }}>
+                    {loading ? (
+                        <div className="loading-spinner"></div>
+                    ) : (
+                        'Log in' // Note: 'Log in' should be a string
+                    )}
+                </button>
             </form>
         </div>
     );
