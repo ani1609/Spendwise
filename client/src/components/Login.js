@@ -71,12 +71,12 @@ function Login()
                     required
                 />
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
-<<<<<<< HEAD
+
                 <button type='submit' style={{ width: '100%' }} id = "button1">Log in</button>
                 <h4>OR</h4>
                 <button type='submit' style={{ width: '100%' }} id = "button2"> <img src={search}/>Continue with Google</button>
 
-=======
+
                 <button type='submit' style={{ width: '100%' }}>
                     {loading ? (
                         <div className="loading-spinner"></div>
@@ -84,7 +84,7 @@ function Login()
                         'Log in' // Note: 'Log in' should be a string
                     )}
                 </button>
->>>>>>> d86f963d179e54cc7bca6a5078e5b34cd0c91a45
+
             </form>
         </div>
     );
