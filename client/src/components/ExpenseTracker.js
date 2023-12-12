@@ -50,6 +50,8 @@ function ExpenseTracker() {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [descriptionChars, setDescriptionChars] = useState(0);
 
+  console.log(user);
+
   const fetchDataFromProtectedAPI = async (userToken) => {
     try {
       const config = {
@@ -267,9 +269,9 @@ function ExpenseTracker() {
       </div>
       <div className="formTransactions_container flex justify-evenly">
         <TransactionForm
-          user={user}
           formData={formData}
           setFormData={setFormData}
+          user={user}
           editEnabled={editEnabled}
           setEditEnabled={setEditEnabled}
         />

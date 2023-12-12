@@ -15,9 +15,13 @@ function generateTransactionId() {
   return transactionId;
 }
 
-const TransactionForm = ({ editEnabled, setEditEnabled, user, formData, setFormData }) => {
-  
-
+const TransactionForm = ({
+  editEnabled,
+  setEditEnabled,
+  user,
+  formData,
+  setFormData,
+}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.transactionType === "") {
