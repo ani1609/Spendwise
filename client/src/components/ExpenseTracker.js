@@ -429,6 +429,7 @@ function ExpenseTracker()
                                 required
                                 style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
                                 disabled={formData.transactionType === "Income"}
+                                className=" border border-slate-500 rounded-md bg-transparent h-7 sm:px-1 col-md-4"
                             >
                                 <option value="NULL">Choose a category</option>
                                 <option value="Food">Food</option>
@@ -445,7 +446,7 @@ function ExpenseTracker()
                                 onChange={handleChange}
                                 placeholder="Date"
                                 required
-                                className="cursor-pointer"
+                                className="cursor-pointer border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4"
                             />
                         </div>
                         <div className="flex flex-col gap-2">

@@ -124,6 +124,24 @@
     letter-spacing: 0.5px;
     margin: -12px auto 0 0;
 }
+
+@media (max-width: 420px) {
+    .login_form_container {
+        padding: 20px;
+    }
+
+    .login_form_container h1 {
+        font-size: 28px;
+    }
+
+    .login_form_container form input {
+        font-size: 12px;
+    }
+
+    .login_form_container button {
+        font-size: 14px;
+    }
+}
 .login_form_container form button{
     width: 8rem;
 
@@ -173,4 +191,3 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-
