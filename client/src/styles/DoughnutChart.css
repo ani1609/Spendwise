@@ -3,6 +3,14 @@
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.5px;
     width: 100%;
-    max-width: 350px;
+    max-width: 360px;
     box-sizing: border-box;
+}
+
+.chart_container p
+{
+    color: #777;
+    margin: 0;
+    font-size: 15px;
+    text-align: center;
 }
