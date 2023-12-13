@@ -130,7 +130,13 @@
 }
 .login_form_container h4{
     align-items: center;
-    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    opacity: 0;
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 1300ms;
+    font-family: 'Lato', 'sans-serif';
 }
 
 #button2 img {
