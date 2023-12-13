@@ -39,16 +39,15 @@ function Signup()
             });
             window.location.reload();
         }
-        catch(error)
-        {
-            if (error.response.status === 409)
-            {
-                setPasswordUnmatched(false);
-                setUserExists(true);
-                return;
-            }
-            console.log(error);
-        }
+       catch (error) {
+    if (error.response && error.response.status === 409) {
+        setPasswordUnmatched(false);
+        setUserExists(true);
+        return;
+    }
+    console.log(error);
+}
+
     }
 
 

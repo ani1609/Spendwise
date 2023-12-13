@@ -28,15 +28,14 @@ function Login()
             });
             window.location.reload();
         }
-        catch(error)
-        {
-            if (error.response.status === 401)
-            {
-                setInvalidEmail(true);
-                return;
-            }
-            console.error(error);
-        }
+        catch (error) {
+    if (error.response && error.response.status === 401) {
+        setInvalidEmail(true);
+        return;
+    }
+    console.error(error);
+}
+
     }
 
 

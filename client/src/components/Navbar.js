@@ -6,6 +6,9 @@ import Signup from './Signup';
 import axios from "axios";
 import {ReactComponent as Logout} from '../icons/logout.svg';
 import { SiMoneygram } from "react-icons/si";
+import { Link, redirect } from 'react-router-dom';
+import Profile from "./profile/Profile";
+
 
 
 function Navbar(props) 
@@ -42,12 +45,12 @@ function Navbar(props)
         }
     }, [userToken]);
 
+    const handleLogout = () => {
+      localStorage.removeItem('expenseTrackerUserToken');
+      window.location.reload();
+      window.location.href = "/"; 
+    };
 
-    const handleLogout = () =>
-    {
-        localStorage.removeItem('expenseTrackerUserToken');
-        window.location.reload();
-    }
 
 
     return (
@@ -55,7 +58,9 @@ function Navbar(props)
             <h1 className="flex gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
             {userToken?
                 <div className="profile_container">
-                    <h4>{user?.name?.split(' ')[0]}</h4>
+                   <Link to="/profile"> {/* Link to the /profile route */}
+                        <h4>{user?.name?.split(' ')[0]}</h4>
+                    </Link>
                     <Logout className="logout_icon" onClick={handleLogout}/>
                 </div>
                 :
