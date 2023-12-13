@@ -43,6 +43,15 @@ function ExpenseTracker()
     const [transactionsLoading, setTransactionsLoading] = useState(true);
     const [categoryFilter, setCategoryFilter] = useState('');
     const [descriptionChars, setDescriptionChars] = useState(0);
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!isDropdownOpen);
+      };
+    
+      const closeDropdown = () => {
+        setDropdownOpen(false);
+      };
 
     const fetchDataFromProtectedAPI = async (userToken) => 
     {
@@ -318,6 +327,7 @@ function ExpenseTracker()
         else  localStorage.removeItem('transactionType')
         setTransactionType(e.target.value)
         setCategoryFilter('');
+        closeDropdown();
 
     }
     const CategoryChange = (e) => {
@@ -485,15 +495,20 @@ function ExpenseTracker()
                     <div className="transaction-group row flex flex-col mb-2">
                     <h4 className="font-bold">Transactions</h4>
                     <div className="flex justify-between">
-                        <div className="form-group col-md-4">
-                            
-                        <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 cursor-pointer" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
-                            <option value={''} hidden>Type</option>
-                            <option value={'all'}>All</option>
-                            <option value={'Income'}>Income</option>
-                            <option value={'Expense'}>Expense</option>
-                        </select>
+                    <div className="form-group col-md-4">
+                        <div className="custom-dropdown border-2 border-x-zinc-900" onBlur={closeDropdown} tabIndex={0}>
+                            <div className="selected-value w-20 rounded text-center py-1 cursor-pointer" onClick={toggleDropdown}>
+                                {transactionType ? transactionType : 'Type'}
+                            </div>
+                            {isDropdownOpen && (
+                                <div className="options">
+                                    <div onClick={() => TransactionTypeChange({ target: { value: 'all' } })} className="option bg-white w-20 text-start px-2 py-1 cursor-pointer hover:bg-slate-200">All</div>
+                                    <div onClick={() => TransactionTypeChange({ target: { value: 'Income' } })} className="option bg-white w-20 text-start px-2 py-1 cursor-pointer hover:bg-slate-200">Income</div>
+                                    <div onClick={() => TransactionTypeChange({ target: { value: 'Expense' } })} className="option bg-white w-20 text-start px-2 py-1 cursor-pointer hover:bg-slate-200">Expense</div>
+                                </div>
+                            )}
                         </div>
+                    </div>
                         <div>
                             <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4 cursor-pointer" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
                                 <option value='' hidden>Category</option>
