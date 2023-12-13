@@ -1,7 +1,7 @@
-import { useState} from "react";
+import axios from "axios";
+import { useState } from "react";
 import '../index.css';
 import '../styles/Signup.css';
-import axios from "axios";
 
 function Signup()
 {
@@ -13,20 +13,23 @@ function Signup()
         password: '',
         confirmPassword: ''
     });
+    const [loading, setLoading] = useState(false);
 
     const handleSignup = async (e) =>
     {
         e.preventDefault();
+        setLoading(true);
         if(signupData.password !== signupData.confirmPassword)
         {
             setUserExists(false);
             setPasswordUnmatched(true);
             console.error('Passwords do not match');
+            setLoading(false);
             return;
         }
         try
         {
-            // const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/signup`, signupData);
+            // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/signup, signupData);
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, signupData);
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setUserExists(false);
@@ -41,6 +44,7 @@ function Signup()
         }
         catch(error)
         {
+            setLoading(false);
             if (error.response.status === 409)
             {
                 setPasswordUnmatched(false);
@@ -48,6 +52,10 @@ function Signup()
                 return;
             }
             console.log(error);
+        }
+        finally
+        {
+            setLoading(false);
         }
     }
 
@@ -87,7 +95,17 @@ function Signup()
                 />
                 {passwordUnmatched && <p>Passwords do not match</p>}
                 {userExists && <p>User already exists</p>}
-                <button type='submit' className='p-2 bg-violet-500' style={{ width: '100%' }}>Sign up</button>
+                <button type='submit' style={{ width: '100%' }}>
+                    {loading ? (
+                        <div className="loading-spinner"></div>
+                    ) : (
+                        'Sign up'
+                    )}
+                </button>
+                <button className="p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" style={{ width: '100%', backgroundColor:"white", color:"black", animationDelay:"1.6s"}}>
+                    <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
+                    <span>Continue with Google</span>
+                </button>
             </form>
         </div>
     );

@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import ExpenseTracker from "./ExpenseTracker";
 import NoUser from "./NoUser.js";
 import { useState } from "react";
+import PredefinedTransactions from "./PredefinedTransactions.js";
 
 
 
@@ -23,6 +24,7 @@ function App()
                 :
                 <NoUser showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />
             }
+            {/* <PredefinedTransactions/> */}
         </div>
     );
 }
