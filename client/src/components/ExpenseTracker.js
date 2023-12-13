@@ -496,8 +496,8 @@ function ExpenseTracker()
                     <h4 className="font-bold">Transactions</h4>
                     <div className="flex justify-between">
                     <div className="form-group col-md-4">
-                        <div className="custom-dropdown border-2 border-x-zinc-900" onBlur={closeDropdown} tabIndex={0}>
-                            <div className="selected-value w-20 rounded text-center py-1 cursor-pointer" onClick={toggleDropdown}>
+                        <div className="custom-dropdown" onBlur={closeDropdown} tabIndex={0}>
+                            <div className="selected-value w-20 rounded text-center py-1 cursor-pointer border-2 border-x-zinc-900" onClick={toggleDropdown}>
                                 {transactionType ? transactionType : 'Type'}
                             </div>
                             {isDropdownOpen && (
