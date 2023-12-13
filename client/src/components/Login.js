@@ -3,6 +3,9 @@ import '../index.css';
 import '../styles/Login.css';
 import axios from "axios";
 
+
+import search from '../icons/search.svg';
+
 function Login()
 {
     const [invalidEmail, setInvalidEmail] = useState(false);
@@ -10,15 +13,17 @@ function Login()
         email: '',
         password: ''
     });
+    const [loading, setLoading] = useState(false);
 
 
 
     const handleLogin = async (e) =>
     {
         e.preventDefault();
+        setLoading(true);
         try
         {
-            // const response = await axios.post(`${process.env.REACT_APP_SERVER_PORT}/api/users/login`, loginData);
+            // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/login, loginData);
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, loginData);
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setInvalidEmail(false);
@@ -28,14 +33,20 @@ function Login()
             });
             window.location.reload();
         }
-        catch (error) {
-    if (error.response && error.response.status === 401) {
-        setInvalidEmail(true);
-        return;
-    }
-    console.error(error);
-}
-
+        catch(error)
+        {
+            setLoading(false);
+            if (error.response.status === 401)
+            {
+                setInvalidEmail(true);
+                return;
+            }
+            console.error(error);
+        }
+        finally
+        {
+            setLoading(false);
+        }
     }
 
 
@@ -60,10 +71,26 @@ function Login()
                     required
                 />
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
-                <button type='submit' style={{ width: '100%' }}>Log in</button>
+
+                
+                <button type='submit' style={{ width: '100%' }}>
+                    {loading ? (
+                        <div className="loading-spinner"></div>
+                    ) : (
+                        'Log in' // Note: 'Log in' should be a string
+                    )}
+                </button>
+                <h4>OR</h4>
+                <button type='submit' style={{ width: '100%' }} id = "button2"> <img src={search}/>Continue with Google</button>
+
+
+                
+
             </form>
         </div>
     );
 }
 
 export default Login;
+
+

@@ -372,16 +372,16 @@ function ExpenseTracker()
             </div>
             <div className="formTransactions_container flex justify-evenly">
                 <div className="form_container border-2 rounded p-8">
-                    <div className="form-title">
+                    <div className="flex flex-row items-start gap-5">
                     {
                         editEnabled
                             ?
                             <>
-                                <h4 className="font-bold text-lg mb-10 edittransaction">Edit transaction
+                                <h4 className="font-bold text-lg mb-10">Edit transaction
                                 
                                 
                                 </h4>
-                                <button type="button" class="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
+                                <button type="button" class="text-white hover:text-gray-500 hover:bg-white bg-[#c465c9] border-[#c465c9] py-1 px-4 border transition-all duration-500 " onClick={()=>newTransaction()} >New</button>
                             </>
                          
                             : <>
@@ -429,6 +429,7 @@ function ExpenseTracker()
                                 required
                                 style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
                                 disabled={formData.transactionType === "Income"}
+                                className=" border border-slate-500 rounded-md bg-transparent h-7 sm:px-1 col-md-4"
                             >
                                 <option value="NULL">Choose a category</option>
                                 <option value="Food">Food</option>
@@ -445,7 +446,7 @@ function ExpenseTracker()
                                 onChange={handleChange}
                                 placeholder="Date"
                                 required
-                                className="cursor-pointer"
+                                className="cursor-pointer border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -484,9 +485,9 @@ function ExpenseTracker()
                     <div className="transaction-group row flex flex-col mb-2">
                     <h4 className="font-bold">Transactions</h4>
                     <div className="flex justify-between">
-                        <div class="form-group col-md-4">
+                        <div className="form-group col-md-4">
                             
-                        <select id="inputState" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                        <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 cursor-pointer" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
                             <option value={''} hidden>Type</option>
                             <option value={'all'}>All</option>
                             <option value={'Income'}>Income</option>
@@ -494,7 +495,7 @@ function ExpenseTracker()
                         </select>
                         </div>
                         <div>
-                            <select id="categoryFilter" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                            <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4 cursor-pointer" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
                                 <option value='' hidden>Category</option>
                                 <option value='all'>All</option>
                                 <option value='Food'>Food</option>
