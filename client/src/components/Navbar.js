@@ -6,11 +6,17 @@ import Signup from './Signup';
 import axios from "axios";
 import {ReactComponent as Logout} from '../icons/logout.svg';
 import { SiMoneygram } from "react-icons/si";
+import {firebaseApp} from '../firebaseConfig';
+import { getAuth, onAuthStateChanged} from 'firebase/auth';
+import { doc, getDoc } from "firebase/firestore";
+import {usersCollection} from '../firebaseConfig';
+const auth = getAuth(firebaseApp);
 
 
 function Navbar(props) 
 {
-    const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
+    const userJWTToken = JSON.parse(localStorage.getItem('expenseTrackerUserJWTToken'));
+    const userFirebaseRefId = JSON.parse(localStorage.getItem('expenseTrackerUserFirebaseRefId'));
     const [showLoginForm, setShowLoginForm] = useState(false);
     const [user, setUser] = useState({});
 
@@ -23,7 +29,6 @@ function Navbar(props)
                 Authorization: `Bearer ${userToken}`,
                 },
             };
-            // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
             const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
             setUser(response.data.user);
             // console.log(response.data.user);
@@ -34,18 +39,48 @@ function Navbar(props)
         }
     };
 
+    const fetchUserFromFirebase = async (docrefId) => 
+    {
+        try 
+        {
+            const userDocRef = doc(usersCollection, docrefId);
+            const userDocSnapshot = await getDoc(userDocRef);
+        
+            if (userDocSnapshot.exists()) 
+            {
+                const userData = userDocSnapshot.data();
+                console.log("Document data:", userData);
+                setUser(userData);
+            } else {
+                console.log("No such document!");
+                return null;
+            }
+        } 
+        catch (error) 
+        {
+            console.error("Error fetching user from Firestore:", error);
+            return null;
+        }
+    };
+
     useEffect(() =>
     {
-        if (userToken)
+        if (userJWTToken)
         {
-            fetchDataFromProtectedAPI(userToken);
+            fetchDataFromProtectedAPI(userJWTToken);
         }
-    }, [userToken]);
+        if (userFirebaseRefId)
+        {
+            console.log(userFirebaseRefId);
+            fetchUserFromFirebase(userFirebaseRefId);
+        }
+    }, [userJWTToken, userFirebaseRefId]);
 
 
     const handleLogout = () =>
     {
-        localStorage.removeItem('expenseTrackerUserToken');
+        localStorage.removeItem('expenseTrackerUserJWTToken');
+        localStorage.removeItem('expenseTrackerUserFirebaseRefId');
         window.location.reload();
     }
 
@@ -53,7 +88,7 @@ function Navbar(props)
     return (
         <div className="navbar_parent z-10 absolute top-0 text-white">
             <h1 className="flex gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
-            {userToken?
+            {userJWTToken || userFirebaseRefId?
                 <div className="profile_container">
                     <h4>{user?.name?.split(' ')[0]}</h4>
                     <Logout className="logout_icon" onClick={handleLogout}/>

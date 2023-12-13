@@ -21,7 +21,7 @@ import MyLoader from "./TransactionLoading";
 
 function ExpenseTracker() 
 {
-    const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
+    const userJWTToken = JSON.parse(localStorage.getItem('expenseTrackerUserJWTToken'));
     const [user, setUser] = useState({});
     const [dateFillter,setDateFilter]=useState('')
     const [transactions, setTransactions] = useState([]);
@@ -66,12 +66,12 @@ function ExpenseTracker()
 
     useEffect(() =>
     {
-        if (userToken)
+        if (userJWTToken)
         {
-            fetchDataFromProtectedAPI(userToken);
+            fetchDataFromProtectedAPI(userJWTToken);
         }
     }
-    , [userToken]);
+    , [userJWTToken]);
 
 
     function generateTransactionId()
