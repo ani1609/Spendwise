@@ -120,7 +120,7 @@
 {
     color: red;
     font-size: 15px;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Lato', 'sans-serif';
     letter-spacing: 0.5px;
     margin: -12px auto 0 0;
 }
