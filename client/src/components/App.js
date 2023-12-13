@@ -4,6 +4,7 @@ import ExpenseTracker from "./ExpenseTracker";
 import NoUser from "./NoUser.js";
 import { useState } from "react";
 import PredefinedTransactions from "./PredefinedTransactions.js";
+import MyProfile from "./MyProfile.js";
 
 
 
@@ -25,6 +26,7 @@ function App()
                 <NoUser showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />
             }
             {/* <PredefinedTransactions/> */}
+            {/* <MyProfile/> */}
         </div>
     );
 }
