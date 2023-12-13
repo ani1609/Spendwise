@@ -3,6 +3,9 @@ import '../index.css';
 import '../styles/Login.css';
 import axios from "axios";
 
+
+import search from '../icons/search.svg';
+
 function Login()
 {
     const [invalidEmail, setInvalidEmail] = useState(false);
@@ -68,6 +71,8 @@ function Login()
                     required
                 />
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
+
+                
                 <button type='submit' style={{ width: '100%' }}>
                     {loading ? (
                         <div className="loading-spinner"></div>
@@ -75,9 +80,17 @@ function Login()
                         'Log in' // Note: 'Log in' should be a string
                     )}
                 </button>
+                <h4>OR</h4>
+                <button type='submit' style={{ width: '100%' }} id = "button2"> <img src={search}/>Continue with Google</button>
+
+
+                
+
             </form>
         </div>
     );
 }
 
 export default Login;
+
+
