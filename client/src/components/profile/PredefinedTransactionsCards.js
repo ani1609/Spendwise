@@ -1,6 +1,6 @@
 import React from 'react';
-import editSmall from "../icons/edit-small.svg"
-import cross from "../icons/cross.svg"
+import editSmall from "../../icons/edit-small.svg"
+import cross from "../../icons/cross.svg"
 
 const PredefinedTransactionsCards = () => {
 
