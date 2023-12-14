@@ -41,6 +41,7 @@ function Signup()
         }
         catch(error)
         {
+            setLoading(false);
             if (error.response.status === 409)
             {
                 setPasswordUnmatched(false);
@@ -48,6 +49,10 @@ function Signup()
                 return;
             }
             console.log(error);
+        }
+        finally
+        {
+            setLoading(false);
         }
     }
 

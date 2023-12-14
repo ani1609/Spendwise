@@ -43,6 +43,13 @@ function ExpenseTracker()
     const [transactionsLoading, setTransactionsLoading] = useState(true);
     const [categoryFilter, setCategoryFilter] = useState('');
     const [descriptionChars, setDescriptionChars] = useState(0);
+    const today = new Date();
+
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy = today.getFullYear();
+
+    const formattedDate = `${dd}/${mm}/${yyyy}`;
 
     const fetchDataFromProtectedAPI = async (userToken) => 
     {
@@ -371,8 +378,8 @@ function ExpenseTracker()
                 <h1>&#x20B9;{balance}</h1>
             </div>
             <div className="formTransactions_container flex justify-evenly">
-                <div className="form_container border-2 rounded p-8">
-                    <div className="form-title">
+                <div className="form_container border-2 rounded p-8 mb-16" style={{ borderColor: '#B6CEFC' , borderRadius:'20px' ,height:410 }}>
+                    <div className="form-title ">
                     {
                         editEnabled
                             ?
@@ -393,8 +400,8 @@ function ExpenseTracker()
                     </div>
                    
                  
-                    <form className="flex gap-4">
-                        <div className="flex flex-col gap-2">
+                    <form className="flex gap-20">
+                        <div className="flex flex-col gap-2 mb-40">
                             <legend>Transaction Type</legend>
                             <label style={{ cursor: 'pointer' }}>
                                 <input
@@ -421,16 +428,21 @@ function ExpenseTracker()
                                 Expense
                             </label>
                             <label htmlFor="category" className="mt-4">Category</label>
-                            <select
+                            <select className="form-control border-2  h-7 px-1 col-md-4"
                                 id="category"
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
                                 required
-                                style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
+                                style={{
+                                borderColor: '#B6CEFC',
+                                cursor: formData.transactionType === 'Income' ? 'not-allowed' : 'pointer',
+                                background: `linear-gradient(to bottom, rgba(224, 224, 224, 1), rgba(169, 169, 169, 0))`,
+                                height: 35 , width:164
+                                }}
                                 disabled={formData.transactionType === "Income"}
                             >
-                                <option value="NULL">Choose a category</option>
+                                <option value="NULL">Food</option>
                                 <option value="Food">Food</option>
                                 <option value="Travel">Travel</option>
                                 <option value="Shopping">Shopping</option>
@@ -438,14 +450,19 @@ function ExpenseTracker()
                                 <option value="Others">Others</option>
                             </select>
                             <label htmlFor="date" className="mt-4">Date</label>
-                            <input
+                            <input className="form-control border-2  h-7 px-1 col-md-4 cursor-pointer"
                                 type="date"
                                 name="date"
                                 value={formData.date}
                                 onChange={handleChange}
                                 placeholder="Date"
                                 required
-                                className="cursor-pointer"
+                                style={{
+                                borderColor: '#B6CEFC',
+                                cursor: formData.transactionType === 'Income' ? 'not-allowed' : 'pointer',
+                                background: `linear-gradient(to bottom, rgba(224, 224, 224, 1), rgba(169, 169, 169, 0))`,
+                                height: 35 , width:164
+                                }}
                             />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -455,9 +472,10 @@ function ExpenseTracker()
                                 name="amount"
                                 value={formData.amount}
                                 onChange={handleChange}
-                                placeholder="Amount"
+                                placeholder="250"
                                 required
                                 className="border-2 p-2"
+                                style={{ borderColor: '#B6CEFC', height: 35 , width:164 }}
                             />
                             <label htmlFor="description" className="mt-4">Description</label>
                             <input
@@ -467,10 +485,11 @@ function ExpenseTracker()
                                 onChange={handleChange}
                                 placeholder="Description"
                                 required
-                                className="border-2 p-2"
+                                className="border-2 p-2 mt-4"
                                 autoComplete="off"
+                                style={{ borderColor: '#B6CEFC', height: 35 , width:164 }}
                             />
-                            <button type="submit" className=" mt-4 text-white hover:text-gray-500 hover:bg-white border-[#c465c9] p-2 border transition-all duration-500" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                            <button type="submit" style={{ backgroundColor: '#B6CEFC' ,height: 40 , width:164}} className=" mt-12 text-white  hover:text-gray-500 hover:bg-white border-['#B6CEFC'] p-2 border transition-all duration-500" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                         </div>
                     </form>
                 </div>
@@ -486,15 +505,15 @@ function ExpenseTracker()
                     <div className="flex justify-between">
                         <div class="form-group col-md-4">
                             
-                        <select id="inputState" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                        <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
                             <option value={''} hidden>Type</option>
                             <option value={'all'}>All</option>
                             <option value={'Income'}>Income</option>
                             <option value={'Expense'}>Expense</option>
                         </select>
                         </div>
-                        <div>
-                            <select id="categoryFilter" class="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                        <div >
+                            <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
                                 <option value='' hidden>Category</option>
                                 <option value='all'>All</option>
                                 <option value='Food'>Food</option>

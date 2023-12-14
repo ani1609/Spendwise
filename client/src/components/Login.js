@@ -30,12 +30,17 @@ function Login()
         }
         catch(error)
         {
+            setLoading(false);
             if (error.response.status === 401)
             {
                 setInvalidEmail(true);
                 return;
             }
             console.error(error);
+        }
+        finally
+        {
+            setLoading(false);
         }
     }
 
