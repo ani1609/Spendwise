@@ -376,15 +376,17 @@ function ExpenseTracker()
             <div className="formTransactions_container flex justify-evenly">
                 <div className="form_container border-2 rounded p-8 mb-16" style={{ borderColor: '#B6CEFC' , borderRadius:'20px' ,height:410 }}>
                     <div className="form-title ">
+                <div className="form_container border-2 rounded p-8">
+                    <div className="flex flex-row items-start gap-5">
                     {
                         editEnabled
                             ?
                             <>
-                                <h4 className="font-bold text-lg mb-10 edittransaction">Edit transaction
+                                <h4 className="font-bold text-lg mb-10">Edit transaction
                                 
                                 
                                 </h4>
-                                <button type="button" class="btn-new mb-8" onClick={()=>newTransaction()} >New</button>
+                                <button type="button" class="text-white hover:text-gray-500 hover:bg-white bg-[#c465c9] border-[#c465c9] py-1 px-4 border transition-all duration-500 " onClick={()=>newTransaction()} >New</button>
                             </>
                          
                             : <>
@@ -437,6 +439,7 @@ function ExpenseTracker()
                                 height: 35 , width:164
                                 }}
                                 disabled={formData.transactionType === "Income"}
+                                className=" border border-slate-500 rounded-md bg-transparent h-7 sm:px-1 col-md-4"
                             >
                                 <option value="NULL">Food</option>
                                 <option value="Food">Food</option>
@@ -499,17 +502,17 @@ function ExpenseTracker()
                     <div className="transaction-group row flex flex-col mb-2">
                     <h4 className="font-bold">Transactions</h4>
                     <div className="flex justify-between">
-                        <div class="form-group col-md-4">
+                        <div className="form-group col-md-4">
                             
-                        <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                        <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 cursor-pointer" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
                             <option value={''} hidden>Type</option>
                             <option value={'all'}>All</option>
                             <option value={'Income'}>Income</option>
                             <option value={'Expense'}>Expense</option>
                         </select>
                         </div>
-                        <div >
-                            <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                        <div>
+                            <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4 cursor-pointer" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
                                 <option value='' hidden>Category</option>
                                 <option value='all'>All</option>
                                 <option value='Food'>Food</option>
