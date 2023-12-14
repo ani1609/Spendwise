@@ -494,17 +494,17 @@ function ExpenseTracker()
                     </div>
                     <div className="transaction-group row flex flex-col mb-2">
                     <h4 className="font-bold">Transactions</h4>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between ">
                     <div className="form-group col-md-4">
-                        <div className="custom-dropdown border-2 border-x-zinc-900" onBlur={closeDropdown} tabIndex={0}>
-                            <div className="selected-value w-20 rounded text-center py-1 cursor-pointer" onClick={toggleDropdown}>
-                                {transactionType ? transactionType : 'Type'}
+                        <div className="custom-dropdown " onBlur={closeDropdown} tabIndex={0}>
+                            <div className="selected-value w-20 rounded text-center cursor-pointer border-[1px] border-black"  onClick={toggleDropdown}>
+                                {transactionType ? transactionType : 'Type'}<i class="arrow down"></i>
                             </div>
                             {isDropdownOpen && (
                                 <div className="options">
-                                    <div onClick={() => TransactionTypeChange({ target: { value: 'all' } })} className="option bg-white w-20 text-start px-2 py-1 cursor-pointer hover:bg-slate-200">All</div>
-                                    <div onClick={() => TransactionTypeChange({ target: { value: 'Income' } })} className="option bg-white w-20 text-start px-2 py-1 cursor-pointer hover:bg-slate-200">Income</div>
-                                    <div onClick={() => TransactionTypeChange({ target: { value: 'Expense' } })} className="option bg-white w-20 text-start px-2 py-1 cursor-pointer hover:bg-slate-200">Expense</div>
+                                    <div onClick={() => TransactionTypeChange({ target: { value: 'all' } })} className="option bg-white w-20 text-start px-2 cursor-pointer hover:bg-slate-200">All</div>
+                                    <div onClick={() => TransactionTypeChange({ target: { value: 'Income' } })} className="option bg-white w-20 text-start px-2 cursor-pointer hover:bg-slate-200">Income</div>
+                                    <div onClick={() => TransactionTypeChange({ target: { value: 'Expense' } })} className="option bg-white w-20 text-start px-2 cursor-pointer hover:bg-slate-200">Expense</div>
                                 </div>
                             )}
                         </div>
