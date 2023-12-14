@@ -27,7 +27,7 @@ function UserProfile()
 {
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <Profile />
         </div>
     );
