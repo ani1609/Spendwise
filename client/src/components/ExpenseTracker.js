@@ -431,7 +431,7 @@ function ExpenseTracker()
                                 required
                                 style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
                                 disabled={formData.transactionType === "Income"}
-                                className=" border border-slate-500  rounded-md bg-transparent sm:px-1 col-md-4"
+                                className=" border-2 border-slate-500  rounded-md  sm:px-1 col-md-4"
                                 
                             >
                                 <option value="NULL">Choose a category</option>
@@ -450,7 +450,7 @@ function ExpenseTracker()
                                 onChange={handleChange}
                                 placeholder="Date"
                                 required
-                                className="cursor-pointer border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4"
+                                className="cursor-pointer border-2  rounded-md bg-transparent h-7 px-1 col-md-4"
                             />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -464,10 +464,12 @@ function ExpenseTracker()
                                 placeholder="Amount"
                                 required
                                 className="border-2 p-2 mb-4"
+                                
                             />
                             <label htmlFor="description" className="mt-3">Description</label>
                             <input
                                 type="text"
+                                id="text"
                                 name="description"
                                 value={formData.description}
                                 onChange={handleChange}
@@ -475,6 +477,7 @@ function ExpenseTracker()
                                 required
                                 className="border-2 p-2 "
                                 autoComplete="off"
+                                
                             />
                             <button type="submit" className=" mt-8 text-white hover:text-gray-500 hover:bg-white border-[#c465c9] p-2 border transition-all duration-500" onClick={handleSubmit}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                         </div>

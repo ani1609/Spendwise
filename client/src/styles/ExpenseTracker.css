@@ -282,14 +282,14 @@
 input[type=number]::-webkit-outer-spin-button {
     opacity: 1;
     color: darkgray;
+    width: 200px;
   }
   #category {
     background-color: white;
-    border: thin solid grey;
     border-radius: 0px;
     display: inline-block;
     font: inherit;
-    width: 150px;
+    width: 200px;
     line-height: 1.5em;
     padding: 0.5em 3.5em 0.5em 0.5em;
     -webkit-box-sizing: border-box;
@@ -303,18 +303,25 @@ input[type=number]::-webkit-outer-spin-button {
     background-repeat: no-repeat;
     outline: 0;
     margin-right: 50px;
+    border-style: solid;
+    border-color: #e5e7eb;
   }
   
   #category option {
-    background-color: white; /* Set a background color for the options */
-    color: black; /* Set the text color for the options */
+    background-color: white; 
+    color: black; 
   }
 
   #date{
-    width: 150px;
+    width: 200px;
     border-radius: 0;
     height: 2.5rem; 
-   
+    border-style: solid;
+    border-color: #e5e7eb;
+  }
+
+  #text{
+    width: 200px;
   }
   
 
