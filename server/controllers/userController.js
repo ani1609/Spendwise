@@ -81,9 +81,18 @@ function authenticateJWT(req, res, next)
     });
 }
 
+const userProfile = (req, res) => {
+    // Access user information from req.user if needed
+    const user = req.user;
+    // Render the profile page or send relevant data
+    res.json({ message: 'User profile accessed successfully!', user });
+};
+
+
 
 module.exports = {
     login,
     signup,
+    userProfile,
     authenticateJWT
 };
