@@ -459,6 +459,7 @@ function ExpenseTracker()
                             <input
                                 type="number"
                                 name="amount"
+                                id="number"
                                 value={formData.amount}
                                 onChange={handleChange}
                                 placeholder="Amount"
