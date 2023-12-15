@@ -95,7 +95,7 @@
 
 .transactions_container 
 {
-    max-height: calc(100vh - 441px);
+    max-height: calc(100vh - 433px);
     overflow: auto;
     margin-top: 5px;
 }
