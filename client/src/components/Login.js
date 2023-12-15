@@ -21,6 +21,7 @@ function Login()
     {
         e.preventDefault();
         setLoading(true);
+        console.log('button press')
         try
         {
             // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/login, loginData);
@@ -73,9 +74,9 @@ function Login()
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
 
                 
-                <button type='submit' style={{ width: '100%' }}>
+                <button type='submit' style={{ width: '100%', cursor: loading ? 'not-allowed' : 'pointer' }} disabled={loading}>
                     {loading ? (
-                        <div className="loading-spinner"></div>
+                        <div className="loading-spinner"></div> 
                     ) : (
                         'Log in' // Note: 'Log in' should be a string
                     )}
