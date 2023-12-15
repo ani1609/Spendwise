@@ -6,6 +6,7 @@
     align-items: center;
     gap: 70px;
     font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
 }
 
 .balance_container 
@@ -38,14 +39,16 @@
 
 .form_container 
 {
-    height: 383.5px;
-    box-sizing: border-box;
+    padding: 30px;
+    height: 374px;
+    width: 430px;
 }
 
 .form_container form button 
 {
     background-color: var(--primary);
     letter-spacing: 0.5px;
+    height: 44px;
 }
 .form-title{
     display: flex;
@@ -56,7 +59,7 @@
 }
 .WalletDetails_container 
 {
-    width: 422.5px;
+    width: 430px;
 }
 
 .incomeExpense_container 
@@ -81,7 +84,6 @@
     font-size: 16px;
     letter-spacing: 0.5px;
     margin-top: 20px;
-    margin-bottom: 3px;
 }
 
 .WalletDetails_container p 
@@ -93,15 +95,15 @@
 
 .transactions_container 
 {
-    margin-top: 15px;
-    max-height: calc(100vh - 410px);
+    max-height: calc(100vh - 441px);
     overflow: auto;
+    margin-top: 5px;
 }
 
 .income,
 .outcome 
 {
-    width: 422.5px;
+    width: 100%;
     box-sizing: border-box;
     height: 70px;
     position: relative;
@@ -238,60 +240,59 @@
     bottom: 0;
 }
 
-#contactChoice1 {
-  appearance: none;
-
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-
-  border: 2px solid #999;
-  transition: 0.2s all linear;
-  margin-right: 5px;
-
-  position: relative;
-  top: 4px;
-
-}
-
-#contactChoice1:checked {
-    border: 5px solid #0096FF;
-  }
-
-#contactChoice2 {
+#contactChoice1 
+{
     appearance: none;
-  
     border-radius: 50%;
     width: 16px;
     height: 16px;
-  
     border: 2px solid #999;
     transition: 0.2s all linear;
     margin-right: 5px;
-  
     position: relative;
     top: 4px;
-  
-  }
+}
+
+#contactChoice1:checked 
+{
+    border: 5px solid #0096FF;
+}
+
+#contactChoice2 
+{
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+}
 
 #contactChoice2:checked {
     border: 5px solid #0096FF;
-  }
-  
+}
+
+#number
+{
+    width: 100%;
+}
 .input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {
     opacity: 1;
     color: darkgray;
-    width: 200px;
-  }
-  #category {
+    width: 100%;
+}
+#category {
     background-color: white;
     border-radius: 0px;
     display: inline-block;
     font: inherit;
-    width: 200px;
+    width: 100%;
     line-height: 1.5em;
-    padding: 0.5em 3.5em 0.5em 0.5em;
+    padding: 8px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -302,27 +303,26 @@ input[type=number]::-webkit-outer-spin-button {
     background-size: 1.5em 1.5em;
     background-repeat: no-repeat;
     outline: 0;
-    margin-right: 50px;
     border-style: solid;
     border-color: #e5e7eb;
-  }
+}
   
-  #category option {
+#category option {
     background-color: white; 
-    color: black; 
-  }
+    /* color: black;  */
+}
 
-  #date{
-    width: 200px;
+#date{
+    width: 100%;
     border-radius: 0;
-    height: 2.5rem; 
+    height: 44px; 
     border-style: solid;
     border-color: #e5e7eb;
-  }
+}
 
-  #text{
-    width: 200px;
-  }
+#text{
+    width: 100%;
+}
   
 
 /* --------responsiveness--------- */
@@ -341,53 +341,38 @@ input[type=number]::-webkit-outer-spin-button {
 {
     .expenseTracker_parent 
     {
-        box-sizing: border-box;
-        padding: 0 20px;
+        padding: 0px 10px;
     }
 
-    .form_container,
-    .WalletDetails_container,
-    .transactions_container,
-    .income,
-    .outcome 
+    .balance_container h3 
+    {
+        color: black;
+    }
+
+    .balance_container h1 
+    {
+        color: black;
+    }
+
+    .form_container
     {
         width: 100%;
-    }
-
-    .form_container 
-    {
         padding: 20px;
     }
-
-    .form_container form 
+    
+    .WalletDetails_container
     {
         width: 100%;
+    }
+
+    .incomeExpense_container
+    {
         justify-content: space-between;
     }
 
-    .form_container form div 
+    .editDelete_container
     {
-        width: 48%;
-    }
-
-    .balance_container 
-    {
-        margin-top: 75px;
-        color: black;
-    }
-    .editDelete_container{
         width: 60px;
     }
-    #category{
-        width: 140px;
-    }
-    #text{
-        width: 140px;
-    }
-    #date{
-        width: 140px;
-    }
-    #number{
-        width:140px;
-    }
+    
 }
