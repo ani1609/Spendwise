@@ -5,7 +5,7 @@ import PredefinedTransactions from './PredefinedTransactions';
 
 const Profile = () => {
     return (
-        <div className="profile-container">
+        <div className="profile-container flex">
             <Sidebar/>
             {/* <RightDashboard/> */}
             <PredefinedTransactions/>
