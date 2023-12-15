@@ -6,7 +6,7 @@ const RightDashboard = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const dynamicWidth = 'calc(100% - 240px)'
+  const dynamicWidth = 'calc(100% - 240px)';
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -37,16 +37,18 @@ const RightDashboard = () => {
 
   return (
     <>
-      <div className='right-dashboard-container relative left-60'>
-      {/* Profile Heading */}
-        <div className='profile-heading-container' style={{width:dynamicWidth}}>
-          <h1 className='mx-auto font-[Inter] text-[#024164] text-[19px] font-semibold pl-4'>
+      <div className='relative sm:left-60 -left-0 -z-10 sm:w-[calc(100%-240px)] w-[100%]' >
+        {/* Profile Heading */}
+        <div
+          className='profile-heading-container sm:w-[calc(100%-240px)] w-[100%] flex sm:justify-start justify-center'
+        >
+          <h1 className='font-[Inter] text-[#024164] text-[19px] font-semibold pl-2'>
             Profile
           </h1>
         </div>
         {/* Background Containing Triangles on two rows */}
-        <div className='relative' style={{width:dynamicWidth}}>
-          <div className='triangle-row-container bg-[#B6CEFC] relative'>
+        <div className='relative w-[100%]'>
+          <div className='triangle-row-container bg-[#B6CEFC]'>
             <div
               id='triangle-row'
               className='traingle-row w-[90%] mx-auto flex flex-wrap'
@@ -71,7 +73,7 @@ const RightDashboard = () => {
         </div>
 
         {/* Profile Container - includes info and settings */}
-        <div className='profile-container flex gap-5 justify-center flex-wrap absolute top-32' style={{width:dynamicWidth}}>
+        <div className='profile-container w-[90%] ml-[5%] flex gap-5 justify-center flex-wrap absolute top-32'>
           <div className='profile-picture border border-slate-950/20 rounded-[5px] bg-white w-max px-10 py-7'>
             <div>
               <img
@@ -136,7 +138,7 @@ const RightDashboard = () => {
             </form>
           </div>
         </div>
-        </div>
+      </div>
     </>
   );
 };
