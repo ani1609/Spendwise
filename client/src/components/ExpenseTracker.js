@@ -493,7 +493,8 @@ function ExpenseTracker()
                     </div>
                     <div className="transaction-group row flex flex-col mb-2">
                     <h4 className="font-bold">Transactions</h4>
-                    <div className="flex justify-between">
+                    {transactionFilter.length != 0 &&(
+                        <div className="flex justify-between">
                         <div className="form-group col-md-4">
                             
                         <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 cursor-pointer" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
@@ -524,6 +525,8 @@ function ExpenseTracker()
                                 className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-7 px-1"
                             />
                         </div>
+                    ) }
+                    
                     </div>
                 
                     
@@ -572,7 +575,7 @@ function ExpenseTracker()
                             ))}
                         </ul>
                     ) : (
-                        transactionsLoading ? <MyLoader/> : <p className="text-gray-400">No transactions added yet.</p>
+                        transactionsLoading ? <MyLoader/> : <p className="text-gray-400 pb-10">No transactions added yet.</p>
                     )}
                 </div>
             </div>
