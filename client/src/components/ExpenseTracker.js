@@ -496,38 +496,38 @@ function ExpenseTracker()
                         <h3 className="flex flex-col items-center">Expense<span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span></h3>
                     </div>
                     <div className="transaction-group row flex flex-col">
-                    <h4 className="font-bold">Transactions</h4>
-                    <hr></hr>
-                    <div className="flex justify-between mt-3">
-                        <div className="form-group col-md-4">
-                            <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 cursor-pointer" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
-                                <option value={''} hidden>Type</option>
-                                <option value={'all'}>All</option>
-                                <option value={'Income'}>Income</option>
-                                <option value={'Expense'}>Expense</option>
-                            </select>
-                        </div>
-                        <div>
-                            <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4 cursor-pointer" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
-                                <option value='' hidden>Category</option>
-                                <option value='all'>All</option>
-                                <option value='Food'>Food</option>
-                                <option value='Travel'>Travel</option>
-                                <option value='Shopping'>Shopping</option>
-                                <option value='Bills'>Bills</option>
-                                <option value='Others'>Others</option>
-                            </select>
-                        </div>
-                        <input
-                                type="date"
-                                name="date"
-                                value={dateFillter}
-                                onChange={(e)=>changeDateFilter(e)}
-                                placeholder="Date"
-                                required
-                                className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-7 px-1"
-                            />
-                        </div>
+                        <h4 className="font-bold">Transactions</h4>
+                        <hr></hr>
+                        {transactionFilter.length != 0 && <div className="flex justify-between mt-3">
+                            <div className="form-group col-md-4">
+                                <select id="inputState" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 cursor-pointer" onChange={(e)=>TransactionTypeChange(e)} value={transactionType}>
+                                    <option value={''} hidden>Type</option>
+                                    <option value={'all'}>All</option>
+                                    <option value={'Income'}>Income</option>
+                                    <option value={'Expense'}>Expense</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4 cursor-pointer" onChange={(e) => CategoryChange(e)} value={categoryFilter}>
+                                    <option value='' hidden>Category</option>
+                                    <option value='all'>All</option>
+                                    <option value='Food'>Food</option>
+                                    <option value='Travel'>Travel</option>
+                                    <option value='Shopping'>Shopping</option>
+                                    <option value='Bills'>Bills</option>
+                                    <option value='Others'>Others</option>
+                                </select>
+                            </div>
+                            <input
+                                    type="date"
+                                    name="date"
+                                    value={dateFillter}
+                                    onChange={(e)=>changeDateFilter(e)}
+                                    placeholder="Date"
+                                    required
+                                    className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-7 px-1"
+                                />
+                        </div>}
                     </div>
                 
                     {transactionFilter.length > 0 ? (
