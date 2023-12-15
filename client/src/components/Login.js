@@ -23,7 +23,6 @@ function Login()
         setLoading(true);
         try
         {
-            // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/login, loginData);
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, loginData);
             localStorage.setItem('expenseTrackerUserToken', JSON.stringify(response.data.token));
             setInvalidEmail(false);
@@ -73,9 +72,9 @@ function Login()
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
 
                 
-                <button type='submit' style={{ width: '100%' }}>
+                <button type='submit' style={{ width: '100%', cursor: loading ? 'not-allowed' : 'pointer' }} disabled={loading}>
                     {loading ? (
-                        <div className="loading-spinner"></div>
+                        <div className="loading-spinner"></div> 
                     ) : (
                         'Log in' // Note: 'Log in' should be a string
                     )}
