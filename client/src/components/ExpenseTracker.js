@@ -495,7 +495,7 @@ function ExpenseTracker()
                         <h3 className="flex flex-col items-center">Income<span className="text-green-600 text-xl">+ &#x20B9;{incoming}</span></h3>
                         <h3 className="flex flex-col items-center">Expense<span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span></h3>
                     </div>
-                    <div className="transaction-group row flex flex-col mb-2">
+                    <div className="transaction-group row flex flex-col">
                     <h4 className="font-bold">Transactions</h4>
                     <hr></hr>
                     <div className="flex justify-between mt-3">
