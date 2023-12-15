@@ -4,7 +4,9 @@ import "../index.css";
 import Login from './Login';
 import Signup from './Signup';
 import axios from "axios";
-import {ReactComponent as Logout} from '../icons/logout.svg';
+import {ReactComponent as UserProfile} from '../icons/user.svg';
+import {ReactComponent as Moon} from '../icons/moon.svg';
+import {ReactComponent as Sun} from '../icons/sun.svg';
 import { SiMoneygram } from "react-icons/si";
 import { Link, redirect } from 'react-router-dom';
 import Profile from "./profile/Profile";
@@ -16,6 +18,8 @@ function Navbar(props)
     const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
     const [showLoginForm, setShowLoginForm] = useState(false);
     const [user, setUser] = useState({});
+
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
     const fetchDataFromProtectedAPI = async (userToken) => 
     {
@@ -45,30 +49,38 @@ function Navbar(props)
         }
     }, [userToken]);
 
-    const handleLogout = () => {
-      localStorage.removeItem('expenseTrackerUserToken');
-      window.location.reload();
-      window.location.href = "/"; 
-    };
-
-
+    const toggleDarkMode = () =>{
+        setIsDarkMode(!isDarkMode);
+    }
 
     return (
         <div className="navbar_parent z-10 absolute top-0 text-white">
-            <h1 className="flex gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
-            {userToken?
-                <div className="profile_container">
-                   <Link to="/profile"> {/* Link to the /profile route */}
-                        <h4>{user?.name?.split(' ')[0]}</h4>
-                    </Link>
-                    <Logout className="logout_icon" onClick={handleLogout}/>
+            <h1 className="flex flex-1 gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
+            <div className="flex gap-x-2">
+                <div
+                className="dark-mode-toggle text-xs flex flex-col items-center hover:cursor-pointer"
+                onClick={toggleDarkMode}
+                >
+                    {!isDarkMode ? 
+                        (<><Moon fill="white " className="w-5 h-5"/>
+                    <p>Dark Mode</p></>)
+                    : (<><Sun fill="white " className="w-5 h-5"/>
+                    <p>Light Mode</p></>)}
                 </div>
-                :
-                <div className="login_signup_container">
-                    <button onClick={()=>{setShowLoginForm(true); props.setShowSignupForm(false)}}>Login</button>
-                    <button onClick={()=>{props.setShowSignupForm(true); setShowLoginForm(false)}}>Signup</button>
-                </div>
-            }
+                {userToken?
+                    <div className="profile_container">
+                        <Link to="/profile" className="items-center flex flex-col text-xs"> {/* Link to the /profile route */}
+                            <UserProfile className="w-5 h-5"/>
+                            <p>Profile</p>
+                        </Link>
+                    </div>
+                    :
+                    <div className="login_signup_container">
+                        <button onClick={()=>{setShowLoginForm(true); props.setShowSignupForm(false)}}>Login</button>
+                        <button onClick={()=>{props.setShowSignupForm(true); setShowLoginForm(false)}}>Signup</button>
+                    </div>
+                }
+            </div>
 
             {showLoginForm &&
                 <div className="login_parent"  onClick={()=> setShowLoginForm(false)}><Login/></div>
