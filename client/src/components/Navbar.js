@@ -4,7 +4,7 @@ import "../index.css";
 import Login from './Login';
 import Signup from './Signup';
 import axios from "axios";
-import {ReactComponent as UserProfile} from '../icons/user.svg';
+import {ReactComponent as UserProfile} from '../icons/profile.svg';
 import {ReactComponent as Moon} from '../icons/moon.svg';
 import {ReactComponent as Sun} from '../icons/sun.svg';
 import { SiMoneygram } from "react-icons/si";
@@ -56,21 +56,26 @@ function Navbar(props)
     return (
         <div className="navbar_parent z-10 absolute top-0 text-white">
             <h1 className="flex flex-1 gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
-            <div className="flex gap-x-2">
+            <div className="flex gap-x-4">
                 <div
                 className="dark-mode-toggle text-xs flex flex-col items-center hover:cursor-pointer"
                 onClick={toggleDarkMode}
                 >
                     {!isDarkMode ? 
-                        (<><Moon fill="white " className="w-5 h-5"/>
-                    <p>Dark Mode</p></>)
-                    : (<><Sun fill="white " className="w-5 h-5"/>
-                    <p>Light Mode</p></>)}
+                        (<>
+                            <Moon fill="white" className="w-5 h-5"/>
+                            <p>Dark Mode</p>
+                        </>)
+                    :   (
+                        <>
+                            <Sun fill="white" className="tew-5 h-5"/>
+                            <p>Light Mode</p>
+                        </>)}
                 </div>
                 {userToken?
                     <div className="profile_container">
                         <Link to="/profile" className="items-center flex flex-col text-xs"> {/* Link to the /profile route */}
-                            <UserProfile className="w-5 h-5"/>
+                            <UserProfile fill="white" className="w-5 h-5 "/>
                             <p>Profile</p>
                         </Link>
                     </div>
