@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import '../../styles/App.css';
 import { FaUser, FaListAlt, FaSignOutAlt,FaTimes, FaBars } from 'react-icons/fa';
 
-const Sidebar = () => {
+const Sidebar = ({ onButtonClick }) => {
   // const sidebarClasses = `sidebar fixed left-0 top-0 h-screen w-60 text-black transition-width`;
   const [isSidebarVisible, setSidebarVisible] = useState(false);
 
@@ -36,11 +36,11 @@ const Sidebar = () => {
       <div className={sidebarClasses} style={{ backgroundColor: '#EAF0FB' }}>
         <div className='buttons p-4 mt-36  '>
           <FaTimes className='absolute top-4 right-4 text-3xl cursor-pointer sm:hidden block' onClick={toggleSidebar}/>
-          <button className='flex items-center mb-8 '>
+          <button className='flex items-center mb-8' onClick={() => onButtonClick('profile')}>
             <FaUser className='mr-2 ' />
             Profile
           </button>
-          <button className='flex items-center mb-8'>
+          <button className='flex items-center mb-8' onClick={() => onButtonClick('predefinedTransactions')}>
             <FaListAlt className='mr-2' />
             Predefined Transactions
           </button>
