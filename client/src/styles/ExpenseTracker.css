@@ -378,4 +378,13 @@ input[type=number]::-webkit-outer-spin-button {
     .editDelete_container{
         width: 60px;
     }
+    #category{
+        width: 140px;
+    }
+    #text{
+        width: 140px;
+    }
+    #date{
+        width: 140px;
+    }
 }
