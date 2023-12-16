@@ -37,26 +37,7 @@
     width: 100%;
 }
 
-.form_container 
-{
-    padding: 30px;
-    height: 374px;
-    width: 430px;
-}
 
-.form_container form button 
-{
-    background-color: var(--primary);
-    letter-spacing: 0.5px;
-    height: 44px;
-}
-.form-title{
-    display: flex;
-   
-}
-.edittransaction{
-    max-width:50%;
-}
 .WalletDetails_container 
 {
     width: 430px;
