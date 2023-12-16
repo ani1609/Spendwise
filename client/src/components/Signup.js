@@ -95,7 +95,7 @@ function Signup()
                 />
                 {passwordUnmatched && <p>Passwords do not match</p>}
                 {userExists && <p>User already exists</p>}
-                <button type='submit' style={{ width: '100%' }}>
+                <button type='submit' style={{ width: '100%', cursor: loading ? 'not-allowed' : 'pointer' }} disabled={loading}>
                     {loading ? (
                         <div className="loading-spinner"></div>
                     ) : (
