@@ -60,9 +60,8 @@
     color: #888888;
 }
 
-.login_form_container button
+.loginBtn
 {
-    margin-top: 10px;
     color: #EDEDED;
     background-color: var(--primary);
     cursor: pointer;
@@ -76,7 +75,40 @@
     animation-name: fadeInSlideIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-    animation-delay: 1300ms;
+    animation-delay: 900ms;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginSeparator
+{
+    opacity: 0;
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 1100ms;
+}
+
+.googleLogin
+{
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 9.25px 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    opacity: 0;
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 1100ms;
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.5px;
     display: flex;
@@ -142,10 +174,7 @@
         font-size: 14px;
     }
 }
-.login_form_container form button{
-    width: 8rem;
 
-}
 .login_form_container h4{
     align-items: center;
     margin: 0;
@@ -157,26 +186,6 @@
     font-family: 'Lato', 'sans-serif';
 }
 
-#button2 img {
-    width: 30px;
-    margin: 0 30px 0 0;
-   
-}
-#button2 {
-    background-color: #fff;
-    color: #000;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    padding: 10px 15px;
-    font-family: 'Montserrat', sans-serif;
-    display:flex;
-    align-items: center;
-    border: 2px solid #fff;
-}
-
-   
 
 .loading-spinner {
     border: 4px solid rgb(143, 142, 142);
@@ -185,9 +194,9 @@
     width: 22.5px;
     height: 22.5px;
     animation: spin 1s linear infinite;
-  }
+}
 
-  @keyframes spin {
+@keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
+}
