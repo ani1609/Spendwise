@@ -299,11 +299,10 @@
 .arrow {
     border: solid black;
     border-width: 0 2px 2px 0;
-    display: inline-block;
+    float: right;
     padding: 2.4px;
     position: relative;
-    left: 8px;
-    top: -3.5px;
+    top: 7px;
   }
   
   .down {
