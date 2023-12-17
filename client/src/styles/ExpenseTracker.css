@@ -323,6 +323,20 @@ input[type=number]::-webkit-outer-spin-button {
 #text{
     width: 100%;
 }
+
+.arrow {
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    float: right;
+    padding: 2.4px;
+    position: relative;
+    top: 7px;
+  }
+  
+  .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
   
 
 /* --------responsiveness--------- */
