@@ -1,0 +1,31 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "standard",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "settings": {
+        "react": {
+          "version": "detect" // or specify the exact React version you're using
+        }
+      },
+    "rules": {
+        "semi":["error","always"],
+        "quotes":["error","double"],
+        "react/react-in-jsx-scope": 0,
+        "react/jsx-uses-react": 0,
+        "react/prop-types":"off",
+        "multiline-ternary":["error","always-multiline"],
+        "no-unused-vars":"off"
+    }
+}

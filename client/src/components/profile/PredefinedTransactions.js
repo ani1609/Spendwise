@@ -1,9 +1,9 @@
-import React from 'react';
-import plusFill from '../../icons/ph_plus-fill.svg';
-import PredefinedTransactionsCards from './PredefinedTransactionsCards';
+import React from "react";
+import plusFill from "../../icons/ph_plus-fill.svg";
+import PredefinedTransactionsCards from "./PredefinedTransactionsCards";
 
 const PredefinedTransactions = () => {
-  const dynamicWidth = 'calc(100% - 240px)'
+  const dynamicWidth = "calc(100% - 240px)";
 
   return (
     <>
