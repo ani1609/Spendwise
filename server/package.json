@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "cross-env MONGO_URI=\"mongodb+srv://rakesh856100:0BRLisnu586jtndg@cluster0.p0btv96.mongodb.net/?retryWrites=true&w=majority\" SECRET_KEY=\"J9bRzGkLx5Qa2eYp\" SALT=10 nodemon index.js"
+    "dev": "cross-env MONGO_URI=\"mongodb+srv://rakesh856100:0BRLisnu586jtndg@cluster0.p0btv96.mongodb.net/?retryWrites=true&w=majority\" SECRET_KEY=\"J9bRzGkLx5Qa2eYp\" SALT=10 nodemon index.js",
+    "lint":"eslint controllers/** configDB/** models/** index.js",
+    "lint-fix":"eslint controllers/** configDB/** models/** index.js --fix"
   },
   "author": "",
   "license": "ISC",

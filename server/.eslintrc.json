@@ -13,5 +13,6 @@
         "indent":["error", 4],
         "comma-dangle":["error","always-multiline"],
         "func-call-spacing":"off"
+        // "react/react-in-jsx-scope":"off"
     }
 }

@@ -57,7 +57,7 @@ function authenticateJWT (req, res, next) {
                 req.user = user;
                 next();
             })
-            .catch(error => {
+            .catch(() => {
                 return res.status(500).json({ message: 'Internal Server Error' });
             });
     });
