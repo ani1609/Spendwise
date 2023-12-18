@@ -530,12 +530,13 @@ function ExpenseTracker()
                     
                     <hr></hr>
                     {transactionFilter.length > 0 ? (
-                        <ul className="transactions_container flex flex-col gap-2">
+                        <ul className="transactions_container flex flex-col gap-2 " >
                          
                             {transactionFilter.map((transaction, index) => (
                                 transaction.transactionType === "Income" ?
                                 (   
-                                    <li key={index} className="income flex justify-between items-center border-2 rounded p-2">
+                                    <li key={index} id="trans" className="income flex justify-between items-center border-2 rounded p-2">
+                       
                                         <div className="icon_container">
                                             <Plus className="icons" />
                                         </div>
@@ -550,7 +551,7 @@ function ExpenseTracker()
                                         </div>
                                     </li>
                                 ) : (
-                                    <li key={index} className="outcome flex justify-between items-center border-2 rounded p-2">
+                                    <li key={index}  id="trans1" className="outcome flex justify-between items-center border-2 rounded p-2">
                                         <div className="icon_container">
                                             {transaction.category === "Food" ? <Food className="icons" /> : null}
                                             {transaction.category === "Travel" ? <Travel className="icons" /> : null}
