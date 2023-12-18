@@ -2,226 +2,194 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
-import { addDoc, query, where, updateDoc, getDocs} from 'firebase/firestore';
-import { transactionsCollection } from '../firebaseConfig';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { addDoc, query, where, updateDoc, getDocs } from "firebase/firestore";
+import { transactionsCollection } from "../firebaseConfig";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DoughnutChart from "./DoughnutChart";
 import Transactions from "./Transactions";
 
-function ExpenseTracker() 
-{
-    const userToken = JSON.parse(localStorage.getItem('expenseTrackerUserToken'));
-    const [user, setUser] = useState({});
-    const [transactions, setTransactions] = useState([]);
-    const [formData, setFormData] = useState({
-        email: "",
-        transactionType: "",
-        category: "",
-        date: "",
-        amount: "",
-        description: "",
-        transactionId: ""
+function ExpenseTracker () {
+  const userToken = JSON.parse(localStorage.getItem("expenseTrackerUserToken"));
+  const [user, setUser] = useState({});
+  const [transactions, setTransactions] = useState([]);
+  const [formData, setFormData] = useState({
+    email: "",
+    transactionType: "",
+    category: "",
+    date: "",
+    amount: "",
+    description: "",
+    transactionId: ""
+  });
+  const [balance, setBalance] = useState(0);
+  const [incoming, setIncoming] = useState(0);
+  const [outgoing, setOutgoing] = useState(0);
+  const [editEnabled, setEditEnabled] = useState(false);
+  const [descriptionChars, setDescriptionChars] = useState(0);
+
+  const fetchDataFromProtectedAPI = async (userToken) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      };
+      // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
+      setUser(response.data.user);
+      // console.log(response.data.user);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (userToken) {
+      fetchDataFromProtectedAPI(userToken);
+    }
+  }
+  , [userToken]);
+
+  function generateTransactionId () {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let transactionId = "";
+    for (let i = 0; i < 10; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      transactionId += characters.charAt(randomIndex);
+    }
+    return transactionId;
+  }
+
+  useEffect(() => {
+    let incoming = 0;
+    let outgoing = 0;
+    transactions.forEach(transaction => {
+      if (transaction.transactionType === "Income") {
+        incoming += transaction.amount;
+      } else {
+        outgoing += transaction.amount;
+      }
     });
-    const [balance, setBalance] = useState(0);
-    const [incoming, setIncoming] = useState(0);
-    const [outgoing, setOutgoing] = useState(0);
-    const [editEnabled, setEditEnabled] = useState(false);
-    const [descriptionChars, setDescriptionChars] = useState(0);
+    setIncoming(incoming);
+    setOutgoing(outgoing);
+    setBalance(incoming - outgoing);
+  }, [transactions]);
 
-    const fetchDataFromProtectedAPI = async (userToken) => 
-    {
-        try 
-        {
-            const config = {
-                headers: {
-                Authorization: `Bearer ${userToken}`,
-                },
-            };
-            // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
-            setUser(response.data.user);
-            // console.log(response.data.user);
-        }
-        catch (error)
-        {
-            console.error("Error fetching data:", error);
-        }
-    };
+  const handleChange = (e) => {
+    const targetValue = e.target.name === "amount" ? parseFloat(e.target.value) : e.target.value;
+    setFormData({ ...formData, [e.target.name]: targetValue });
+  };
 
-    useEffect(() =>
-    {
-        if (userToken)
-        {
-            fetchDataFromProtectedAPI(userToken);
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.transactionType === "") {
+      toast.error("Please select a transaction type.");
+      return;
     }
-    , [userToken]);
-
-
-    function generateTransactionId()
-    {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let transactionId = '';
-        for (let i = 0; i < 10; i++) 
-        {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            transactionId += characters.charAt(randomIndex);
-        }
-        return transactionId;
+    if (formData.transactionType === "Income" && formData.category !== "NULL") {
+      setFormData({ ...formData, category: "NULL" });
     }
+    if (formData.transactionType === "Expense" && formData.category === "") {
+      toast.error("Please select a category.");
+      return;
+    }
+    if (formData.date === "") {
+      toast.error("Please select a date.");
+      return;
+    }
+    if (formData.amount === "") {
+      toast.error("Please enter an amount.");
+      return;
+    }
+    if (formData.description === "") {
+      toast.error("Please enter a description.");
+      return;
+    }
+    if (editEnabled) {
+      console.log("edit clicked ", formData.transactionId);
+      try {
+        const querySnapshot = await getDocs(
+          query(transactionsCollection, where("transactionId", "==", formData.transactionId))
+        );
 
-    useEffect(() => 
-    {
-        let incoming = 0;
-        let outgoing = 0;
-        transactions.forEach(transaction => 
-        {
-            if (transaction.transactionType === "Income") 
-            {
-                incoming += transaction.amount;
-            }
-            else 
-            {
-                outgoing += transaction.amount;
-            }
-        });
-        setIncoming(incoming);
-        setOutgoing(outgoing);
-        setBalance(incoming - outgoing);
-    }, [transactions]);
-
-    const handleChange = (e) => 
-    {
-        const targetValue = e.target.name === 'amount' ? parseFloat(e.target.value) : e.target.value;
-        setFormData({ ...formData, [e.target.name]: targetValue });
-    };
-
-    const handleSubmit = async (e) => 
-    {
-        e.preventDefault();
-        if (formData.transactionType === "")
-        {
-            toast.error("Please select a transaction type.");
-            return;
-        }
-        if (formData.transactionType === "Income" && formData.category !== "NULL")
-        {
-            setFormData({ ...formData, category: "NULL" });
-        }
-        if (formData.transactionType === "Expense" && formData.category === "")
-        {
-            toast.error("Please select a category.");
-            return;
-        }
-        if (formData.date === "")
-        {
-            toast.error("Please select a date.");
-            return;
-        }
-        if (formData.amount === "")
-        {
-            toast.error("Please enter an amount.");
-            return;
-        }
-        if (formData.description === "")
-        {
-            toast.error("Please enter a description.");
-            return;
-        }
-        if (editEnabled) 
-        {
-            console.log("edit clicked ", formData.transactionId);
-            try 
-            {
-                const querySnapshot = await getDocs(
-                  query(transactionsCollection, where('transactionId', '==', formData.transactionId))
-                );
-              
-                if (querySnapshot.empty) 
-                {
-                    toast.error('Transaction not found.');
-                } 
-                else 
-                {
-                    const transactionDoc = querySnapshot.docs[0].ref;
-                    const transactionObject = 
+        if (querySnapshot.empty) {
+          toast.error("Transaction not found.");
+        } else {
+          const transactionDoc = querySnapshot.docs[0].ref;
+          const transactionObject =
                     {
-                        transactionType: formData.transactionType,
-                        category: formData.category,
-                        date: formData.date,
-                        amount: formData.amount,
-                        description: formData.description,
+                      transactionType: formData.transactionType,
+                      category: formData.category,
+                      date: formData.date,
+                      amount: formData.amount,
+                      description: formData.description
                     };
-                
-                    await updateDoc(transactionDoc, transactionObject);
-                    setFormData({
-                        transactionType: "",
-                        category: "",
-                        date: "",
-                        amount: "",
-                        description: ""
-                    });
-                    setEditEnabled(false);
-                    toast.success('Transaction edited successfully.');
-                }
-            } 
-            catch (error) 
-            {
-                toast.error('Error editing transaction.');
-            }
+
+          await updateDoc(transactionDoc, transactionObject);
+          setFormData({
+            transactionType: "",
+            category: "",
+            date: "",
+            amount: "",
+            description: ""
+          });
+          setEditEnabled(false);
+          toast.success("Transaction edited successfully.");
         }
-        else 
-        {
-            try 
-            {
-                const transactionObject = 
-                {   
-                    email: user.email,
-                    transactionType: formData.transactionType,
-                    category: formData.category,
-                    date: formData.date,
-                    amount: formData.amount,
-                    description: formData.description,
-                    transactionId: generateTransactionId(),
-                    created_at: new Date(),
+      } catch (error) {
+        toast.error("Error editing transaction.");
+      }
+    } else {
+      try {
+        const transactionObject =
+                {
+                  email: user.email,
+                  transactionType: formData.transactionType,
+                  category: formData.category,
+                  date: formData.date,
+                  amount: formData.amount,
+                  description: formData.description,
+                  transactionId: generateTransactionId(),
+                  created_at: new Date()
                 };
-                await addDoc(transactionsCollection, transactionObject);
-                // console.log('Transaction ID:', newTransactionRef.id);
-                setFormData({
-                    transactionType: "",
-                    category: "",
-                    date: "",
-                    amount: "",
-                    description: ""
-                });
-                toast.success("Transaction added successfully.");
-            } 
-            catch (error) 
-            {
-                toast.error('Error adding transaction.');
-            }
-        }
-    };
-
-    const newTransaction = () => {
-        setEditEnabled(false)
-        let addedTransaction={transactionType:'',category:'',date:'',description:'',amount:''}
-        setFormData(addedTransaction)
+        await addDoc(transactionsCollection, transactionObject);
+        // console.log('Transaction ID:', newTransactionRef.id);
+        setFormData({
+          transactionType: "",
+          category: "",
+          date: "",
+          amount: "",
+          description: ""
+        });
+        toast.success("Transaction added successfully.");
+      } catch (error) {
+        toast.error("Error adding transaction.");
+      }
     }
+  };
 
-    useLayoutEffect(()=>{
-        function updateSize() {
-            const width = window.innerWidth;
-            setDescriptionChars(width <= 320 ? 5 : width <= 375 ? 8 :
-                    width <= 480 ? 12 : width <= 768 ? 20 : 22)
-        }
-        window.addEventListener('resize', updateSize);
-        updateSize();
-        return () => window.removeEventListener('resize', updateSize);
-    }, [])
+  const newTransaction = () => {
+    setEditEnabled(false);
+    const addedTransaction = { transactionType: "", category: "", date: "", description: "", amount: "" };
+    setFormData(addedTransaction);
+  };
 
-    return (
+  useLayoutEffect(() => {
+    function updateSize () {
+      const width = window.innerWidth;
+      setDescriptionChars(width <= 320
+        ? 5
+        : width <= 375
+          ? 8
+          : width <= 480 ? 12 : width <= 768 ? 20 : 22);
+    }
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  return (
         <div className="expenseTracker_parent">
             <div className="balance_container border-2 rounded">
                 <h3>Your Balance-</h3>
@@ -232,25 +200,22 @@ function ExpenseTracker()
                     <div className="flex flex-row items-start gap-5">
                     {
                         editEnabled
-                            ?
-                            <>
+                          ? <>
                                 <h4 className="font-bold text-lg">Edit transaction</h4>
-                                <button type="button" class="text-white hover:text-gray-500 hover:bg-white bg-[#c465c9] border-[#c465c9] py-1 px-4 border transition-all duration-500 " onClick={()=>newTransaction()} >New</button>
+                                <button type="button" className="text-white hover:text-gray-500 hover:bg-white bg-[#c465c9] border-[#c465c9] py-1 px-4 border transition-all duration-500 " onClick={() => newTransaction()} >New</button>
                             </>
-                            :
-                            <>
+                          : <>
                                 <h4 className="font-bold text-lg">Add new transaction</h4>
                             </>
-                         
+
                     }
                     </div>
-                   
-                 
-                    <form className="flex justify-between" style={{width: "100%"}}>
-                        <div className="flex flex-col justify-start" style={{width: "45%"}}>
-                            <div className="flex flex-col" style={{width: "100%"}}>
+
+                    <form className="flex justify-between" style={{ width: "100%" }}>
+                        <div className="flex flex-col justify-start" style={{ width: "45%" }}>
+                            <div className="flex flex-col" style={{ width: "100%" }}>
                                 <legend>Transaction Type</legend>
-                                <label style={{ cursor: 'pointer' }}>
+                                <label style={{ cursor: "pointer" }}>
                                     <input
                                         type="radio"
                                         name="transactionType"
@@ -263,7 +228,7 @@ function ExpenseTracker()
                                     />&nbsp;
                                     Income
                                 </label>
-                                <label style={{ cursor: 'pointer' }}>
+                                <label style={{ cursor: "pointer" }}>
                                     <input
                                         type="radio"
                                         name="transactionType"
@@ -277,7 +242,7 @@ function ExpenseTracker()
                                     Expense
                                 </label>
                             </div>
-                            <div className="flex flex-col" style={{marginTop: "25px", width: "100%"}}>
+                            <div className="flex flex-col" style={{ marginTop: "25px", width: "100%" }}>
                                 <label htmlFor="category">Category</label>
                                 <select
                                     id="category"
@@ -298,7 +263,7 @@ function ExpenseTracker()
                                     <option value="Others">Others</option>
                                 </select>
                             </div>
-                            <div className="flex flex-col" style={{marginTop: "25px", width: "100%"}}>
+                            <div className="flex flex-col" style={{ marginTop: "25px", width: "100%" }}>
                                 <label htmlFor="date">Date</label>
                                 <input
                                     type="date"
@@ -313,8 +278,8 @@ function ExpenseTracker()
                             </div>
                         </div>
 
-                        <div className="flex flex-col justify-start" style={{width: "45%"}}>
-                            <div className="flex flex-col" style={{width: "100%"}}>
+                        <div className="flex flex-col justify-start" style={{ width: "45%" }}>
+                            <div className="flex flex-col" style={{ width: "100%" }}>
                                 <label htmlFor="amount">Amount</label>
                                 <input
                                     type="number"
@@ -327,7 +292,7 @@ function ExpenseTracker()
                                     className="border-2 p-2"
                                 />
                             </div>
-                            <div className="flex flex-col" style={{marginTop: "29px", width: "100%"}}>
+                            <div className="flex flex-col" style={{ marginTop: "29px", width: "100%" }}>
                                 <label htmlFor="description">Description</label>
                                 <input
                                     type="text"
@@ -341,11 +306,10 @@ function ExpenseTracker()
                                     autoComplete="off"
                                 />
                             </div>
-                            <button type="submit" className="text-white hover:text-gray-500 hover:bg-white border-[#c465c9] border transition-all duration-500" onClick={handleSubmit} style={{marginTop: "49px"}}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
+                            <button type="submit" className="text-white hover:text-gray-500 hover:bg-white border-[#c465c9] border transition-all duration-500" onClick={handleSubmit} style={{ marginTop: "49px" }}> {editEnabled ? "Edit Transaction" : "Add Transaction"} </button>
                         </div>
                     </form>
                 </div>
-            
 
                 <div className="WalletDetails_container flex flex-col">
                     <div className="incomeExpense_container border-2 rounded flex justify-around gap-2">
@@ -358,7 +322,7 @@ function ExpenseTracker()
             {transactions.length > 0 && <DoughnutChart transactions={transactions} />}
             <ToastContainer />
         </div>
-    );
+  );
 }
 
 export default ExpenseTracker;
