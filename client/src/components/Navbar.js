@@ -88,11 +88,11 @@ function Navbar(props)
             </div>
 
             {showLoginForm &&
-                <div className="login_parent"  onClick={()=> setShowLoginForm(false)}><Login/></div>
+                <div className="login_parent"><Login setShowLoginForm= {setShowLoginForm}/></div>
             }
 
             {props.showSignupForm &&
-                <div className="signup_parent"  onClick={()=> props.setShowSignupForm(false)}><Signup/></div>
+                <div className="signup_parent"><Signup setShowSignupForm={props.setShowSignupForm}/></div>
             }
         </div>
     );

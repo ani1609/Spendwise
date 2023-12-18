@@ -2,11 +2,11 @@ import {useState} from 'react';
 import '../index.css';
 import '../styles/Login.css';
 import axios from "axios";
-
+import {ReactComponent as Close} from '../icons/close.svg';
 
 import search from '../icons/search.svg';
 
-function Login()
+function Login({setShowLoginForm})
 {
     const [invalidEmail, setInvalidEmail] = useState(false);
     const [loginData, setLoginData] = useState({
@@ -53,7 +53,10 @@ function Login()
 
     return(
         <div className="login_form_container" onClick={(e)=> e.stopPropagation()}>
-            <h1>Welcome Back</h1>
+                <h1 className=''>Welcome Back</h1>
+                <div className='close-icon' onClick={()=>{setShowLoginForm(false)}}>
+                    <Close fill="white" className='w-6 h-6 cursor-pointer'/>
+                </div>          
             <form onSubmit={handleLogin}>
                 <input
                     type='email'
