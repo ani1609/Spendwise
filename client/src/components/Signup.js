@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import "../index.css";
 import "../styles/Signup.css";
-import {ReactComponent as Close} from "../icons/close.svg";
+import { ReactComponent as Close } from "../icons/close.svg";
 
-function Signup ({setShowSignupForm}) {
+function Signup ({ setShowSignupForm }) {
   const [userExists, setUserExists] = useState(false);
   const [passwordUnmatched, setPasswordUnmatched] = useState(false);
   const [signupData, setSignupData] = useState({
@@ -54,7 +54,7 @@ function Signup ({setShowSignupForm}) {
   return (
         <div className="signup_form_container" onClick={(e) => e.stopPropagation()}>
             <h1>Create Your Account</h1>
-            <div className='close-icon' onClick={()=>{setShowSignupForm(false)}}>
+            <div className='close-icon' onClick={ () => { setShowSignupForm(false); } }>
                 <Close fill="white" className='w-6 h-6 cursor-pointer'/>
             </div>
             <form onSubmit={handleSignup}>
