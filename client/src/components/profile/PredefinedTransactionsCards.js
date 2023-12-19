@@ -1,9 +1,8 @@
-import React from 'react';
-import editSmall from "../../icons/edit-small.svg"
-import cross from "../../icons/cross.svg"
+import React from "react";
+import editSmall from "../../icons/edit-small.svg";
+import cross from "../../icons/cross.svg";
 
 const PredefinedTransactionsCards = () => {
-
   return (
     <>
     <ExpenseCard/>
@@ -12,8 +11,8 @@ const PredefinedTransactionsCards = () => {
   );
 };
 
-export const ExpenseCard = () =>{
-    return(
+export const ExpenseCard = () => {
+  return (
         <>
             <div className='w-60 h-64 border-[#9EBEFA] bg-[#9EBEFA] flex flex-col rounded-[3px]'>
             <div className='text-[15px] font-medium text-red-600 bg-[#C2D7FF] w-[15rem] h-[40px] flex items-center justify-between p-2'>
@@ -41,11 +40,11 @@ export const ExpenseCard = () =>{
             </div>
           </div>
         </>
-    )
-}
+  );
+};
 
-export const IncomeCard = () =>{
-    return(
+export const IncomeCard = () => {
+  return (
         <>
             <div className='w-60 h-64 border-[#9EBEFA] bg-[#9EBEFA] flex flex-col rounded-[3px]'>
             <div className='text-[15px] font-medium text-green-600 bg-[#C2D7FF] w-[15rem] h-[40px] flex items-center p-2 justify-between'>
@@ -73,7 +72,7 @@ export const IncomeCard = () =>{
             </div>
           </div>
         </>
-    )
-}
+  );
+};
 
 export default PredefinedTransactionsCards;

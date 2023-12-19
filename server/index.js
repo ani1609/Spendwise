@@ -1,7 +1,7 @@
-const express = require("express");
-const connectDb = require("./configDB/mongoDB");
-const { login, signup, authenticateJWT,userProfile} = require("./controllers/userController");
-const cors=require('cors');
+const express = require('express');
+const connectDb = require('./configDB/mongoDB');
+const { login, signup, authenticateJWT, userProfile } = require('./controllers/userController');
+const cors = require('cors');
 
 // Connect to MongoDB
 connectDb();
@@ -19,7 +19,6 @@ app.get('/profile', authenticateJWT, userProfile);
 app.get('/api/user', authenticateJWT, (req, res) => {
     res.json({ message: 'Protected route accessed successfully!', user: req.user });
 });
-
 
 // Start the Express server
 const PORT = process.env.PORT || 3000;

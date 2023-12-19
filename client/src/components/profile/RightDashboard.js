@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import cameraIcon from '../../icons/camera.svg';
+import { useState, useEffect } from "react";
+import cameraIcon from "../../icons/camera.svg";
 
 const RightDashboard = () => {
   const [triangleCount, setTriangleCount] = useState(0);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-  const dynamicWidth = 'calc(100% - 240px)';
+  const dynamicWidth = "calc(100% - 240px)";
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -15,11 +15,11 @@ const RightDashboard = () => {
     setLastName(event.target.value);
   };
 
-  //for calculating no of triangles on two rows according to viewport width
+  // for calculating no of triangles on two rows according to viewport width
   useEffect(() => {
     const calculateTriangles = () => {
       const containerWidth =
-        document.getElementById('triangle-row')?.offsetWidth || 0;
+        document.getElementById("triangle-row")?.offsetWidth || 0;
       const triangleWidth = 82;
       const trianglesPerRow = Math.floor(containerWidth / triangleWidth);
       const totalTriangles = trianglesPerRow * 2;
@@ -28,10 +28,10 @@ const RightDashboard = () => {
     // Initial calculation
     calculateTriangles();
     // Recalculate on window resize
-    window.addEventListener('resize', calculateTriangles);
+    window.addEventListener("resize", calculateTriangles);
     // Cleanup on component unmount
     return () => {
-      window.removeEventListener('resize', calculateTriangles);
+      window.removeEventListener("resize", calculateTriangles);
     };
   }, []);
 
@@ -56,7 +56,7 @@ const RightDashboard = () => {
               {[...Array(triangleCount)].map((_, index) => (
                 <div
                   key={index}
-                  style={{ clipPath: 'polygon(100% 50%, 0 0, 0 100%)' }}
+                  style={{ clipPath: "polygon(100% 50%, 0 0, 0 100%)" }}
                   className='bg-[#C2D7FF] w-[82px] h-[71px]'
                 ></div>
               ))}
