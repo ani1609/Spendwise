@@ -1,5 +1,6 @@
 .login_form_container
 {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,7 +12,14 @@
     background-color: rgba(65, 65, 65, 0.833);
 }
 
-.login_form_container h1
+.close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+  }
+
+.login_form_container h1, .close-icon
 {
     color: var(--primary);
     font-weight: 600;

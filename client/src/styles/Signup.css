@@ -1,5 +1,6 @@
 .signup_form_container
 {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,7 +13,15 @@
 }
 
 
-.signup_form_container h1
+.close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+ }
+
+
+.signup_form_container h1, .close-icon
 {
     color: var(--primary);
     font-weight: 600;
