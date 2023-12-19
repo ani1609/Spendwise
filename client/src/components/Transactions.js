@@ -21,6 +21,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
   const [transactionType, setTransactionType] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [transactionsLoading, setTransactionsLoading] = useState(true);
 
   useEffect(() => {
@@ -37,8 +38,8 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
         const transactiontype = localStorage.getItem("transactionType") ? localStorage.getItem("transactionType") : "";
         const datefiter = localStorage.getItem("dateFilter") ? localStorage.getItem("dateFilter") : "";
 
-        if (transactiontype && transactiontype !== "all") { updatedTransactions = updatedTransactions.filter(item => item.transactionType === transactiontype); }
-        if (categoryFilter && categoryFilter !== "all") {
+        if (transactiontype && transactiontype !== "All") { updatedTransactions = updatedTransactions.filter(item => item.transactionType === transactiontype); }
+        if (categoryFilter && categoryFilter !== "All") {
           updatedTransactions = updatedTransactions.filter(item => item.category === categoryFilter);
         }
         if (datefiter) {
@@ -65,6 +66,14 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
 
   const closeDropdown = () => {
     setDropdownOpen(false);
+  };
+
+  const toggleCategoryDropdown = () => {
+    setCategoryDropdownOpen(!isCategoryDropdownOpen);
+  };
+
+  const closeCategoryDropdown = () => {
+    setCategoryDropdownOpen(false);
   };
 
   const handleEdit = (transactionId, index) => {
@@ -95,7 +104,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
   };
 
   const TransactionTypeChange = (e) => {
-    if (e.target.value === "all") {
+    if (e.target.value === "All") {
       let transactionnews = transactions;
       if (dateFillter) {
         transactionnews = transactionnews.filter(item => item.date === dateFillter);
@@ -118,19 +127,20 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
 
   const CategoryChange = (e) => {
     setCategoryFilter(e.target.value);
+    closeCategoryDropdown();
   };
 
   const changeDateFilter = (e) => {
     if (e.target.value) {
       let transactionsfilter = transactions.filter(item => item.date === e.target.value);
-      if (transactionType && transactionType !== "all") {
+      if (transactionType && transactionType !== "All") {
         transactionsfilter = transactionsfilter.filter(item => item.transactionType === transactionType);
         setTransactionFilter(transactionsfilter);
       }
       localStorage.setItem("dateFilter", e.target.value);
     } else {
       let transactionsfilter = transactions;
-      if (transactionType && transactionType !== "all") {
+      if (transactionType && transactionType !== "All") {
         transactionsfilter = transactionsfilter.filter(item => item.transactionType === transactionType);
         setTransactionFilter(transactionsfilter);
       }
@@ -152,7 +162,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                         </div>
                         {isDropdownOpen && (
                         <div className="options rounded-sm shadow-lg shadow-slate-400/40 absolute z-50 w-[126px] py-[3px] px-[2.5px]">
-                            <div onClick={() => TransactionTypeChange({ target: { value: "all" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white ">All</div>
+                            <div onClick={() => TransactionTypeChange({ target: { value: "All" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white ">All</div>
                             <div onClick={() => TransactionTypeChange({ target: { value: "Income" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Income</div>
                             <div onClick={() => TransactionTypeChange({ target: { value: "Expense" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Expense</div>
                         </div>
@@ -160,15 +170,23 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     </div>
                     </div>
                     <div>
-                    <select id="categoryFilter" className="form-control border border-slate-500 rounded-md bg-transparent h-7 px-1 col-md-4 cursor-pointer" onChange={(e) => CategoryChange(e)} value={categoryFilter} disabled={transactionType === "Income"}>
-                        <option value='' hidden>Category</option>
-                        <option value='all'>All</option>
-                        <option value='Food'>Food</option>
-                        <option value='Travel'>Travel</option>
-                        <option value='Shopping'>Shopping</option>
-                        <option value='Bills'>Bills</option>
-                        <option value='Others'>Others</option>
-                    </select>
+                    <div className="form-group col-md-4">
+                    <div className="custom-dropdown" onBlur={closeCategoryDropdown} tabIndex={0}>
+                        <div className="selected-value w-[126px] px-4 rounded cursor-pointer border-[1px] border-black" onClick={toggleCategoryDropdown}>
+                        {categoryFilter || "Category"}<i className="arrow down"></i>
+                        </div>
+                        {isCategoryDropdownOpen && (
+                        <div className="options rounded-sm shadow-lg shadow-slate-400/40 absolute z-50 w-[126px] py-[3px] px-[2.5px]">
+                            <div onClick={() => CategoryChange({ target: { value: "All" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white ">All</div>
+                            <div onClick={() => CategoryChange({ target: { value: "Food" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Food</div>
+                            <div onClick={() => CategoryChange({ target: { value: "Travel" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Travel</div>
+                            <div onClick={() => CategoryChange({ target: { value: "Shopping" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Shopping</div>
+                            <div onClick={() => CategoryChange({ target: { value: "Bills" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Bills</div>
+                            <div onClick={() => CategoryChange({ target: { value: "Others" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Others</div>
+                        </div>
+                        )}
+                    </div>
+                    </div>
                     </div>
                     <input
                     type="date"
