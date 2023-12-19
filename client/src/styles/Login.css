@@ -19,7 +19,7 @@
     padding: 10px;
   }
 
-.login_form_container h1
+.login_form_container h1, .close-icon
 {
     color: var(--primary);
     font-weight: 600;

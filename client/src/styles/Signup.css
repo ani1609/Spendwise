@@ -20,7 +20,7 @@
   }
 
 
-.signup_form_container h1
+.signup_form_container h1, .close-icon
 {
     color: var(--primary);
     font-weight: 600;
