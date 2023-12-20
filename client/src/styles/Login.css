@@ -44,7 +44,10 @@
     gap: 25px;
     width: 20rem;
 }
-
+#password{
+    padding: 10px 15px;
+    height: 2.5vw;
+}
 .login_form_container form input
 {
     font-size: 14px;
@@ -99,7 +102,22 @@
     animation-fill-mode: forwards;
     animation-delay: 1100ms;
 }
-
+#togglePassword{
+    
+       
+        cursor: pointer;
+        
+    
+}
+.divgroup{
+    margin: 0;
+    opacity: 0;
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 300ms;
+    font-family: 'Lato', sans-serif;
+}
 .googleLogin
 {
     color: black;
@@ -168,6 +186,9 @@
 @media (max-width: 420px) {
     .login_form_container {
         padding: 20px;
+    }
+    #password{
+        height: 10.5vw;
     }
 
     .login_form_container h1 {

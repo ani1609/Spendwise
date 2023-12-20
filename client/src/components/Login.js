@@ -8,6 +8,7 @@ import { ReactComponent as Close } from "../icons/close.svg";
 
 function Login ({ setShowLoginForm }) {
   const [invalidEmail, setInvalidEmail] = useState(false);
+  const [flag, setflag] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
     password: ""
@@ -37,7 +38,9 @@ function Login ({ setShowLoginForm }) {
       setLoading(false);
     }
   };
-
+  const changeFlag = () => {
+    setflag(!flag);
+  };
   return (
         <div className="login_form_container" onClick={(e) => e.stopPropagation()}>
             <h1>Welcome Back</h1>
@@ -52,13 +55,20 @@ function Login ({ setShowLoginForm }) {
                     onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                     required
                 />
-                <input
-                    type='password'
+        <div className="input-group divgroup">
+        <input
+            type={ !flag ? "password" : "text"}
                     placeholder='Password'
                     value={loginData.password}
                     onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                    required
-                />
+            required
+            className="input form-control " id="password" aria-describedby="basic-addon1" />
+              <div className="input-group-append">
+                <span className="input-group-text" >
+              <i className = { !flag ? "bi bi-eye" : "bi bi-eye-slash" } id="togglePassword" onClick={() => changeFlag()}></i>
+                </span>
+              </div>
+            </div>
                 {invalidEmail && <p className="error_message">Invalid email or password</p>}
 
                 <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className='loginBtn'>
