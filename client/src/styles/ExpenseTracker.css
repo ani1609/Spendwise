@@ -325,6 +325,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .arrow {
+
     border: solid black;
     border-width: 0 2px 2px 0;
     float: right;
@@ -337,8 +338,21 @@ input[type=number]::-webkit-outer-spin-button {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
   }
-  
 
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent,#C599D8);
+  }
 /* --------responsiveness--------- */
 
 @media only screen and (max-width: 870px) 
