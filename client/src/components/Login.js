@@ -52,18 +52,22 @@ function Login ({ setShowLoginForm }) {
           onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
           required
         />
-        <div className="flex flex-nowrap justify-between w-full">
+        <div className="flex flex-nowrap justify-between w-full rounded-lg bg-zinc-200 pe-2">
         <input
           type={passwordShow ? "password" : "text"}
           placeholder='Password'
           value={loginData.password}
           onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
           required
+          className="bg-transparent"
+          style={{
+            backgroundColor: "transparent"
+          }}
         />
         <div onClick={ () => setpasswordShow(!passwordShow)}>
         {passwordShow
-          ? <img className="w-10 h-10" src="https://www.svgrepo.com/show/532320/lock.svg" alt="" />
-          : <img className="w-10 h-10" src="https://www.svgrepo.com/show/532324/lock-slash.svg" alt="" />}</div>
+          ? <img className="w-10 h-10" src="https://www.svgrepo.com/show/532493/eye.svg" alt="" />
+          : <img className="w-10 h-10" src="https://www.svgrepo.com/show/532465/eye-slash.svg" alt="" />}</div>
         </div>
         {invalidEmail && <p className="error_message">Invalid email or password</p>}
 
@@ -78,7 +82,7 @@ function Login ({ setShowLoginForm }) {
           <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
           <span>Continue with Google</span>
         </button>
-      </form>password-svgrepo-com
+      </form>
     </div>
   );
 }
