@@ -66,8 +66,8 @@ function Login ({ setShowLoginForm }) {
         />
         <div onClick={ () => setpasswordShow(!passwordShow)}>
         {passwordShow
-          ? <img className="w-10 h-10" src="https://www.svgrepo.com/show/532493/eye.svg" alt="" />
-          : <img className="w-10 h-10" src="https://www.svgrepo.com/show/532465/eye-slash.svg" alt="" />}</div>
+          ? <img className="w-8 h-8 pt-2" src="https://www.svgrepo.com/show/532493/eye.svg" alt="" />
+          : <img className="w-8 h-8 pt-2" src="https://www.svgrepo.com/show/532465/eye-slash.svg" alt="" />}</div>
         </div>
         {invalidEmail && <p className="error_message">Invalid email or password</p>}
 
