@@ -31,6 +31,8 @@ function Navbar (props) {
       // console.log(response.data.user);
     } catch (error) {
       console.error("Error fetching data:", error);
+      localStorage.clear();
+      window.location.reload();
     }
   };
 
