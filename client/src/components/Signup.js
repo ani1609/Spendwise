@@ -5,6 +5,7 @@ import "../styles/Signup.css";
 import { ReactComponent as Close } from "../icons/close.svg";
 
 function Signup ({ setShowSignupForm }) {
+  const [invalidEmailFOrmat, setInvalidEmailFormat] = useState(false);
   const [userExists, setUserExists] = useState(false);
   const [passwordUnmatched, setPasswordUnmatched] = useState(false);
   const [signupData, setSignupData] = useState({
@@ -42,7 +43,14 @@ function Signup ({ setShowSignupForm }) {
       setLoading(false);
       if (error.response.status === 409) {
         setPasswordUnmatched(false);
+        setInvalidEmailFormat(false);
         setUserExists(true);
+        return;
+      }
+      if (error.response.status === 400) {
+        setUserExists(false);
+        setPasswordUnmatched(false);
+        setInvalidEmailFormat(true);
         return;
       }
       console.log(error);
@@ -88,6 +96,7 @@ function Signup ({ setShowSignupForm }) {
                 />
                 {passwordUnmatched && <p>Passwords do not match</p>}
                 {userExists && <p>User already exists</p>}
+                {invalidEmailFOrmat && <p>Invalid email format</p>}
                 <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
                     {loading
                       ? (
