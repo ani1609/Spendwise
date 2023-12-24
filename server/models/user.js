@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Joi = require('joi');
 
 const userSchema = new mongoose.Schema
 ({
