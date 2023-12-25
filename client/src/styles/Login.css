@@ -102,6 +102,7 @@
 
 .googleLogin
 {
+    margin-top: -15px;
     color: black;
     background-color: white;
     cursor: pointer;
@@ -116,7 +117,7 @@
     animation-name: fadeInSlideIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-    animation-delay: 1100ms;
+    animation-delay: 1300ms;
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.5px;
     display: flex;
