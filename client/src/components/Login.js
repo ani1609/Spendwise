@@ -3,6 +3,9 @@ import "../index.css";
 import "../styles/Login.css";
 import axios from "axios";
 import { ReactComponent as Close } from "../icons/close.svg";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { addDoc, getDocs, query, where } from "firebase/firestore";
+import { usersCollection } from "../firebaseConfig";
 
 // import search from "../icons/search.svg";
 
@@ -38,6 +41,35 @@ function Login ({ setShowLoginForm }) {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth();
+      const response = await signInWithPopup(auth, provider);
+      const userObject = {
+        name: response.user.displayName,
+        email: response.user.email,
+        profilePicture: response.user.photoURL
+      };
+      const existingUserQuery = query(usersCollection, where("email", "==", userObject.email));
+      const existingUserSnapshot = await getDocs(existingUserQuery);
+      if (existingUserSnapshot.size === 0) {
+        const addedUser = await addDoc(usersCollection, userObject);
+        console.log("New User added");
+        localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(addedUser.id));
+        window.location.reload();
+      } else {
+        existingUserSnapshot.forEach((doc) => {
+          console.log("User already exists: ", doc.id);
+          localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(doc.id));
+          window.location.reload();
+        });
+      }
+    } catch (error) {
+      console.log("Some error occurred", error);
+    }
+  };
+
   return (
         <div className="login_form_container" onClick={(e) => e.stopPropagation()}>
             <h1>Welcome Back</h1>
@@ -68,7 +100,7 @@ function Login ({ setShowLoginForm }) {
                         )}
                 </button>
                 <div className="loginSeparator flex justify-center items-center" style={{ width: "100%" }}><hr style={{ width: "100%" }}></hr> &nbsp;&nbsp;or&nbsp;&nbsp; <hr style={{ width: "100%" }}></hr></div>
-                <button className="googleLogin p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" style={{ width: "100%", backgroundColor: "white", color: "black", animationDelay: "1.3s" }}>
+                <button className="googleLogin p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" style={{ width: "100%", backgroundColor: "white", color: "black", animationDelay: "1.3s" }} onClick={handleGoogleSignIn}>
                     <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
                     <span>Continue with Google</span>
                 </button>

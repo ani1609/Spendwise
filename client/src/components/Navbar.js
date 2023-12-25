@@ -10,14 +10,36 @@ import { ReactComponent as Sun } from "../icons/sun.svg";
 import { SiMoneygram } from "react-icons/si";
 import { Link, redirect } from "react-router-dom";
 import Profile from "./profile/Profile";
+import { doc, getDoc } from "firebase/firestore";
+import { usersCollection } from "../firebaseConfig";
 
 function Navbar (props) {
   const userToken = JSON.parse(localStorage.getItem("expenseTrackerUserToken"));
+  const userJWTToken = JSON.parse(localStorage.getItem("expenseTrackerUserJWTToken"));
+  const userFirebaseRefId = JSON.parse(localStorage.getItem("expenseTrackerUserFirebaseRefId"));
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [user, setUser] = useState({});
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  const fetchUserFromFirebase = async (docrefId) => {
+    try {
+      const userDocRef = doc(usersCollection, docrefId);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (userDocSnapshot.exists()) {
+        const userData = userDocSnapshot.data();
+        console.log("Document data:", userData);
+        setUser(userData);
+      } else {
+        console.log("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user from Firestore:", error);
+      return null;
+    }
+  };
   const fetchDataFromProtectedAPI = async (userToken) => {
     try {
       const config = {
@@ -38,9 +60,16 @@ function Navbar (props) {
 
   useEffect(() => {
     if (userToken) {
-      fetchDataFromProtectedAPI(userToken);
+      if (userJWTToken) {
+        fetchDataFromProtectedAPI(userToken);
+      }
+      if (userFirebaseRefId) {
+        fetchDataFromProtectedAPI(userToken);
+        console.log(userFirebaseRefId);
+        fetchUserFromFirebase(userFirebaseRefId);
+      }
     }
-  }, [userToken]);
+  }, [userJWTToken, userFirebaseRefId]);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -65,7 +94,7 @@ function Navbar (props) {
                             <p>Light Mode</p>
                         </>)}
                 </div>
-                {userToken
+                {userJWTToken || userFirebaseRefId
                   ? <div className="profile_container">
                         <Link to="/profile" className="items-center flex flex-col text-xs"> {/* Link to the /profile route */}
                             <UserProfile fill="white" className="w-5 h-5 "/>
