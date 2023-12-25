@@ -7,7 +7,7 @@ import NoUser from "./NoUser";
 import Profile from "./profile/Profile";
 
 // Home route
-function Home ({ userToken, showSignupForm, setShowSignupForm }) {
+function Home ({ userJWTToken, userFirebaseRefId, showSignupForm, setShowSignupForm }) {
   return (
         <div>
                 <div className="bg-violet text-white flex justify-center"></div>
@@ -15,7 +15,7 @@ function Home ({ userToken, showSignupForm, setShowSignupForm }) {
                 <path fill="#c465c9" d="M0,32L120,58.7C240,85,480,139,720,144C960,149,1200,107,1320,85.3L1440,64L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
             </svg>
             <Navbar showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />
-            {userToken ? <ExpenseTracker /> : <NoUser showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />}
+            {userJWTToken || userFirebaseRefId ? <ExpenseTracker /> : <NoUser showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />}
         </div>
   );
 }
@@ -32,12 +32,13 @@ function UserProfile () {
 
 function App () {
   const [showSignupForm, setShowSignupForm] = useState(false);
-  const userToken = JSON.parse(localStorage.getItem("expenseTrackerUserToken"));
+  const userJWTToken = JSON.parse(localStorage.getItem("expenseTrackerUserJWTToken"));
+  const userFirebaseRefId = JSON.parse(localStorage.getItem("expenseTrackerUserFirebaseRefId"));
   return (
         <Router>
             <div className="App">
                 <Routes>
-                <Route path="/" element={<Home userToken={userToken} showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />} />
+                <Route path="/" element={<Home userJWTToken={userJWTToken} userFirebaseRefId={userFirebaseRefId} showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />} />
                 <Route path="/profile" element={<UserProfile />} />
                 </Routes>
             </div>
