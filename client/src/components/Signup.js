@@ -76,12 +76,10 @@ function Signup ({ setShowSignupForm }) {
       const existingUserSnapshot = await getDocs(existingUserQuery);
       if (existingUserSnapshot.size === 0) {
         const addedUser = await addDoc(usersCollection, userObject);
-        console.log("New User added");
         localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(addedUser.id));
         window.location.reload();
       } else {
         existingUserSnapshot.forEach((doc) => {
-          console.log("User already exists: ", doc.id);
           localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(doc.id));
           window.location.reload();
         });

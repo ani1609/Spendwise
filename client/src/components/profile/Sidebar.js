@@ -30,6 +30,13 @@ const Sidebar = ({ onButtonClick }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleLogOut = () => {
+    localStorage.removeItem("expenseTrackerUserJWTToken");
+    localStorage.removeItem("expenseTrackerUserFirebaseRefId");
+    window.location.href = "/";
+  };
+
   return (
     <>
       <FaBars onClick={toggleSidebar} className='mx-4 my-7 text-3xl absolute cursor-pointer sm:hidden block'/>
@@ -44,7 +51,7 @@ const Sidebar = ({ onButtonClick }) => {
             <FaListAlt className='mr-2' />
             Predefined Transactions
           </button>
-          <button className='flex items-center mb-8'>
+          <button className='flex items-center mb-8' onClick={handleLogOut}>
             <FaSignOutAlt className='mr-2' />
             Logout
           </button>
