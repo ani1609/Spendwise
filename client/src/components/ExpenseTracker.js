@@ -2,6 +2,8 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
+import { usersCollection } from "../firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DoughnutChart from "./DoughnutChart";
@@ -9,7 +11,8 @@ import Transactions from "./Transactions";
 import TransactionForm from "./TransactionForm";
 
 function ExpenseTracker () {
-  const userToken = JSON.parse(localStorage.getItem("expenseTrackerUserToken"));
+  const userJWTToken = JSON.parse(localStorage.getItem("expenseTrackerUserJWTToken"));
+  const userFirebaseRefId = JSON.parse(localStorage.getItem("expenseTrackerUserFirebaseRefId"));
   const [user, setUser] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [formData, setFormData] = useState({
@@ -37,7 +40,7 @@ function ExpenseTracker () {
       // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
       setUser(response.data.user);
-      console.log(response.data.user);
+      // console.log(response.data.user);
     } catch (error) {
       console.error("Error fetching data:", error);
       localStorage.clear();
@@ -45,12 +48,31 @@ function ExpenseTracker () {
     }
   };
 
-  useEffect(() => {
-    if (userToken) {
-      fetchDataFromProtectedAPI(userToken);
+  const fetchUserFromFirebase = async (docrefId) => {
+    try {
+      const userDocRef = doc(usersCollection, docrefId);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (userDocSnapshot.exists()) {
+        const userData = userDocSnapshot.data();
+        setUser(userData);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user from Firestore:", error);
+      return null;
     }
-  }
-  , [userToken]);
+  };
+
+  useEffect(() => {
+    if (userJWTToken) {
+      fetchDataFromProtectedAPI(userJWTToken);
+    }
+    if (userFirebaseRefId) {
+      fetchUserFromFirebase(userFirebaseRefId);
+    }
+  }, [userJWTToken, userFirebaseRefId]);
 
   useEffect(() => {
     let incoming = 0;

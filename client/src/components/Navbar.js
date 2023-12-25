@@ -3,73 +3,17 @@ import "../styles/Navbar.css";
 import "../index.css";
 import Login from "./Login";
 import Signup from "./Signup";
-import axios from "axios";
 import { ReactComponent as UserProfile } from "../icons/profile.svg";
 import { ReactComponent as Moon } from "../icons/moon.svg";
 import { ReactComponent as Sun } from "../icons/sun.svg";
 import { SiMoneygram } from "react-icons/si";
-import { Link, redirect } from "react-router-dom";
-import Profile from "./profile/Profile";
-import { doc, getDoc } from "firebase/firestore";
-import { usersCollection } from "../firebaseConfig";
+import { Link } from "react-router-dom";
 
 function Navbar (props) {
-  const userToken = JSON.parse(localStorage.getItem("expenseTrackerUserToken"));
   const userJWTToken = JSON.parse(localStorage.getItem("expenseTrackerUserJWTToken"));
   const userFirebaseRefId = JSON.parse(localStorage.getItem("expenseTrackerUserFirebaseRefId"));
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const [user, setUser] = useState({});
-
   const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const fetchUserFromFirebase = async (docrefId) => {
-    try {
-      const userDocRef = doc(usersCollection, docrefId);
-      const userDocSnapshot = await getDoc(userDocRef);
-
-      if (userDocSnapshot.exists()) {
-        const userData = userDocSnapshot.data();
-        console.log("Document data:", userData);
-        setUser(userData);
-      } else {
-        console.log("No such document!");
-        return null;
-      }
-    } catch (error) {
-      console.error("Error fetching user from Firestore:", error);
-      return null;
-    }
-  };
-  const fetchDataFromProtectedAPI = async (userToken) => {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userToken}`
-        }
-      };
-      // const response = await axios.get(`${process.env.REACT_APP_SERVER_PORT}/api/user`, config);
-      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/user`, config);
-      setUser(response.data.user);
-      // console.log(response.data.user);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      localStorage.clear();
-      window.location.reload();
-    }
-  };
-
-  useEffect(() => {
-    if (userToken) {
-      if (userJWTToken) {
-        fetchDataFromProtectedAPI(userToken);
-      }
-      if (userFirebaseRefId) {
-        fetchDataFromProtectedAPI(userToken);
-        console.log(userFirebaseRefId);
-        fetchUserFromFirebase(userFirebaseRefId);
-      }
-    }
-  }, [userJWTToken, userFirebaseRefId]);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
