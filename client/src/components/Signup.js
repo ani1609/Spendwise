@@ -3,8 +3,12 @@ import { useState } from "react";
 import "../index.css";
 import "../styles/Signup.css";
 import { ReactComponent as Close } from "../icons/close.svg";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { addDoc, getDocs, query, where } from "firebase/firestore";
+import { usersCollection } from "../firebaseConfig";
 
 function Signup ({ setShowSignupForm }) {
+  const [invalidEmailFOrmat, setInvalidEmailFormat] = useState(false);
   const [userExists, setUserExists] = useState(false);
   const [passwordUnmatched, setPasswordUnmatched] = useState(false);
   const [signupData, setSignupData] = useState({
@@ -42,12 +46,46 @@ function Signup ({ setShowSignupForm }) {
       setLoading(false);
       if (error.response.status === 409) {
         setPasswordUnmatched(false);
+        setInvalidEmailFormat(false);
         setUserExists(true);
+        return;
+      }
+      if (error.response.status === 400) {
+        setUserExists(false);
+        setPasswordUnmatched(false);
+        setInvalidEmailFormat(true);
         return;
       }
       console.log(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth();
+      const response = await signInWithPopup(auth, provider);
+      const userObject = {
+        name: response.user.displayName,
+        email: response.user.email,
+        profilePicture: response.user.photoURL
+      };
+      const existingUserQuery = query(usersCollection, where("email", "==", userObject.email));
+      const existingUserSnapshot = await getDocs(existingUserQuery);
+      if (existingUserSnapshot.size === 0) {
+        const addedUser = await addDoc(usersCollection, userObject);
+        localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(addedUser.id));
+        window.location.reload();
+      } else {
+        existingUserSnapshot.forEach((doc) => {
+          localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(doc.id));
+          window.location.reload();
+        });
+      }
+    } catch (error) {
+      console.log("Some error occurred", error);
     }
   };
 
@@ -88,6 +126,7 @@ function Signup ({ setShowSignupForm }) {
                 />
                 {passwordUnmatched && <p>Passwords do not match</p>}
                 {userExists && <p>User already exists</p>}
+                {invalidEmailFOrmat && <p>Invalid email format</p>}
                 <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
                     {loading
                       ? (
@@ -98,11 +137,11 @@ function Signup ({ setShowSignupForm }) {
                         )}
                 </button>
                 <div className="signupSeparator flex justify-center items-center" style={{ width: "100%" }}><hr style={{ width: "100%" }}></hr> &nbsp;&nbsp;or&nbsp;&nbsp; <hr style={{ width: "100%" }}></hr></div>
-                <button className="googleSignup p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" style={{ backgroundColor: "white", color: "black", animationDelay: "1.7s" }}>
-                    <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
-                    <span>Continue with Google</span>
-                </button>
             </form>
+            <button className="googleSignup p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" onClick={handleGoogleSignIn}>
+                <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
+                <span>Continue with Google</span>
+            </button>
         </div>
   );
 }

@@ -1,8 +1,11 @@
 const { User } = require('../models/user');
 const jwt = require('jsonwebtoken');
+const zod = require('zod');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const { SECRET_KEY, SALT } = process.env;
+
+const schemaValidate = zod.string().email();
 
 const login = async (req, res) => {
     try {
@@ -18,6 +21,7 @@ const login = async (req, res) => {
         const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: '7d' });
         res.status(200).json({ token });
     } catch (error) {
+        console.log(error)
         return res.status(500).send({ message: 'Internal Server Error' });
     }
 };
@@ -28,13 +32,25 @@ const signup = async (req, res) => {
         if (user) {
             return res.status(409).send({ message: 'User already exists' });
         }
-
-        const salt = await bcrypt.genSalt(Number(SALT));
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        const newUser = await new User({ ...req.body, password: hashedPassword }).save();
-
-        const token = jwt.sign({ id: newUser._id }, SECRET_KEY, { expiresIn: '7d' });
-        res.status(201).send({ user: newUser, token });
+        const mail = req.body.email;
+        const check = schemaValidate.safeParse(mail);
+        console.log(check)
+        if(check.success){
+            const salt = await bcrypt.genSalt(Number(SALT));
+            const hashedPassword = await bcrypt.hash(req.body.password, salt);
+            const newUser = await new User({ ...req.body, password: hashedPassword }).save();
+    
+            const token = jwt.sign({ id: newUser._id }, SECRET_KEY, { expiresIn: '7d' });
+            res.status(201).send({ user: newUser, token });
+        } 
+        else {
+            res.status(400).json({
+              message: "Invalid email format",
+              details: {
+                email: "Email address is not valid",
+              },
+            });
+          }
     } catch (error) {
         return res.status(500).send({ message: 'Internal Server Error' });
     }
