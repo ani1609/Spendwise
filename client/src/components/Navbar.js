@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "../styles/Navbar.css";
 import "../index.css";
 import Login from "./Login";
@@ -10,13 +10,13 @@ import { ReactComponent as Sun } from "../icons/sun.svg";
 import { SiMoneygram } from "react-icons/si";
 import { Link, redirect } from "react-router-dom";
 import Profile from "./profile/Profile";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Navbar (props) {
   const userToken = JSON.parse(localStorage.getItem("expenseTrackerUserToken"));
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [user, setUser] = useState({});
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { toggle, theme } = useContext(ThemeContext);
 
   const fetchDataFromProtectedAPI = async (userToken) => {
     try {
@@ -40,19 +40,15 @@ function Navbar (props) {
     }
   }, [userToken]);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
         <div className="navbar_parent z-10 absolute top-0 text-white">
             <h1 className="flex flex-1 gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
             <div className="flex gap-x-4">
                 <div
                 className="dark-mode-toggle text-xs flex flex-col items-center hover:cursor-pointer"
-                onClick={toggleDarkMode}
+                onClick={toggle}
                 >
-                    {!isDarkMode
+                    {(theme === "dark")
                       ? (<>
                             <Moon fill="white" className="w-5 h-5"/>
                             <p>Dark Mode</p>

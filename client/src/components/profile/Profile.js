@@ -10,7 +10,7 @@ const Profile = () => {
     setContent(selectedContent);
   };
   return (
-    <div className='profile-container flex'>
+    <div className='profile-container flex '>
       <Sidebar onButtonClick={handleButtonClick} />
       {content === "profile" && <RightDashboard />}
       {content === "predefinedTransactions" && <PredefinedTransactions />}

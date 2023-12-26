@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../styles/App.css";
 import { FaUser, FaListAlt, FaSignOutAlt, FaTimes, FaBars } from "react-icons/fa";
-
+import { ThemeContext } from "../../context/ThemeContext";
 const Sidebar = ({ onButtonClick }) => {
   // const sidebarClasses = `sidebar fixed left-0 top-0 h-screen w-60 text-black transition-width`;
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -10,7 +10,7 @@ const Sidebar = ({ onButtonClick }) => {
     setSidebarVisible(!isSidebarVisible);
   };
 
-  const sidebarClasses = `sidebar fixed left-0 top-0 h-screen w-60 text-black transform transition-transform ${
+  const sidebarClasses = `dark:text-white sidebar fixed left-0 top-0 h-screen w-60 text-black transform transition-transform  ${
     isSidebarVisible ? "translate-x-0 transition-transform duration-300 ease-in" : "-translate-x-full transition-transform duration-300 ease-out"
   }`;
   useEffect(() => {
@@ -30,11 +30,15 @@ const Sidebar = ({ onButtonClick }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const { theme } = useContext(ThemeContext);
+  const dynamicStyle = {
+    backgroundColor: theme === "dark" ? "#011019" : "#EAF0FB"
+  };
   return (
     <>
       <FaBars onClick={toggleSidebar} className='mx-4 my-7 text-3xl absolute cursor-pointer sm:hidden block'/>
-      <div className={sidebarClasses} style={{ backgroundColor: "#EAF0FB" }}>
-        <div className='buttons p-4 mt-36  '>
+      <div className={sidebarClasses} style={dynamicStyle}>
+        <div className='buttons p-4 mt-36 text '>
           <FaTimes className='absolute top-4 right-4 text-3xl cursor-pointer sm:hidden block' onClick={toggleSidebar}/>
           <button className='flex items-center mb-8' onClick={() => onButtonClick("profile")}>
             <FaUser className='mr-2 ' />
