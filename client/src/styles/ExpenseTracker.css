@@ -332,27 +332,14 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 2.4px;
     position: relative;
     top: 7px;
-  }
-  
-  .down {
+}
+
+.down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
-  }
+}
 
 
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent,#C599D8);
-  }
 /* --------responsiveness--------- */
 
 @media only screen and (max-width: 870px) 
