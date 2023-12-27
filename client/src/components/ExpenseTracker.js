@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState, useContext } from "react";
 import axios from "axios";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DoughnutChart from "./DoughnutChart";
 import Transactions from "./Transactions";
 import TransactionForm from "./TransactionForm";
+import { ThemeContext } from "../context/ThemeContext";
 
 function ExpenseTracker () {
   const userJWTToken = JSON.parse(localStorage.getItem("expenseTrackerUserJWTToken"));
@@ -105,15 +106,15 @@ function ExpenseTracker () {
 
   return (
         <div className="expenseTracker_parent">
-            <div className="balance_container border-2 rounded">
+            <div className="balance_container border-2 rounded dark:border-[#B6CEFC] dark:text-[#B6CEFC]">
                 <h3>Your Balance-</h3>
                 <h1>&#x20B9;{balance}</h1>
             </div>
-            <div className="formTransactions_container flex justify-evenly">
+            <div className="formTransactions_container flex justify-evenly dark:text-[#B6CEFC80]">
               <TransactionForm user={user} editEnabled={editEnabled} setEditEnabled={setEditEnabled} formData={formData} setFormData={setFormData} />
 
                 <div className="WalletDetails_container flex flex-col">
-                    <div className="incomeExpense_container border-2 rounded flex justify-around gap-2">
+                    <div className="incomeExpense_container border-2 rounded flex justify-around gap-2 dark:border-[#B6CEFC80] dark:bg-[#011019]">
                         <h3 className="flex flex-col items-center">Income<span className="text-green-600 text-xl">+ &#x20B9;{incoming}</span></h3>
                         <h3 className="flex flex-col items-center">Expense<span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span></h3>
                     </div>

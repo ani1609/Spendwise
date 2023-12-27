@@ -42,7 +42,7 @@ const RightDashboard = () => {
         <div
           className='profile-heading-container sm:w-[calc(100%-240px)] w-[100%] flex sm:justify-start justify-center'
         >
-          <h1 className='font-[Inter] text-[#024164] text-[19px] font-semibold pl-2'>
+          <h1 className='font-[Inter] text-[#024164] text-[19px] font-semibold pl-2 dark:text-[#97cbe7]'>
             Profile
           </h1>
         </div>
@@ -74,7 +74,7 @@ const RightDashboard = () => {
 
         {/* Profile Container - includes info and settings */}
         <div className='profile-container w-[90%] ml-[5%] flex gap-5 justify-center flex-wrap absolute top-32'>
-          <div className='profile-picture border border-slate-950/20 rounded-[5px] bg-white w-max px-10 py-7'>
+          <div className='profile-picture border border-slate-950/20 rounded-[5px] bg-white dark:bg-[#011019] w-max px-10 py-7'>
             <div>
               <img
                 src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
@@ -88,29 +88,29 @@ const RightDashboard = () => {
               </div>
             </div>
             <div>
-              <p className='font-[Inter] text-[#024164] font-bold text-[17px] text-center mt-4'>
+              <p className='font-[Inter] text-[#024164] dark:text-[#97cbe7] font-bold text-[17px] text-center mt-4'>
                 Your Name
               </p>
             </div>
           </div>
 
           {/* Profile Settings */}
-          <div className='profile-settings border border-slate-950/20 rounded-[5px] bg-white w-full md:w-[31rem]'>
-            <h2 className='font-[Inter] font-semibold text-[19px] text-[#024164] bg-[#EAF0FB] border border-slate-950/20 px-2 py-4'>
+          <div className='profile-settings border border-slate-950/20 rounded-[5px] bg-white w-full md:w-[31rem] dark:bg-[#011019]'>
+            <h2 className='font-[Inter] font-semibold text-[19px] text-[#024164] dark:text-[#B6CEFC] bg-[#EAF0FB] dark:bg-[#335467] border border-slate-950/20 px-2 py-4'>
               Account Settings
             </h2>
             <form className='p-4'>
               <div className='mb-2'>
                 <label
                   htmlFor='first-name'
-                  className='block font-[Inter] text-[19px] text-[#514949]'
+                  className='block font-[Inter] text-[19px] text-[#514949] dark:text-[#B6CEFC]'
                 >
                   First Name
                 </label>
                 <input
                   type='text'
                   id='first-name'
-                  className='bg-[#f2f2f2] border border-slate-900/20 w-full md:w-[29rem] h-[2.8rem] text-[#555] text-xl px-2'
+                  className='bg-[#f2f2f2] dark:bg-[#335467] border border-slate-900/20 w-full md:w-[29rem] h-[2.8rem] text-[#555] dark:text-[#B6CEFC] text-xl px-2'
                   onChange={handleFirstNameChange}
                   value={firstName}
                 />
@@ -118,14 +118,14 @@ const RightDashboard = () => {
               <div>
                 <label
                   htmlFor='last-name'
-                  className='block font-[Inter] text-[19px] text-[#514949]'
+                  className='block font-[Inter] text-[19px] text-[#514949] dark:text-[#B6CEFC]'
                 >
                   Last Name
                 </label>
                 <input
                   type='text'
                   id='last-name'
-                  className='bg-[#f2f2f2] border border-slate-900/20 w-full md:w-[29rem] h-[2.8rem] text-[#555] text-xl px-2'
+                  className='bg-[#f2f2f2] dark:bg-[#335467] dark:text-[#B6CEFC] border border-slate-900/20 w-full md:w-[29rem] h-[2.8rem] text-[#555] text-xl px-2'
                   onChange={handleLastNameChange}
                   value={lastName}
                 />
