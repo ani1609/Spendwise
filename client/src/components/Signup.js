@@ -32,7 +32,7 @@ function Signup ({ setShowSignupForm }) {
     try {
       // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/signup, signupData);
       const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, signupData);
-      localStorage.setItem("expenseTrackerUserToken", JSON.stringify(response.data.token));
+      localStorage.setItem("expenseTrackerUserJWTToken", JSON.stringify(response.data.token));
       setUserExists(false);
       setPasswordUnmatched(false);
       setSignupData({
