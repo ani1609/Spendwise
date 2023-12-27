@@ -1,10 +1,11 @@
+import { useContext } from "react";
 import { addDoc, query, where, updateDoc, getDocs } from "firebase/firestore";
 import { transactionsCollection } from "../firebaseConfig";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
-
+import { ThemeContext } from "../context/ThemeContext";
 function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setFormData }) {
   const newTransaction = () => {
     setEditEnabled(false);
@@ -114,9 +115,9 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
       }
     }
   };
-
+  const { theme } = useContext(ThemeContext);
   return (
-    <div className="form_container border-2 rounded flex flex-col justify-between">
+    <div className="form_container border-2 rounded flex flex-col justify-between dark:border-[#B6CEFC80] dark:bg-[#011019]">
       <div className="flex flex-row items-start gap-5">
       {editEnabled
         ? (
@@ -178,7 +179,12 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 value={formData.category}
                 onChange={handleChange}
                 required
-                style={{ cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer" }}
+                style={
+                  {
+                    cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer",
+                    backgroundColor: theme === "dark" ? "#335467" : "white",
+                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225);"
+                  }}
                 disabled={formData.transactionType === "Income"}
                 className="border-2 border-slate-500 rounded-md sm:px-1 col-md-4"
                 placeholder="Category"
@@ -201,15 +207,19 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 id="date"
                 value={formData.date}
                 onChange={handleChange}
+                style={
+                  {
+                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225);"
+                  }}
                 placeholder="Date"
                 required
-                className="cursor-pointer border-2 rounded-md bg-transparent h-7 px-1 col-md-4"
+                className="cursor-pointer border-2 rounded-md bg-transparent h-7 px-1 col-md-4  dark:bg-[#335467] dark:border-[#B6CEFC80]"
             />
             </div>
         </div>
 
         <div className="flex flex-col justify-start" style={{ width: "45%" }}>
-            <div className="flex flex-col" style={{ width: "100%" }}>
+            <div className="flex flex-col dark:border-[#B6CEFC80]" style={{ width: "100%" }}>
             <label htmlFor="amount">Amount</label>
             <input
                 type="number"
@@ -219,7 +229,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Amount"
                 required
-                className="border-2 p-2"
+                className="border-2 p-2  dark:bg-[#335467] dark:border-[#B6CEFC80]"
             />
             </div>
             <div className="flex flex-col" style={{ marginTop: "29px", width: "100%" }}>
@@ -232,13 +242,13 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Description"
                 required
-                className="border-2 p-2"
+                className="border-2 p-2 dark:bg-[#335467] dark:border-[#B6CEFC80]"
                 autoComplete="off"
             />
             </div>
             <button
             type="submit"
-            className="text-white hover:text-gray-500 hover:bg-white border-[#c465c9] border transition-all duration-500"
+            className="text-white hover:text-gray-500 hover:bg-white border-[#c465c9] border transition-all duration-500 dark:border-[#B6CEFC80] dark:bg-[#132B39]"
             onClick={handleSubmit}
             style={{ marginTop: "49px" }}
             >
