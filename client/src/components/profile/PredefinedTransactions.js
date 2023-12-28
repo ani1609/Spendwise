@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import plusFill from "../../icons/ph_plus-fill.svg";
 import PredefinedTransactionsCards from "./PredefinedTransactionsCards";
@@ -6,15 +6,19 @@ import PredefinedTransactionsCards from "./PredefinedTransactionsCards";
 const PredefinedTransactions = () => {
   const dynamicWidth = "calc(100% - 240px)";
 
+  const [formVisible, setFormVisible] = useState(false);
+
   const handleAddNewTransactions = () => {
     console.log("clicked");
+    setFormVisible(true);
   };
 
   const handleCloseClick = (e) => {
     e.preventDefault();
     console.log("close clicked");
+    setFormVisible(false);
   };
-
+  console.log(formVisible);
   return (
     <>
       <div className='relative sm:left-60 -left-0 sm:w-[calc(100%-240px)] w-[100%] pl-2'>
@@ -36,9 +40,9 @@ const PredefinedTransactions = () => {
           </div>
         </div>
       </div>
-      <div className="z-10">
+      <div className={`form-container absolute z-10 w-full h-full flex justify-center items-center ${formVisible ? "pointer-events-auto" : "pointer-events-none"} ${formVisible ? "opacity-1" : "opacity-0"}`}>
         {/* Main Form */}
-        <form className='form'>
+        <form className='form bg-rose-300 w-[34.5rem] h-[25.25rem]'>
           <button className='close-button' onClick={ (e) => handleCloseClick(e) }>
             <RxCross2 />
           </button>
