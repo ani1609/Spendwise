@@ -183,7 +183,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                   {
                     cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer",
                     backgroundColor: theme === "dark" ? "#335467" : "white",
-                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225);"
+                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225)"
                   }}
                 disabled={formData.transactionType === "Income"}
                 className="border-2 border-slate-500 rounded-md sm:px-1 col-md-4"
@@ -209,7 +209,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 style={
                   {
-                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225);"
+                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225)"
                   }}
                 placeholder="Date"
                 required
