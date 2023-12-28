@@ -42,7 +42,7 @@ function Navbar (props) {
   }, [userJWTToken]);
   return (
         <div className="navbar_parent z-10 absolute top-0 text-white">
-            <h1 className="flex flex-1 gap-2 items-center"><SiMoneygram />SPENDWISE</h1>
+            <h1 className="flex flex-1 gap-2 items-center"><div className="moneygram-icon"><SiMoneygram/></div>SPENDWISE</h1>
             <div className="flex gap-x-4">
               {userJWTToken || userFirebaseRefId
                 ? <div

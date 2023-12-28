@@ -1,28 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Leckerli+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Leckerli+One&display=swap");
 
-body
-{
-    margin: 0;
-    padding: 0;
-   /* background-color: #011019; */
-    --primary: #c465c9;
+body {
+  margin: 0;
+  padding: 0;
+  /* background-color: #011019; */
+  --primary: #b6cefc;
+  --border: #6e9df7;
+  --icons: #6e9df7;
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-}
-  
-  
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+  width: 5px;
 }
 
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
 ::-webkit-scrollbar-thumb {
-/* background: linear-gradient(transparent,#C599D8); */
-    background-color: var(--primary);
+  /* background: linear-gradient(transparent,#C599D8); */
+  background-color: var(--primary);
 }
