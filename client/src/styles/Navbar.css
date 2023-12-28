@@ -31,7 +31,6 @@
 }
 
 .moneygram-icon{
-  background-color: #c465c9;
   padding:0.4rem;
 }
 
@@ -59,8 +58,8 @@
   font-family: "Lato", sans-serif;
   font-size: 17px;
   letter-spacing: 0.5px;
-  background-color: var(--primary);
-  color: white;
+  background-color: white;
+  color: var(--primary);
   font-weight: 500;
 }
 
