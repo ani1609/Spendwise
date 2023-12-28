@@ -43,6 +43,7 @@ const Sidebar = ({ onButtonClick }) => {
   };
   return (
     <>
+      <div className="z-10">
       <FaBars onClick={toggleSidebar} className='mx-4 my-7 text-3xl absolute cursor-pointer sm:hidden block'/>
       <div className={sidebarClasses} style={dynamicStyle}>
         <div className='buttons p-4 mt-36  '>
@@ -60,6 +61,7 @@ const Sidebar = ({ onButtonClick }) => {
             Logout
           </button>
         </div>
+      </div>
       </div>
     </>
   );

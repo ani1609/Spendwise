@@ -23,6 +23,8 @@ const PredefinedTransactions = () => {
     e.preventDefault();
     setFormVisible(false);
   };
+
+  console.log(transactionType);
   return (
     <>
       <div className='relative sm:left-60 -left-0 sm:w-[calc(100%-240px)] w-[100%] pl-2'>
@@ -63,7 +65,7 @@ const PredefinedTransactions = () => {
                   id="income"
                   checked={transactionType === "Income"}
                   onChange={() => setTransactionType("Income")}
-                  className="mr-2 appearance-none w-3 h-3 bg-slate-300 rounded-full checked:bg-[#079DF2]"
+                  className="mr-2 appearance-none w-3 h-3 bg-slate-300 rounded-full"
                 />
                 <label htmlFor="income">Income</label>
               </div>
@@ -75,7 +77,7 @@ const PredefinedTransactions = () => {
                   id="expense"
                   defaultChecked={transactionType === "Expense"}
                   onChange={() => setTransactionType("Expense")}
-                  className="mr-2 appearance-none w-3 h-3 bg-slate-300 rounded-full checked:bg-[#079DF2]"
+                  className="mr-2 appearance-none w-3 h-3 bg-slate-300 rounded-full"
                 />
                 <label htmlFor="expense">Expense</label>
               </div>
