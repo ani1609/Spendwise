@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Chart from "react-apexcharts";
+import { ThemeContext } from "../context/ThemeContext";
 import "../styles/DoughnutChart.css";
 import "../index.css";
 
@@ -11,6 +12,7 @@ function DoughnutChart (props) {
   const [shoppingExpenses, setShoppingExpenses] = useState(0);
   const [billsExpenses, setBillsExpenses] = useState(0);
   const [othersExpenses, setOthersExpenses] = useState(0);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (transactions) {
@@ -68,7 +70,7 @@ function DoughnutChart (props) {
                       legend: {
                         position: "bottom",
                         labels: {
-                          colors: "#000000"
+                          colors: theme === "dark" ? "#B6CEFC80" : "#000"
                         }
                       }
 
