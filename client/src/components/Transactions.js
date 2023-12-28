@@ -157,7 +157,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                 <div className="flex justify-between mt-3">
                     <div className="form-group col-md-4">
                     <div className="custom-dropdown" onBlur={closeDropdown} tabIndex={0}>
-                        <div className="selected-value w-[126px] px-4 rounded cursor-pointer border-[1px] border-black dark:border-[#e1e1e1]" onClick={toggleDropdown}>
+                        <div className="selected-value w-[126px] px-4 rounded cursor-pointer border-[1px] border-black dark:border-[#B6CEFC80]" onClick={toggleDropdown}>
                         {transactionType || "Type"}<i className="arrow down"></i>
                         </div>
                         {isDropdownOpen && (
@@ -172,7 +172,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     <div>
                     <div className="form-group col-md-4">
                     <div className="custom-dropdown" onBlur={closeCategoryDropdown} tabIndex={0}>
-                        <div className="selected-value w-[126px] px-4 rounded cursor-pointer border-[1px] border-black dark:border-[#e1e1e1]" onClick={toggleCategoryDropdown}>
+                        <div className="selected-value w-[126px] px-4 rounded cursor-pointer border-[1px] border-black dark:border-[#B6CEFC80]" onClick={toggleCategoryDropdown}>
                         {categoryFilter || "Category"}<i className="arrow down"></i>
                         </div>
                         {isCategoryDropdownOpen && (
@@ -195,7 +195,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     onChange={(e) => changeDateFilter(e)}
                     placeholder="Date"
                     required
-                    className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-7 px-1 dark:border-[#e1e1e1]"
+                    className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-7 px-1 dark:border-[#B6CEFC80]"
                     />
                 </div>
             </div>
