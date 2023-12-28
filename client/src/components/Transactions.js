@@ -206,9 +206,9 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                 {transactionFilter.map((transaction, index) => (
                   transaction.transactionType === "Income"
                     ? (
-                    <li key={index} className="income flex justify-between items-center border-2 rounded p-2 dark:border-[#B6CEFC80]">
-                        <div className="icon_container">
-                        <Plus className="icons" />
+                    <li key={index} className="income flex justify-between items-center border-2 rounded p-2">
+                        <div className="icon_container dark:bg-[#335467]">
+                        <Plus className="icons dark:fill-[rgba(19,43,57,1)]" />
                         </div>
                         <div className="descDate_container">
                         {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0, descriptionChars) + "..."}</h4> : <h4>{transaction.description}</h4>}
