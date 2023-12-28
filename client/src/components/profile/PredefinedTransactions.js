@@ -3,23 +3,26 @@ import { RxCross2 } from "react-icons/rx";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import plusFill from "../../icons/ph_plus-fill.svg";
 import PredefinedTransactionsCards from "./PredefinedTransactionsCards";
+import "./PredefinedTransactions.css";
 
 const PredefinedTransactions = () => {
-  const dynamicWidth = "calc(100% - 240px)";
+  // const dynamicWidth = "calc(100% - 240px)";
 
+  const [transactionType, setTransactionType] = useState("Expense");
+  const [category, setCategory] = useState("food");
+  const [date, setDate] = useState("");
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
   const [formVisible, setFormVisible] = useState(false);
 
   const handleAddNewTransactions = () => {
-    console.log("clicked");
     setFormVisible(true);
   };
 
   const handleCloseClick = (e) => {
     e.preventDefault();
-    console.log("close clicked");
     setFormVisible(false);
   };
-  console.log(formVisible);
   return (
     <>
       <div className='relative sm:left-60 -left-0 sm:w-[calc(100%-240px)] w-[100%] pl-2'>
@@ -43,7 +46,7 @@ const PredefinedTransactions = () => {
       </div>
       <div className={`form-container absolute z-10 w-full h-full flex justify-center items-center ${formVisible ? "pointer-events-auto" : "pointer-events-none"} ${formVisible ? "opacity-1" : "opacity-0"} transition-opacity duration-1000`}>
         {/* Main Form */}
-        <form className='form relative bg-slate-200 w-[34.5rem] h-[25.25rem] flex py-10 px-8 font-[Inter]'>
+        <form className='form relative w-[34.5rem] h-[25.25rem] flex py-10 px-8 font-[Inter]'>
           <button className='close-button absolute top-2 right-2 text-3xl' onClick={ (e) => handleCloseClick(e) }>
            <RxCross2/>
           </button>
@@ -58,6 +61,8 @@ const PredefinedTransactions = () => {
                   name="transactionType"
                   value="Income"
                   id="income"
+                  checked={transactionType === "Income"}
+                  onChange={() => setTransactionType("Income")}
                   className="mr-2 appearance-none w-3 h-3 bg-slate-300 rounded-full checked:bg-[#079DF2]"
                 />
                 <label htmlFor="income">Income</label>
@@ -68,8 +73,9 @@ const PredefinedTransactions = () => {
                   name="transactionType"
                   value="Expense"
                   id="expense"
+                  defaultChecked={transactionType === "Expense"}
+                  onChange={() => setTransactionType("Expense")}
                   className="mr-2 appearance-none w-3 h-3 bg-slate-300 rounded-full checked:bg-[#079DF2]"
-                  defaultChecked
                 />
                 <label htmlFor="expense">Expense</label>
               </div>
@@ -77,7 +83,12 @@ const PredefinedTransactions = () => {
             <div className="category-type h-[33.33%]">
               <label htmlFor="category" className="block font-semibold">Category</label>
               <div className="w-[10.25rem] h-[2.2rem] relative">
-                <select name='' id='' className="w-[100%] h-[100%] border border-[#6E9DF7] border-opacity-50 appearance-none px-2 bg-white">
+                <select
+                  name="categoryType"
+                  id="categoryType"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-[100%] h-[100%] border border-[#6E9DF7] border-opacity-50 appearance-none px-2 bg-white">
                   <option value="food">Food</option>
                   <option value="travel">Travel</option>
                   <option value="shopping">Shopping</option>
@@ -94,8 +105,10 @@ const PredefinedTransactions = () => {
               <label htmlFor="date" className="block font-semibold">Date</label>
               <input
                 type="date"
-                name=""
+                name="date"
                 id="transaction-date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
                 className="w-[10.25rem] h-[2.2rem] border border-[#6E9DF7] border-opacity-50 px-2"/>
             </div>
           </div>
@@ -104,11 +117,23 @@ const PredefinedTransactions = () => {
           <div className="form-right w-[50%] flex flex-col">
             <div className="amount h-[33.33%]">
               <label htmlFor="amount" className="block font-semibold">Amount</label>
-              <input type="number" name='' id="amount" className="w-[10.25rem] h-[2.2rem] border border-[#6E9DF7] border-opacity-50 px-2 appearance-none"/>
+              <input
+                type="number"
+                name=''
+                id="amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="w-[10.25rem] h-[2.2rem] border border-[#6E9DF7] border-opacity-50 px-2 appearance-none"/>
             </div>
             <div className="description h-[33.33%]">
               <label htmlFor="description" className="block font-semibold">Description</label>
-              <input type="text" name="" id="description" className="w-[10.25rem] h-[2.2rem] border border-[#6E9DF7] border-opacity-50 px-2"/>
+              <input
+                type="text"
+                name=""
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-[10.25rem] h-[2.2rem] border border-[#6E9DF7] border-opacity-50 px-2"/>
             </div>
             <div className="h-[33.33%]">
               <button className="w-[10.25rem] h-[2.2rem] bg-[#6E9DF7] bg-opacity-80 font-bold mt-6">Add Transaction</button>
