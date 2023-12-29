@@ -153,7 +153,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
         <div>
             <div className="transaction-group row flex flex-col">
                 <h4 className="font-bold">Transactions</h4>
-                <hr className="h-0.5 bg-[#B6CEFC80]" />
+                <hr className="dark:border-0.5 dark:border-[#B6CEFC80]" />
                 <div className="flex justify-between mt-3">
                     <div className="form-group col-md-4">
                     <div className="custom-dropdown" onBlur={closeDropdown} tabIndex={0}>
