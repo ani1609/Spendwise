@@ -109,9 +109,9 @@
 .income::after {
   content: "";
   position: absolute;
-  top: -2px;
-  bottom: -1.5px;
-  right: -1.5px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
   width: 8px;
   background-color: #1cd503;
   border-radius: 1px 2px 2px 1px;
@@ -120,9 +120,9 @@
 .outcome::after {
   content: "";
   position: absolute;
-  top: -2px;
-  bottom: -1.5px;
-  right: -1.5px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
   width: 8px;
   background-color: #f53838;
   border-radius: 1px 2px 2px 1px;
