@@ -50,7 +50,7 @@ const PredefinedTransactions = () => {
         {/* Main Form */}
         <form className='form relative w-[34.5rem] h-[25.25rem] flex py-10 px-8 font-[Inter]'>
           <button className='close-button absolute top-2 right-2 text-3xl' onClick={ (e) => handleCloseClick(e) }>
-           <RxCross2/>
+            <RxCross2/>
           </button>
 
           {/* Left side of the form */}

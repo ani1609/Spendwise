@@ -11,6 +11,7 @@ body {
   --primary: #b6cefc;
   --border: #6e9df7;
   --icons: #6e9df7;
+  transition: all 0.5s;
 }
 
 ::-webkit-scrollbar {

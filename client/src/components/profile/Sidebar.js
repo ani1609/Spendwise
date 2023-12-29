@@ -11,7 +11,7 @@ const Sidebar = ({ onButtonClick }) => {
     setSidebarVisible(!isSidebarVisible);
   };
 
-  const sidebarClasses = `dark:text-white sidebar fixed left-0 top-0 h-screen w-60 text-black transform transition-transform ${
+  const sidebarClasses = `transition duration-500 dark:text-white sidebar fixed left-0 top-0 h-screen w-60 text-black transform transition-transform ${
     isSidebarVisible ? "translate-x-0 transition-transform duration-300 ease-in" : "-translate-x-full transition-transform duration-300 ease-out"
   }`;
   useEffect(() => {

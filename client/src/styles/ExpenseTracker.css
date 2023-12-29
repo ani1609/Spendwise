@@ -282,6 +282,7 @@ input[type="number"]::-webkit-outer-spin-button {
   outline: 0;
   border-style: solid;
   border-color: var(--border);
+  transition: background-color 0.5s;
 }
 
 #category option {
@@ -295,6 +296,7 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 44px;
   border-style: solid;
   border-color: var(--border);
+  transition: background-color 0.5s;
 }
 
 #text {
