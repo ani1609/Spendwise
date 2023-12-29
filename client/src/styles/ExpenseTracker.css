@@ -281,7 +281,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-repeat: no-repeat;
   outline: 0;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border) !important;
   transition: background-color 0.5s;
 }
 
@@ -295,7 +295,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0;
   height: 44px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border) !important;
   transition: background-color 0.5s;
 }
 
