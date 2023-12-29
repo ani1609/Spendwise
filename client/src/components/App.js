@@ -19,7 +19,7 @@ function Home ({ userJWTToken, userFirebaseRefId, showSignupForm, setShowSignupF
                 fill={
                   (theme === "dark")
                     ? "rgba(19,43,57,1)"
-                    : "#c465c9"
+                    : "#b6cefc"
                 }
                 d="M0,32L120,58.7C240,85,480,139,720,144C960,149,1200,107,1320,85.3L1440,64L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"
               ></path>
