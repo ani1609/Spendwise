@@ -183,11 +183,10 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 style={
                   {
                     cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer",
-                    backgroundColor: theme === "dark" ? "transparent" : "white",
                     borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225)"
                   }}
                 disabled={formData.transactionType === "Income"}
-                className="border border-slate-500 rounded-md sm:px-1 col-md-4"
+                className="border border-slate-500 rounded-md sm:px-1 col-md-4 bg-transparent"
                 placeholder="Category"
             >
                 <option value="" hidden>
@@ -214,7 +213,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                   }}
                 placeholder="Date"
                 required
-                className="cursor-pointer border rounded-md bg-transparent h-7 px-1 col-md-4 dark:bg-transparent dark:border-[#B6CEFC80]"
+                className="cursor-pointer border rounded-md bg-transparent h-7 px-1 col-md-4 dark:border-[#B6CEFC80]"
             />
             </div>
         </div>
@@ -230,7 +229,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Amount"
                 required
-                className="border p-2 transition duration-500 dark:bg-transparent dark:border-[#B6CEFC80]"
+                className="border p-2 transition duration-500 bg-transparent dark:border-[#B6CEFC80]"
             />
             </div>
             <div className="flex flex-col" style={{ marginTop: "29px", width: "100%" }}>
@@ -243,7 +242,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Description"
                 required
-                className="border p-2 transition duration-500 dark:bg-transparent dark:border-[#B6CEFC80]"
+                className="border p-2 transition duration-500 bg-transparent dark:border-[#B6CEFC80]"
                 autoComplete="off"
             />
             </div>
