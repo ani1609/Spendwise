@@ -152,8 +152,8 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
   return (
         <div>
             <div className="transaction-group row flex flex-col">
-                <h4 className="font-bold">Transactions</h4>
-                <hr className="dark:border-0.5 dark:border-[#B6CEFC80]" />
+                <h4 className="font-bold transition-all duration-500">Transactions</h4>
+                <hr className="dark:border-0.5 dark:border-[#B6CEFC80] transition-all duration-500" />
                 <div className="flex justify-between mt-3">
                     <div className="form-group col-md-4">
                     <div className="custom-dropdown" onBlur={closeDropdown} tabIndex={0}>
@@ -206,9 +206,9 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                 {transactionFilter.map((transaction, index) => (
                   transaction.transactionType === "Income"
                     ? (
-                    <li key={index} className="income flex justify-between items-center border-2 rounded p-2">
-                        <div className="icon_container transition duration-500 dark:bg-[#335467]">
-                        <Plus className="icons transition duration-500 dark:fill-[rgba(19,43,57,1)]" />
+                    <li key={index} className="income flex justify-between items-center border rounded p-2 transition-all duration-500">
+                        <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
+                        <Plus className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" />
                         </div>
                         <div className="descDate_container">
                         {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0, descriptionChars) + "..."}</h4> : <h4>{transaction.description}</h4>}
@@ -222,13 +222,13 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     </li>
                       )
                     : (
-                    <li key={index} className="outcome flex justify-between items-center border-2 rounded p-2">
-                        <div className="icon_container">
-                        {transaction.category === "Food" ? <Food className="icons" /> : null}
-                        {transaction.category === "Travel" ? <Travel className="icons" /> : null}
-                        {transaction.category === "Shopping" ? <Shopping className="icons" /> : null}
-                        {transaction.category === "Bills" ? <Bills className="icons" /> : null}
-                        {transaction.category === "Others" ? <Others className="icons" /> : null}
+                    <li key={index} className="outcome flex justify-between items-center border rounded p-2 transition-all duration-500">
+                        <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
+                        {transaction.category === "Food" ? <Food className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Travel" ? <Travel className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Shopping" ? <Shopping className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Bills" ? <Bills className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Others" ? <Others className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
                         </div>
                         <div className="descDate_container">
                         {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0, descriptionChars) + "..."}</h4> : <h4>{transaction.description}</h4>}

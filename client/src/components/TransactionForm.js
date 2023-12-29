@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/ExpenseTracker.css";
 import "../index.css";
 import { ThemeContext } from "../context/ThemeContext";
+
 function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setFormData }) {
   const newTransaction = () => {
     setEditEnabled(false);
@@ -117,7 +118,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
   };
   const { theme } = useContext(ThemeContext);
   return (
-    <div className="form_container border-2 rounded flex flex-col justify-between transition duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]">
+    <div className="form_container border-[1.5px] rounded flex flex-col justify-between transition-all duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]">
       <div className="flex flex-row items-start gap-5">
       {editEnabled
         ? (
@@ -186,7 +187,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                     borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225)"
                   }}
                 disabled={formData.transactionType === "Income"}
-                className="border-2 border-slate-500 rounded-md sm:px-1 col-md-4"
+                className="border border-slate-500 rounded-md sm:px-1 col-md-4"
                 placeholder="Category"
             >
                 <option value="" hidden>
@@ -213,7 +214,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                   }}
                 placeholder="Date"
                 required
-                className="cursor-pointer border-2 rounded-md bg-transparent h-7 px-1 col-md-4 dark:bg-[#335467] dark:border-[#B6CEFC80]"
+                className="cursor-pointer border rounded-md bg-transparent h-7 px-1 col-md-4 dark:bg-[#335467] dark:border-[#B6CEFC80]"
             />
             </div>
         </div>
@@ -229,7 +230,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Amount"
                 required
-                className="border-2 p-2 transition duration-500 dark:bg-[#335467] dark:border-[#B6CEFC80]"
+                className="border p-2 transition duration-500 dark:bg-[#335467] dark:border-[#B6CEFC80]"
             />
             </div>
             <div className="flex flex-col" style={{ marginTop: "29px", width: "100%" }}>
@@ -242,7 +243,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Description"
                 required
-                className="border-2 p-2 transition duration-500 dark:bg-[#335467] dark:border-[#B6CEFC80]"
+                className="border p-2 transition duration-500 dark:bg-[#335467] dark:border-[#B6CEFC80]"
                 autoComplete="off"
             />
             </div>
