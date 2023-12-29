@@ -153,7 +153,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
         <div>
             <div className="transaction-group row flex flex-col">
                 <h4 className="font-bold transition-all duration-500">Transactions</h4>
-                <hr className="dark:border-0.5 dark:border-[#B6CEFC80] transition-all duration-500" />
+                <hr className="border-[#b6cefc] border-0.5 dark:border-[#B6CEFC80] transition-all duration-500" />
                 <div className="flex justify-between mt-3">
                     <div className="form-group col-md-4">
                     <div className="custom-dropdown dark:bg-[#011019] transition-colors duration-500" onBlur={closeDropdown} tabIndex={0}>
@@ -195,7 +195,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     onChange={(e) => changeDateFilter(e)}
                     placeholder="Date"
                     required
-                    className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-7 px-1 transition duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]"
+                    className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-[26px] px-1 transition duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]"
                     />
                 </div>
             </div>
