@@ -6,15 +6,22 @@ import { ReactComponent as Close } from "../icons/close.svg";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { usersCollection } from "../firebaseConfig";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // import search from "../icons/search.svg";
 
 function Login ({ setShowLoginForm }) {
   const [invalidEmail, setInvalidEmail] = useState(false);
+  const [passwordShow, setPasswordShow] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
     password: ""
   });
+
+  const passwordShowToggle = () => {
+    setPasswordShow(!passwordShow);
+  };
+
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
@@ -71,41 +78,55 @@ function Login ({ setShowLoginForm }) {
   };
 
   return (
-        <div className="login_form_container" onClick={(e) => e.stopPropagation()}>
-            <h1>Welcome Back</h1>
-            <div className='close-icon' onClick={ () => { setShowLoginForm(false); } }>
-                <Close fill="white" className='w-6 h-6 cursor-pointer'/>
-            </div>
-            <form onSubmit={handleLogin}>
-                <input
-                    type='email'
-                    placeholder='Email'
-                    value={loginData.email}
-                    onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-                    required
-                />
-                <input
-                    type='password'
-                    placeholder='Password'
-                    value={loginData.password}
-                    onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                    required
-                />
-                {invalidEmail && <p className="error_message">Invalid email or password</p>}
-
-                <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className='loginBtn'>
-                    {loading
-                      ? (<div className="loading-spinner"></div>)
-                      : ("Log in" // Note: 'Log in' should be a string
-                        )}
-                </button>
-                <div className="loginSeparator flex justify-center items-center" style={{ width: "100%" }}><hr style={{ width: "100%" }}></hr> &nbsp;&nbsp;or&nbsp;&nbsp; <hr style={{ width: "100%" }}></hr></div>
-            </form>
-            <button className="googleLogin p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" onClick={handleGoogleSignIn}>
-                <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
-                <span>Continue with Google</span>
-            </button>
+    <div className="login_form_container" onClick={(e) => e.stopPropagation()}>
+      <h1>Welcome Back</h1>
+      <div className='close-icon' onClick={() => { setShowLoginForm(false); }}>
+        <Close fill="white" className='w-6 h-6 cursor-pointer' />
+      </div>
+      <form onSubmit={handleLogin}>
+        <input
+          type='email'
+          placeholder='Email'
+          value={loginData.email}
+          onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+          required
+        />
+        {/* <input
+          type='password'
+          placeholder='Password'
+          value={loginData.password}
+          onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+          required
+        /> */}
+        <div className="input_div p-0 flex flex-nowrap items-center pe-2">
+          <input
+            className="p-0 m-0 border"
+            type={passwordShow ? "text" : "password"}
+            placeholder='Password'
+            value={loginData.password}
+            onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+            required
+          />
+          { passwordShow
+            ? <FaEyeSlash onClick={passwordShowToggle} className="h-8 w-8"/>
+            : <FaEye onClick={passwordShowToggle} className="h-8 w-8"/> }
         </div>
+        {invalidEmail && <p className="error_message">Invalid email or password</p>}
+
+        <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className='loginBtn'>
+          {loading
+            ? (<div className="loading-spinner"></div>)
+            : ("Log in" // Note: 'Log in' should be a string
+              )
+          }
+        </button>
+        <div className="loginSeparator flex justify-center items-center" style={{ width: "100%" }}><hr style={{ width: "100%" }}></hr> &nbsp;&nbsp;or&nbsp;&nbsp; <hr style={{ width: "100%" }}></hr></div>
+      </form>
+      <button className="googleLogin p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" onClick={handleGoogleSignIn}>
+        <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
+        <span>Continue with Google</span>
+      </button>
+    </div>
   );
 }
 
