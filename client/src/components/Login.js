@@ -108,8 +108,8 @@ function Login ({ setShowLoginForm }) {
             required
           />
           { passwordShow
-            ? <FaEyeSlash onClick={passwordShowToggle} className="h-8 w-8"/>
-            : <FaEye onClick={passwordShowToggle} className="h-8 w-8"/> }
+            ? <FaEyeSlash onClick={passwordShowToggle} className="h-10 w-10 cursor-pointer"/>
+            : <FaEye onClick={passwordShowToggle} className="h-10 cursor-pointer w-10"/> }
         </div>
         {invalidEmail && <p className="error_message">Invalid email or password</p>}
 
