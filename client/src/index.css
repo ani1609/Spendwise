@@ -10,6 +10,7 @@ body {
   /* background-color: #011019; */
   --primary: #b6cefc;
   --border: #6e9df7;
+  --border-dark: #B6CEFC80;
   --icons: #6e9df7;
   transition: all 0.5s;
 }

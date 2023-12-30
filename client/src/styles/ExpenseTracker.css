@@ -92,9 +92,8 @@
 .selected-value{
   border-color: var(--border);
 }
-
-.cursor-pointer{
-  border-color: var(--border);
+.dark .selected-value, .dark #transaction-date{
+  border-color: var(--border-dark);
 }
 
 .income,
@@ -280,7 +279,6 @@ input[type="number"]::-webkit-outer-spin-button {
   background-repeat: no-repeat;
   outline: 0;
   border-style: solid;
-  border-color: var(--border) !important;
 }
 
 #category option {
@@ -293,13 +291,24 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0;
   height: 44px;
   border-style: solid;
-  border-color: var(--border) !important;
+  border-color: var(--border);
   transition: background-color 0.5s;
+}
+#transaction-date{
+  border-color: var(--border);
 }
 
 #text {
   width: 100%;
   border-color: var(--border);
+}
+
+#date, #category, #text, #number, .form_container{
+  border-color: var(--border) !important;
+}
+
+.dark #date, .dark #category, .dark #text, .dark #number, .dark .form_container button, .dark .form_container, .dark .incomeExpense_container {
+  border-color: var(--border-dark) !important;
 }
 
 .arrow {
