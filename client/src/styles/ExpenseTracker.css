@@ -103,7 +103,7 @@
   box-sizing: border-box;
   height: 70px;
   position: relative;
-  border-color: var(--border);
+  /* border-color: var(--border); */
 }
 
 .income::after {

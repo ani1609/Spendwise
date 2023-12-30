@@ -206,7 +206,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                 {transactionFilter.map((transaction, index) => (
                   transaction.transactionType === "Income"
                     ? (
-                    <li key={index} className="income flex justify-between items-center border rounded p-2 transition-all duration-500">
+                    <li key={index} className="income flex justify-between items-center border border-[#6e9df7] dark:border-[#B6CEFC80] rounded p-2 transition-all duration-500">
                         <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
                         <Plus className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" />
                         </div>
@@ -222,7 +222,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     </li>
                       )
                     : (
-                    <li key={index} className="outcome flex justify-between items-center border rounded p-2 transition-all duration-500">
+                    <li key={index} className="outcome flex justify-between items-center border border-[#6e9df7] dark:border-[#B6CEFC80] rounded p-2 transition-all duration-500">
                         <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
                         {transaction.category === "Food" ? <Food className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
                         {transaction.category === "Travel" ? <Travel className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
