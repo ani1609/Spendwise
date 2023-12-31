@@ -160,11 +160,11 @@ function Signup ({ setShowSignupForm }) {
           onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
           required
         />
-        {passwordUnmatched && <p>Passwords do not match</p>}
-        {userExists && <p>User already exists</p>}
-        {invalidEmailFOrmat && <p>Invalid email format</p>}
-        {invalidName && <p>Invalid name format</p>}
-        <p>The pasword should contain atleast 8 characters which includes atleast one special character, one numeric , one uppercase and one lowercase character.</p>
+        {passwordUnmatched && <p className="error_message">Passwords do not match</p>}
+        {userExists && <p className="error_message">User already exists</p>}
+        {invalidEmailFOrmat && <p className="error_message">Invalid email format</p>}
+        {invalidName && <p className="error_message">Invalid name format</p>}
+        <p className="password_hint text-gray-400">The pasword should contain atleast 8 characters which includes atleast one special character, one numeric , one uppercase and one lowercase character.</p>
         <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
           {loading
             ? (

@@ -19,7 +19,13 @@
     right: 0;
     padding: 10px;
  }
-
+.password_hint{
+    opacity: 0;
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 1200ms;
+}
 
 .signup_form_container h1, .close-icon
 {
@@ -176,7 +182,7 @@
     }
 }
 
-.signup_form_container p
+.error_message
 {
     color: red;
     font-size: 15px;
@@ -217,3 +223,4 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
