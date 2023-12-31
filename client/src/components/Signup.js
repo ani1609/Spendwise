@@ -11,6 +11,7 @@ function Signup ({ setShowSignupForm }) {
   const [invalidEmailFOrmat, setInvalidEmailFormat] = useState(false);
   const [userExists, setUserExists] = useState(false);
   const [passwordUnmatched, setPasswordUnmatched] = useState(false);
+  const [invalidName, setInvalidName] = useState(false);
   const [signupData, setSignupData] = useState({
     name: "",
     email: "",
@@ -19,6 +20,32 @@ function Signup ({ setShowSignupForm }) {
   });
   const [loading, setLoading] = useState(false);
 
+  const isPasswordValidLength = (password) => password.length >= 8;
+  const containsUpperCase = (password) => /[A-Z]/.test(password);
+  const containsLowerCase = (password) => /[a-z]/.test(password);
+  const containsNumber = (password) => /\d/.test(password);
+  const containsSymbol = (password) => /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password);
+
+  const validatePassword = (password) => {
+    return (
+      isPasswordValidLength(password) &&
+      containsUpperCase(password) &&
+      containsLowerCase(password) &&
+      containsNumber(password) &&
+      containsSymbol(password)
+    );
+  };
+
+  const handleNameChange = (e) => {
+    const isValidName = /^[a-zA-Z\s]*$/.test(e.target.value);
+
+    if (isValidName || e.target.value === "") {
+      setSignupData({ ...signupData, name: e.target.value });
+    } else {
+      setInvalidName(true);
+    }
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -26,6 +53,15 @@ function Signup ({ setShowSignupForm }) {
       setUserExists(false);
       setPasswordUnmatched(true);
       console.error("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    if (!validatePassword(signupData.password)) {
+      setUserExists(false);
+      setPasswordUnmatched(false);
+      setInvalidEmailFormat(false);
+      console.error("Password does not meet complexity requirements");
       setLoading(false);
       return;
     }
@@ -90,59 +126,61 @@ function Signup ({ setShowSignupForm }) {
   };
 
   return (
-        <div className="signup_form_container" onClick={(e) => e.stopPropagation()}>
-            <h1>Create Your Account</h1>
-            <div className='close-icon' onClick={ () => { setShowSignupForm(false); } }>
-                <Close fill="white" className='w-6 h-6 cursor-pointer'/>
-            </div>
-            <form onSubmit={handleSignup}>
-                <input
-                    type='text'
-                    placeholder='Name'
-                    value={signupData.name}
-                    onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
-                    required
-                />
-                <input
-                    type='email'
-                    placeholder='Email'
-                    value={signupData.email}
-                    onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
-                    required
-                />
-                <input
-                    type='password'
-                    placeholder='Password'
-                    value={signupData.password}
-                    onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
-                    required
-                />
-                <input
-                    type='password'
-                    placeholder='Confirm Password'
-                    value={signupData.confirmPassword}
-                    onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
-                    required
-                />
-                {passwordUnmatched && <p>Passwords do not match</p>}
-                {userExists && <p>User already exists</p>}
-                {invalidEmailFOrmat && <p>Invalid email format</p>}
-                <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
-                    {loading
-                      ? (
-                        <div className="loading-spinner"></div>
-                        )
-                      : (
-                          "Sign up"
-                        )}
-                </button>
-                <div className="signupSeparator flex justify-center items-center" style={{ width: "100%" }}><hr style={{ width: "100%" }}></hr> &nbsp;&nbsp;or&nbsp;&nbsp; <hr style={{ width: "100%" }}></hr></div>
-            </form>
-            <button className="googleSignup p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" onClick={handleGoogleSignIn}>
-                <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
-                <span>Continue with Google</span>
-            </button>
-        </div>
+    <div className="signup_form_container" onClick={(e) => e.stopPropagation()}>
+      <h1>Create Your Account</h1>
+      <div className='close-icon' onClick={() => { setShowSignupForm(false); }}>
+        <Close fill="white" className='w-6 h-6 cursor-pointer' />
+      </div>
+      <form onSubmit={handleSignup}>
+        <input
+          type='text'
+          placeholder='Name'
+          value={signupData.name}
+          onChange={handleNameChange}
+          required
+        />
+        <input
+          type='email'
+          placeholder='Email'
+          value={signupData.email}
+          onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+          required
+        />
+        <input
+          type='password'
+          placeholder='Password'
+          value={signupData.password}
+          onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+          required
+        />
+        <input
+          type='password'
+          placeholder='Confirm Password'
+          value={signupData.confirmPassword}
+          onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
+          required
+        />
+        {passwordUnmatched && <p>Passwords do not match</p>}
+        {userExists && <p>User already exists</p>}
+        {invalidEmailFOrmat && <p>Invalid email format</p>}
+        {invalidName && <p>Invalid name format</p>}
+        <p>The pasword should contain atleast 8 characters which includes atleast one special character, one numeric , one uppercase and one lowercase character.</p>
+        <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
+          {loading
+            ? (
+              <div className="loading-spinner"></div>
+              )
+            : (
+                "Sign up"
+              )}
+        </button>
+        <div className="signupSeparator flex justify-center items-center" style={{ width: "100%" }}><hr style={{ width: "100%" }}></hr> &nbsp;&nbsp;or&nbsp;&nbsp; <hr style={{ width: "100%" }}></hr></div>
+      </form>
+      <button className="googleSignup p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" onClick={handleGoogleSignIn}>
+        <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
+        <span>Continue with Google</span>
+      </button>
+    </div>
   );
 }
 
