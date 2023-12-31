@@ -28,9 +28,9 @@ body {
 }
 
 .dark > ::-webkit-scrollbar-track {
-  background: rgba(19,43,57,1);
+  background: #959595
 }
 
 .dark > ::-webkit-scrollbar-thumb {
-  background-color: #959595
+  background-color: rgba(19,43,57,1);
 }
