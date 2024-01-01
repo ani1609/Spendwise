@@ -118,7 +118,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
   };
   const { theme } = useContext(ThemeContext);
   return (
-    <div className="form_container border-[1.5px] rounded flex flex-col justify-between transition-all duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]">
+    <div className="form_container border-[1.5px] rounded flex flex-col justify-between transition-all duration-500 dark:bg-[#011019]">
       <div className="flex flex-row items-start gap-5">
       {editEnabled
         ? (
@@ -182,11 +182,10 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 required
                 style={
                   {
-                    cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer",
-                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225)"
+                    cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer"
                   }}
                 disabled={formData.transactionType === "Income"}
-                className="border border-slate-500 rounded-md sm:px-1 col-md-4 bg-transparent"
+                className="border sm:px-1 col-md-4 bg-transparent transition-all duration-500"
                 placeholder="Category"
             >
                 <option value="" hidden>
@@ -207,19 +206,15 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 id="date"
                 value={formData.date}
                 onChange={handleChange}
-                style={
-                  {
-                    borderColor: theme === "dark" ? "#B6CEFC80" : "rgb(225 225 225)"
-                  }}
                 placeholder="Date"
                 required
-                className="cursor-pointer border rounded-md bg-transparent h-7 px-1 col-md-4 dark:border-[#B6CEFC80]"
+                className="cursor-pointer border bg-transparent h-7 px-1 col-md-4 transition-all duration-500"
             />
             </div>
         </div>
 
         <div className="flex flex-col justify-start" style={{ width: "45%" }}>
-            <div className="flex flex-col dark:border-[#B6CEFC80]" style={{ width: "100%" }}>
+            <div className="flex flex-col" style={{ width: "100%" }}>
             <label htmlFor="amount">Amount</label>
             <input
                 type="number"
@@ -229,11 +224,11 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Amount"
                 required
-                className="border p-2 transition duration-500 bg-transparent dark:border-[#B6CEFC80]"
+                className="border p-2 transition-all duration-500 bg-transparent"
             />
             </div>
             <div className="flex flex-col" style={{ marginTop: "29px", width: "100%" }}>
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description" style={{ marginTop: "2px" }}>Description</label>
             <input
                 type="text"
                 id="text"
@@ -242,7 +237,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Description"
                 required
-                className="border p-2 transition duration-500 bg-transparent dark:border-[#B6CEFC80]"
+                className="border p-2 transition duration-500 bg-transparent"
                 autoComplete="off"
             />
             </div>
