@@ -20,7 +20,6 @@
     padding: 10px;
  }
 
-
 .signup_form_container h1, .close-icon
 {
     color: var(--primary);
@@ -175,7 +174,7 @@
     }
 }
 
-.signup_form_container p
+.error_message
 {
     color: red;
     font-size: 15px;
@@ -216,3 +215,4 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
