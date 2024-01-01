@@ -12,6 +12,7 @@ function Signup ({ setShowSignupForm }) {
   const [userExists, setUserExists] = useState(false);
   const [passwordUnmatched, setPasswordUnmatched] = useState(false);
   const [invalidName, setInvalidName] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
   const [signupData, setSignupData] = useState({
     name: "",
     email: "",
@@ -41,6 +42,7 @@ function Signup ({ setShowSignupForm }) {
 
     if (isValidName || e.target.value === "") {
       setSignupData({ ...signupData, name: e.target.value });
+      setInvalidName(false);
     } else {
       setInvalidName(true);
     }
@@ -62,8 +64,10 @@ function Signup ({ setShowSignupForm }) {
       setPasswordUnmatched(false);
       setInvalidEmailFormat(false);
       console.error("Password does not meet complexity requirements");
+      setInvalidPassword(true);
       setLoading(false);
-      return;
+    } else {
+      setInvalidPassword(false);
     }
     try {
       // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/signup, signupData);
@@ -148,7 +152,7 @@ function Signup ({ setShowSignupForm }) {
         />
         <input
           type='password'
-          placeholder='Password'
+          placeholder='Password(minimimum 8 characters)'
           value={signupData.password}
           onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
           required
@@ -164,7 +168,7 @@ function Signup ({ setShowSignupForm }) {
         {userExists && <p className="error_message">User already exists</p>}
         {invalidEmailFOrmat && <p className="error_message">Invalid email format</p>}
         {invalidName && <p className="error_message">Invalid name format</p>}
-        <p className="password_hint text-gray-400">The pasword should contain atleast 8 characters which includes atleast one special character, one numeric , one uppercase and one lowercase character.</p>
+        {invalidPassword && <p className="error_message">Invalid Password format ,the password should contain one upper case,one lower case , one numeric and one special character.</p>}
         <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
           {loading
             ? (
