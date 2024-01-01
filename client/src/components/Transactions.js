@@ -12,7 +12,7 @@ import { ReactComponent as Bills } from "../icons/bills.svg";
 import { ReactComponent as Others } from "../icons/others.svg";
 import { ReactComponent as Plus } from "../icons/plus1.svg";
 import MyLoader from "./TransactionLoading";
-import "../styles/ExpenseTracker.css";
+import "../styles/Transaction.css";
 import "../index.css";
 
 function Transactions ({ transactions, setTransactions, user, setEditEnabled, setFormData, descriptionChars }) {
