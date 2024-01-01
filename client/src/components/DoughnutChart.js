@@ -72,6 +72,10 @@ function DoughnutChart (props) {
                         labels: {
                           colors: theme === "dark" ? "#B6CEFC80" : "#000"
                         }
+                      },
+
+                      stroke: {
+                        colors: theme === "dark" ? ["#B6CEFC80"] : ["#fff"]
                       }
 
                     }}

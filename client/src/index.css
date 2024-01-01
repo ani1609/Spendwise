@@ -27,3 +27,11 @@ body {
   /* background: linear-gradient(transparent,#C599D8); */
   background-color: var(--primary);
 }
+
+.dark > ::-webkit-scrollbar-track {
+  background: #959595
+}
+
+.dark > ::-webkit-scrollbar-thumb {
+  background-color: rgba(19,43,57,1);
+}
