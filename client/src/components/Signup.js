@@ -21,22 +21,6 @@ function Signup ({ setShowSignupForm }) {
   });
   const [loading, setLoading] = useState(false);
 
-  const isPasswordValidLength = (password) => password.length >= 8;
-  const containsUpperCase = (password) => /[A-Z]/.test(password);
-  const containsLowerCase = (password) => /[a-z]/.test(password);
-  const containsNumber = (password) => /\d/.test(password);
-  const containsSymbol = (password) => /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password);
-
-  const validatePassword = (password) => {
-    return (
-      isPasswordValidLength(password) &&
-      containsUpperCase(password) &&
-      containsLowerCase(password) &&
-      containsNumber(password) &&
-      containsSymbol(password)
-    );
-  };
-
   const handleNameChange = (e) => {
     const isValidName = /^[a-zA-Z\s]*$/.test(e.target.value);
 
@@ -59,13 +43,14 @@ function Signup ({ setShowSignupForm }) {
       return;
     }
 
-    if (!validatePassword(signupData.password)) {
+    if (signupData.password.length < 8) {
       setUserExists(false);
       setPasswordUnmatched(false);
       setInvalidEmailFormat(false);
       console.error("Password does not meet complexity requirements");
       setInvalidPassword(true);
       setLoading(false);
+      return;
     } else {
       setInvalidPassword(false);
     }
@@ -168,7 +153,7 @@ function Signup ({ setShowSignupForm }) {
         {userExists && <p className="error_message">User already exists</p>}
         {invalidEmailFOrmat && <p className="error_message">Invalid email format</p>}
         {invalidName && <p className="error_message">Invalid name format</p>}
-        {invalidPassword && <p className="error_message">Invalid Password format ,the password should contain one upper case,one lower case , one numeric and one special character.</p>}
+        {invalidPassword && <p className="error_message">Invalid Password format</p>}
         <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
           {loading
             ? (
