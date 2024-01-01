@@ -1,0 +1,150 @@
+.transactions_container {
+  max-height: calc(100vh - 433px);
+  overflow: auto;
+  margin-top: 5px;
+}
+
+.selected-value{
+  border-color: var(--border);
+}
+.dark .selected-value, .dark #transaction-date{
+  border-color: var(--border-dark);
+}
+
+.income,
+.outcome {
+  width: 100%;
+  box-sizing: border-box;
+  height: 70px;
+  position: relative;
+  /* border-color: var(--border); */
+}
+
+.income::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 8px;
+  background-color: #1cd503;
+  border-radius: 1px 2px 2px 1px;
+}
+
+.outcome::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 8px;
+  background-color: #f53838;
+  border-radius: 1px 2px 2px 1px;
+}
+
+.icon_container {
+  padding: 12px;
+  background-color: var(--primary);
+  border-radius: 50%;
+}
+
+.icons {
+  height: 29px;
+  width: 29px;
+  fill: var(--icons);
+}
+
+.descDate_container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.descDate_container h4 {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.descDate_container p {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+}
+
+.income h1 {
+  margin: 0;
+  font-size: 16px;
+  color: #1cd503;
+  margin-right: 10px;
+}
+
+.outcome h1 {
+  margin: 0;
+  font-size: 16px;
+  color: #f53838;
+  margin-right: 10px;
+}
+
+.editDelete_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease-in-out;
+  width: 0px;
+  height: 100%;
+}
+
+.income:hover .editDelete_container,
+.outcome:hover .editDelete_container {
+  width: 60px;
+}
+
+.edit_icon {
+  fill: var(--primary);
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+
+.delete_icon {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  fill: #f53838;
+}
+
+.edit_icon {
+  fill: #65c971;
+}
+
+.delete_icon {
+  fill: #f53838;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  float: right;
+  padding: 2.4px;
+  position: relative;
+  top: 7px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+/* --------responsiveness--------- */
+@media only screen and (max-width: 480px) {
+  .editDelete_container {
+    width: 60px;
+  }
+}
