@@ -7,7 +7,7 @@
 .selected-value{
   border-color: var(--border);
 }
-.dark .selected-value, .dark #transaction-date{
+.dark .selected-value{
   border-color: var(--border-dark);
 }
 

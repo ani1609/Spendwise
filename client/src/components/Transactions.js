@@ -191,12 +191,11 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     <input
                     type="date"
                     name="date"
-                    id="transaction-date"
                     value={dateFillter}
                     onChange={(e) => changeDateFilter(e)}
                     placeholder="Date"
                     required
-                    className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-[26px] px-1 transition duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]"
+                    className="selected-value cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-[26px] px-1 transition duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]"
                     />
                 </div>
             </div>
