@@ -191,6 +191,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     <input
                     type="date"
                     name="date"
+                    id="transaction-date"
                     value={dateFillter}
                     onChange={(e) => changeDateFilter(e)}
                     placeholder="Date"
