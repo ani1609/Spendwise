@@ -253,7 +253,6 @@
 
 #number {
   width: 100%;
-  border-color: var(--border);
 }
 .input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -268,22 +267,9 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 100%;
   line-height: 1.5em;
   padding: 8px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA3klEQVRIS+3VMU9CMRTF8d8zBL+aizoQFhx0kUk33RzdYMNFXUFnYeGrYYyaJiUxJHDLSxodbNKpfeffc9/pbaPyaCrr+3OA++z4rtT5Pg5GuMnCY9yWQEoBE1xhlUUP8YDrCBIB0vojLvGO0yz4hm4JJAKcYYoPHGOZAUdYoIMBXrc5iQAHeMlzviFygj7O8dkWEJU4XI8chALRhn9AVKHf70VRTHu4wFfbmKZLNKt50dLBnna0imcMd/2I0phWa3Y/D1e1Xa9BCZJG0VuQNpaWKMx72xS1Fl5/WN3BN+AgJhnZQlq4AAAAAElFTkSuQmCC");
-  background-position: calc(100% - 0.5rem), 100% 0;
-  background-size: 1.5em 1.5em;
-  background-repeat: no-repeat;
   outline: 0;
   border-style: solid;
-}
-
-#category option {
-  background-color: white;
-  /* color: black;  */
 }
 
 #date {
@@ -291,24 +277,18 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0;
   height: 44px;
   border-style: solid;
-  border-color: var(--border);
-  transition: background-color 0.5s;
-}
-#transaction-date{
-  border-color: var(--border);
 }
 
 #text {
   width: 100%;
-  border-color: var(--border);
 }
 
 #date, #category, #text, #number, .form_container{
-  border-color: var(--border) !important;
+  border-color: var(--border);
 }
 
 .dark #date, .dark #category, .dark #text, .dark #number, .dark .form_container button, .dark .form_container, .dark .incomeExpense_container {
-  border-color: var(--border-dark) !important;
+  border-color: var(--border-dark);
 }
 
 .arrow {
