@@ -1,0 +1,39 @@
+/* A stylesheet just for 
+    i) Removing arrows from number input type.
+    ii) Glassmorphism effect on the form.
+    iii) Custom radio button styling when checked
+*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: textfield;
+}
+.form,.form-container{
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+input[name="transactionType"]:checked{
+  background-color: #079DF2;
+  position: relative;
+}
+input[name="transactionType"]:checked::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

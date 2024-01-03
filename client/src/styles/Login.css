@@ -63,6 +63,24 @@
     color: #888888;
 }
 
+.login_form_container form .input_div
+{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    /* padding: 10px 15px; */
+    box-sizing: border-box;
+    transition: 0.5s ease-in-out;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    transition: 0.5s ease-in-out;
+    width: 100%;
+    opacity: 0;
+    background-color: rgb(230, 230, 230);
+    color: #888888;
+}
+
 .login_form_container form input::placeholder
 {
     color: #888888;
@@ -102,6 +120,7 @@
 
 .googleLogin
 {
+    margin-top: -15px;
     color: black;
     background-color: white;
     cursor: pointer;
@@ -116,7 +135,7 @@
     animation-name: fadeInSlideIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
-    animation-delay: 1100ms;
+    animation-delay: 1300ms;
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.5px;
     display: flex;
@@ -133,7 +152,7 @@
     animation-delay: 500ms;
 }
 
-.login_form_container form input:nth-child(2)
+.login_form_container form .input_div
 {
     animation-name: fadeInSlideIn;
     animation-duration: 0.5s;

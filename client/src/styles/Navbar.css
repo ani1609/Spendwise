@@ -1,159 +1,146 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500;600&display=swap");
 
-.navbar_parent
-{
-    height: 70px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0px 50px;  
+.navbar_parent {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0px 50px;
 }
 
-.navbar_parent h1
-{
-    margin: 0;
-    letter-spacing: 0.5px;
-    font-size: 35px;
-    font-family: 'Barlow Condensed', sans-serif;
+.navbar_parent h1 {
+  margin: 0;
+  letter-spacing: 0.5px;
+  font-size: 35px;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
-.profile_container
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+.profile_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
-.profile_container h4
-{
-    font-family: 'Lato', sans-serif;
-    letter-spacing: 0.5px;
-    font-size: 18px;
+.profile_container h4 {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 18px;
 }
 
-.logout_icon
-{
-    height: 25px;
-    width: 25px;
-    cursor: pointer;
-    fill: white;
+.moneygram-icon{
+  padding:0.4rem;
 }
 
-.login_signup_container
-{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+.logout_icon {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  fill: white;
 }
 
-.login_signup_container button
-{
-    height: 35px;
-    width: 90px;
-    border: none;
-    outline: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    font-family: 'Lato', sans-serif;
-    font-size: 17px;
-    letter-spacing: 0.5px;
-    background-color: white;
-    color: var(--primary);
-    font-weight: 500;
+.login_signup_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
-.login_parent, .signup_parent
-{
-    width: 100vw;
-    height: calc(100vh - 70px);
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 70px;
-    left: 0;
-    backdrop-filter: blur(3px);
+.login_signup_container button {
+  height: 35px;
+  width: 90px;
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-family: "Lato", sans-serif;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  background-color: white;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.login_parent,
+.signup_parent {
+  width: 100vw;
+  height: calc(100vh - 70px);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 70px;
+  left: 0;
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+  z-index: 100;
+}
+
+@keyframes fadeIn {
+  0% {
     opacity: 0;
-    animation-name: fadeIn;
-    animation-duration: 0.3s;
-    animation-fill-mode: both;
-    z-index: 100;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
-@keyframes fadeIn
-{
-    0%
-    {
-        opacity: 0;
-    }
-
-    100%
-    {
-        opacity: 1;
-    }
+.login_parent::before,
+.signup_parent::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(24, 24, 24, 0.5);
+  z-index: -1;
 }
-
-.login_parent::before, .signup_parent::before
-{
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(24, 24, 24, 0.5);
-    z-index: -1;
-}
-
 
 /* ---------responsiveness----- */
-
 
 /* padding to 30px for screen widths<=768px */
 
 @media only screen and (max-width: 768px) {
-    .navbar_parent {
-       
-        padding: 0px 30px;
-        
-    }
+  .navbar_parent {
+    padding: 0px 30px;
+  }
 
-    .navbar_parent h1 {
-        font-size: 30px;
-    }
+  .navbar_parent h1 {
+    font-size: 30px;
+  }
 
-    .profile_container {
-        gap: 10px;
-    }
+  .profile_container {
+    gap: 10px;
+  }
 
-    .profile_container h4 {
-        font-size: 16px;
-    }
+  .profile_container h4 {
+    font-size: 16px;
+  }
 
-    .login_signup_container {
-        gap: 10px;
-    }
+  .login_signup_container {
+    gap: 10px;
+  }
 
-
-    .login_signup_container button {
-        height: 30px;
-        width: 80px;
-        font-size: 15px;
-    }
+  .login_signup_container button {
+    height: 30px;
+    width: 80px;
+    font-size: 15px;
+  }
 }
 
 @media only screen and (max-width: 480px) {
-    .navbar_parent {
-        padding: 0px 10px;
-    }
-    .navbar_parent h1 {
-        font-size: 28px;
-    }
-    .login_signup_container button {
-
-        font-size: 14px;
-    }
+  .navbar_parent {
+    padding: 0px 10px;
+  }
+  .navbar_parent h1 {
+    font-size: 28px;
+  }
+  .login_signup_container button {
+    font-size: 14px;
+  }
 }
-
