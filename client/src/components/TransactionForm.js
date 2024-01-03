@@ -32,6 +32,16 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
 
   const handleChange = (e) => {
     const targetValue = e.target.name === "amount" ? parseFloat(e.target.value) : e.target.value;
+
+    if (e.target.name === "date") {
+      const selectedDate = new Date(targetValue);
+      const today = new Date();
+      if (selectedDate >= today) {
+        toast.error("Please select a date in the past or present.");
+        return;
+      }
+    }
+
     setFormData({ ...formData, [e.target.name]: targetValue });
   };
 
