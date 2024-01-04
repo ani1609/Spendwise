@@ -185,7 +185,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                     cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer"
                   }}
                 disabled={formData.transactionType === "Income"}
-                className="border sm:px-1 col-md-4 bg-transparent transition-all duration-500"
+                className="border sm:px-1 col-md-4 bg-transparent"
                 placeholder="Category"
             >
                 <option value="" hidden>
@@ -208,7 +208,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Date"
                 required
-                className="cursor-pointer border bg-transparent h-7 px-1 col-md-4 transition-all duration-500"
+                className="cursor-pointer border bg-transparent h-7 px-1 col-md-4"
             />
             </div>
         </div>
