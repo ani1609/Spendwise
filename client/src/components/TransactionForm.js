@@ -183,7 +183,8 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 style={
                   {
                     cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer"
-                  }}
+                  }
+                }
                 disabled={formData.transactionType === "Income"}
                 className="border sm:px-1 col-md-4 bg-transparent transition-all duration-500"
                 placeholder="Category"

@@ -305,6 +305,11 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-transform: rotate(45deg);
 }
 
+#category{
+  color: black;
+  background-color: white;
+}
+
 /* --------responsiveness--------- */
 
 @media only screen and (max-width: 870px) {
