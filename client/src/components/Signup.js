@@ -37,6 +37,10 @@ function Signup ({ setShowSignupForm }) {
     setLoading(true);
     if (signupData.password !== signupData.confirmPassword) {
       setUserExists(false);
+      setInvalidEmailFormat(false);
+      setInvalidPassword(false);
+      setInvalidName(false);
+      setEmailVerificationSent(false);
       setPasswordUnmatched(true);
       setLoading(false);
       return;
@@ -46,6 +50,8 @@ function Signup ({ setShowSignupForm }) {
       setUserExists(false);
       setPasswordUnmatched(false);
       setInvalidEmailFormat(false);
+      setInvalidName(false);
+      setEmailVerificationSent(false);
       setInvalidPassword(true);
       setLoading(false);
       return;
@@ -60,8 +66,18 @@ function Signup ({ setShowSignupForm }) {
       setEmailVerificationSent(true);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
+        setPasswordUnmatched(false);
+        setInvalidEmailFormat(false);
+        setInvalidPassword(false);
+        setInvalidName(false);
+        setEmailVerificationSent(false);
         setUserExists(true);
       } else if (error.code === "auth/invalid-email") {
+        setUserExists(false);
+        setPasswordUnmatched(false);
+        setInvalidPassword(false);
+        setInvalidName(false);
+        setEmailVerificationSent(false);
         setInvalidEmailFormat(true);
       } else {
         console.error(error);

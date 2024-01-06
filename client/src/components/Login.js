@@ -58,6 +58,7 @@ function Login ({ setShowLoginForm }) {
     } catch (error) {
       setLoading(false);
       if (error.code === "auth/invalid-credential") {
+        setEmailNotVerified(false);
         setInvalidEmailPassword(true);
       } else {
         console.error(error);
