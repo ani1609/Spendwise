@@ -37,6 +37,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const today = new Date();
     if (formData.transactionType === "") {
       toast.error("Please select a transaction type.");
       return;
@@ -50,6 +51,11 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
     }
     if (formData.date === "") {
       toast.error("Please select a date.");
+      return;
+    }
+    const selectedDate = new Date(formData.date);
+    if (selectedDate > today) {
+      toast.error("Please select a date in the past or present.");
       return;
     }
     if (formData.amount === "") {
