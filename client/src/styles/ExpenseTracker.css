@@ -41,7 +41,6 @@
 }
 
 .form_container form button {
-  background-color: var(--primary);
   border-color: var(--border);
   letter-spacing: 0.5px;
   height: 44px;
