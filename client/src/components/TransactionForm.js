@@ -249,7 +249,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
             </div>
             <button
             type="submit"
-            className="text-white hover:text-gray-500 hover:bg-white border-[#c465c9] border transition-all duration-500 dark:border-[#B6CEFC80] dark:bg-[#132B39]"
+            className="text-white hover:text-gray-500 hover:bg-white border-[#c465c9] border transition-all duration-500 dark:border-[#B6CEFC80] bg-[#b6cefc] dark:bg-[#132B39]"
             onClick={handleSubmit}
             style={{ marginTop: "49px" }}
             >
