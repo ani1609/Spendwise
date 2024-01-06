@@ -44,14 +44,12 @@
 
 .icon_container {
   padding: 12px;
-  background-color: var(--primary);
   border-radius: 50%;
 }
 
 .icons {
   height: 29px;
   width: 29px;
-  fill: var(--icons);
 }
 
 .descDate_container {
