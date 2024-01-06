@@ -1,9 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 import "../index.css";
 import "../styles/Signup.css";
 import { ReactComponent as Close } from "../icons/close.svg";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { usersCollection } from "../firebaseConfig";
 
@@ -13,6 +12,7 @@ function Signup ({ setShowSignupForm }) {
   const [passwordUnmatched, setPasswordUnmatched] = useState(false);
   const [invalidName, setInvalidName] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
+  const [emailVerificationSent, setEmailVerificationSent] = useState(false);
   const [signupData, setSignupData] = useState({
     name: "",
     email: "",
@@ -38,7 +38,6 @@ function Signup ({ setShowSignupForm }) {
     if (signupData.password !== signupData.confirmPassword) {
       setUserExists(false);
       setPasswordUnmatched(true);
-      console.error("Passwords do not match");
       setLoading(false);
       return;
     }
@@ -47,7 +46,6 @@ function Signup ({ setShowSignupForm }) {
       setUserExists(false);
       setPasswordUnmatched(false);
       setInvalidEmailFormat(false);
-      console.error("Password does not meet complexity requirements");
       setInvalidPassword(true);
       setLoading(false);
       return;
@@ -55,33 +53,19 @@ function Signup ({ setShowSignupForm }) {
       setInvalidPassword(false);
     }
     try {
-      // const response = await axios.post(${process.env.REACT_APP_SERVER_PORT}/api/users/signup, signupData);
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signup`, signupData);
-      localStorage.setItem("expenseTrackerUserJWTToken", JSON.stringify(response.data.token));
-      setUserExists(false);
-      setPasswordUnmatched(false);
-      setSignupData({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-      });
-      window.location.reload();
+      const auth = getAuth();
+      const response = await createUserWithEmailAndPassword(auth, signupData.email, signupData.password);
+      // Send email verification
+      await sendEmailVerification(response.user);
+      setEmailVerificationSent(true);
     } catch (error) {
-      setLoading(false);
-      if (error.response.status === 409) {
-        setPasswordUnmatched(false);
-        setInvalidEmailFormat(false);
+      if (error.code === "auth/email-already-in-use") {
         setUserExists(true);
-        return;
-      }
-      if (error.response.status === 400) {
-        setUserExists(false);
-        setPasswordUnmatched(false);
+      } else if (error.code === "auth/invalid-email") {
         setInvalidEmailFormat(true);
-        return;
+      } else {
+        console.error(error);
       }
-      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -154,6 +138,7 @@ function Signup ({ setShowSignupForm }) {
         {invalidEmailFOrmat && <p className="error_message">Invalid email format</p>}
         {invalidName && <p className="error_message">Invalid name format</p>}
         {invalidPassword && <p className="error_message">Invalid Password format</p>}
+        {emailVerificationSent && <p className="error_message" style={{ color: "white" }}>Email verification sent. Please verify.</p>}
         <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className="signupBtn">
           {loading
             ? (
