@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { addDoc, query, where, updateDoc, getDocs } from "firebase/firestore";
 import { transactionsCollection } from "../firebaseConfig";
 import { toast } from "react-toastify";
@@ -123,6 +123,12 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
     }
   };
   const { theme } = useContext(ThemeContext);
+  useEffect(() => {
+    if (formData.transactionType === "Income") {
+      setFormData({ ...formData, category: "NULL" });
+    }
+  }, [formData.transactionType]);
+
   return (
     <div className="form_container border-[1.5px] rounded flex flex-col justify-between transition-all duration-500 dark:bg-[#011019]">
       <div className="flex flex-row items-start gap-5">
