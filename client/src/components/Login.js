@@ -107,7 +107,7 @@ function Login ({ setShowLoginForm }) {
             onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
             required
           />
-          { passwordShow
+          { !passwordShow
             ? <FaEyeSlash onClick={passwordShowToggle} className="h-10 w-10 cursor-pointer"/>
             : <FaEye onClick={passwordShowToggle} className="h-10 cursor-pointer w-10"/> }
         </div>
