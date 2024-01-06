@@ -207,8 +207,8 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                   transaction.transactionType === "Income"
                     ? (
                     <li key={index} className="dark:bg-[#011019] income flex justify-between items-center border border-[#6e9df7] dark:border-[#B6CEFC80] rounded p-2 transition-all duration-500">
-                        <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
-                        <Plus className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" />
+                        <div className="icon_container transition-all duration-500 bg-[#b6cefc] dark:bg-[#335467]">
+                        <Plus className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" />
                         </div>
                         <div className="descDate_container">
                         {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0, descriptionChars) + "..."}</h4> : <h4>{transaction.description}</h4>}
@@ -223,12 +223,12 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                       )
                     : (
                     <li key={index} className="dark:bg-[#011019] outcome flex justify-between items-center border border-[#6e9df7] dark:border-[#B6CEFC80] rounded p-2 transition-all duration-500">
-                        <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
-                        {transaction.category === "Food" ? <Food className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Travel" ? <Travel className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Shopping" ? <Shopping className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Bills" ? <Bills className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Others" ? <Others className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        <div className="icon_container transition-all duration-500 bg-[#b6cefc] dark:bg-[#335467]">
+                        {transaction.category === "Food" ? <Food className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Travel" ? <Travel className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Shopping" ? <Shopping className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Bills" ? <Bills className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Others" ? <Others className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
                         </div>
                         <div className="descDate_container">
                         {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0, descriptionChars) + "..."}</h4> : <h4>{transaction.description}</h4>}
