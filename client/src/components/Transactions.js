@@ -177,7 +177,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                         </div>
                         {isCategoryDropdownOpen && (
                         <div className="options rounded-sm shadow-lg shadow-slate-400/40 absolute z-50 w-[126px] py-[3px] px-[2.5px]">
-                            <div onClick={() => CategoryChange({ target: { value: "All" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white ">All</div>
+                            <div onClick={() => CategoryChange({ target: { value: "All" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">All</div>
                             <div onClick={() => CategoryChange({ target: { value: "Food" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Food</div>
                             <div onClick={() => CategoryChange({ target: { value: "Travel" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Travel</div>
                             <div onClick={() => CategoryChange({ target: { value: "Shopping" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Shopping</div>
