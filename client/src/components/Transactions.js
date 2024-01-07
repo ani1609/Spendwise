@@ -158,7 +158,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     <div className="form-group col-md-4">
                     <div className="custom-dropdown dark:bg-[#011019] transition-colors duration-500" onBlur={closeDropdown} tabIndex={0}>
                         <div className="selected-value w-[126px] px-4 rounded cursor-pointer border-[1px]  border-black dark:border-[#B6CEFC80]" onClick={toggleDropdown}>
-                        {transactionType || "Type"}<i className="arrow down"></i>
+                        {transactionType || "Type"}<i className="arrow down dark:border-[#B6CEFC80]"></i>
                         </div>
                         {isDropdownOpen && (
                         <div className="options rounded-sm shadow-lg shadow-slate-400/40 absolute z-50 w-[126px] py-[3px] px-[2.5px]">
@@ -173,7 +173,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     <div className="form-group col-md-4">
                     <div className="custom-dropdown dark:bg-[#011019] transition-colors duration-500" onBlur={closeCategoryDropdown} tabIndex={0}>
                         <div className="selected-value w-[126px] px-4 rounded cursor-pointer border-[1px] border-black dark:border-[#B6CEFC80]" onClick={toggleCategoryDropdown}>
-                        {categoryFilter || "Category"}<i className="arrow down"></i>
+                        {categoryFilter || "Category"}<i className="arrow down dark:border-[#B6CEFC80]"></i>
                         </div>
                         {isCategoryDropdownOpen && (
                         <div className="options rounded-sm shadow-lg shadow-slate-400/40 absolute z-50 w-[126px] py-[3px] px-[2.5px]">
