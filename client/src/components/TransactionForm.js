@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { addDoc, query, where, updateDoc, getDocs } from "firebase/firestore";
 import { transactionsCollection } from "../firebaseConfig";
 import { toast } from "react-toastify";
@@ -37,6 +37,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const today = new Date();
     if (formData.transactionType === "") {
       toast.error("Please select a transaction type.");
       return;
@@ -50,6 +51,11 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
     }
     if (formData.date === "") {
       toast.error("Please select a date.");
+      return;
+    }
+    const selectedDate = new Date(formData.date);
+    if (selectedDate > today) {
+      toast.error("Please select a date in the past or present.");
       return;
     }
     if (formData.amount === "") {
@@ -117,6 +123,12 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
     }
   };
   const { theme } = useContext(ThemeContext);
+  useEffect(() => {
+    if (formData.transactionType === "Income") {
+      setFormData({ ...formData, category: "NULL" });
+    }
+  }, [formData.transactionType]);
+
   return (
     <div className="form_container border-[1.5px] rounded flex flex-col justify-between transition-all duration-500 dark:bg-[#011019]">
       <div className="flex flex-row items-start gap-5">
@@ -185,7 +197,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                     cursor: formData.transactionType === "Income" ? "not-allowed" : "pointer"
                   }}
                 disabled={formData.transactionType === "Income"}
-                className="border sm:px-1 col-md-4 bg-transparent transition-all duration-500"
+                className="border sm:px-1 col-md-4 bg-transparent transition-[border-color] duration-500"
                 placeholder="Category"
             >
                 <option value="" hidden>
@@ -208,7 +220,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
                 onChange={handleChange}
                 placeholder="Date"
                 required
-                className="cursor-pointer border bg-transparent h-7 px-1 col-md-4 transition-all duration-500"
+                className="cursor-pointer border bg-transparent h-7 px-1 col-md-4 transition-[border-color] duration-500"
             />
             </div>
         </div>
@@ -243,7 +255,7 @@ function TransactionForm ({ user, editEnabled, setEditEnabled, formData, setForm
             </div>
             <button
             type="submit"
-            className="text-white hover:text-gray-500 hover:bg-white border-[#c465c9] border transition-all duration-500 dark:border-[#B6CEFC80] dark:bg-[#132B39]"
+            className="text-white hover:text-gray-500 border-[#c465c9] border transition-all duration-500 dark:border-[#B6CEFC80] bg-[#b6cefc] dark:bg-[#132B39]"
             onClick={handleSubmit}
             style={{ marginTop: "49px" }}
             >

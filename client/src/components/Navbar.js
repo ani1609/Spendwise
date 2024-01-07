@@ -25,6 +25,7 @@ function Navbar (props) {
 
       if (userDocSnapshot.exists()) {
         const userData = userDocSnapshot.data();
+        console.log("User data from Firestore:", userData);
         setUser(userData);
       } else {
         return null;

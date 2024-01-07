@@ -12,7 +12,7 @@ import { ReactComponent as Bills } from "../icons/bills.svg";
 import { ReactComponent as Others } from "../icons/others.svg";
 import { ReactComponent as Plus } from "../icons/plus1.svg";
 import MyLoader from "./TransactionLoading";
-import "../styles/ExpenseTracker.css";
+import "../styles/Transactions.css";
 import "../index.css";
 
 function Transactions ({ transactions, setTransactions, user, setEditEnabled, setFormData, descriptionChars }) {
@@ -177,7 +177,7 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                         </div>
                         {isCategoryDropdownOpen && (
                         <div className="options rounded-sm shadow-lg shadow-slate-400/40 absolute z-50 w-[126px] py-[3px] px-[2.5px]">
-                            <div onClick={() => CategoryChange({ target: { value: "All" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white ">All</div>
+                            <div onClick={() => CategoryChange({ target: { value: "All" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">All</div>
                             <div onClick={() => CategoryChange({ target: { value: "Food" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Food</div>
                             <div onClick={() => CategoryChange({ target: { value: "Travel" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Travel</div>
                             <div onClick={() => CategoryChange({ target: { value: "Shopping" } })} className="option bg-white text-start cursor-pointer px-4 py-[2.5px] hover:bg-[#0481C8] hover:text-white">Shopping</div>
@@ -191,12 +191,11 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                     <input
                     type="date"
                     name="date"
-                    id="transaction-date"
                     value={dateFillter}
                     onChange={(e) => changeDateFilter(e)}
                     placeholder="Date"
                     required
-                    className="cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-[26px] px-1 transition duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]"
+                    className="selected-value cursor-pointer max_with border border-slate-500 rounded-md bg-transparent h-[26px] px-1 transition duration-500 dark:border-[#B6CEFC80] dark:bg-[#011019]"
                     />
                 </div>
             </div>
@@ -208,8 +207,8 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                   transaction.transactionType === "Income"
                     ? (
                     <li key={index} className="dark:bg-[#011019] income flex justify-between items-center border border-[#6e9df7] dark:border-[#B6CEFC80] rounded p-2 transition-all duration-500">
-                        <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
-                        <Plus className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" />
+                        <div className="icon_container transition-all duration-500 bg-[#b6cefc] dark:bg-[#335467]">
+                        <Plus className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" />
                         </div>
                         <div className="descDate_container">
                         {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0, descriptionChars) + "..."}</h4> : <h4>{transaction.description}</h4>}
@@ -224,12 +223,12 @@ function Transactions ({ transactions, setTransactions, user, setEditEnabled, se
                       )
                     : (
                     <li key={index} className="dark:bg-[#011019] outcome flex justify-between items-center border border-[#6e9df7] dark:border-[#B6CEFC80] rounded p-2 transition-all duration-500">
-                        <div className="icon_container transition-all duration-500 dark:bg-[#335467]">
-                        {transaction.category === "Food" ? <Food className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Travel" ? <Travel className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Shopping" ? <Shopping className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Bills" ? <Bills className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
-                        {transaction.category === "Others" ? <Others className="icons transition-all duration-500 dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        <div className="icon_container transition-all duration-500 bg-[#b6cefc] dark:bg-[#335467]">
+                        {transaction.category === "Food" ? <Food className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Travel" ? <Travel className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Shopping" ? <Shopping className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Bills" ? <Bills className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
+                        {transaction.category === "Others" ? <Others className="icons transition-all duration-500 fill-[#6e9df7] dark:fill-[rgba(19,43,57,1)]" /> : null}
                         </div>
                         <div className="descDate_container">
                         {transaction.description.length > descriptionChars ? <h4>{transaction.description.substring(0, descriptionChars) + "..."}</h4> : <h4>{transaction.description}</h4>}

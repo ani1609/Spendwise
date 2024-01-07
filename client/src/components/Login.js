@@ -1,9 +1,8 @@
 import { useState } from "react";
 import "../index.css";
 import "../styles/Login.css";
-import axios from "axios";
 import { ReactComponent as Close } from "../icons/close.svg";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { usersCollection } from "../firebaseConfig";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -11,7 +10,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 // import search from "../icons/search.svg";
 
 function Login ({ setShowLoginForm }) {
-  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [invalidEmailPassword, setInvalidEmailPassword] = useState(false);
+  const [emailNotVerified, setEmailNotVerified] = useState(false);
   const [passwordShow, setPasswordShow] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
@@ -28,21 +28,41 @@ function Login ({ setShowLoginForm }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, loginData);
-      localStorage.setItem("expenseTrackerUserJWTToken", JSON.stringify(response.data.token));
-      setInvalidEmail(false);
-      setLoginData({
-        email: "",
-        password: ""
-      });
-      window.location.reload();
+      const auth = getAuth();
+      const response = await signInWithEmailAndPassword(auth, loginData.email, loginData.password);
+      console.log("User logged in: ", response);
+      if (!response.user.emailVerified) {
+        setLoading(false);
+        setInvalidEmailPassword(false);
+        setEmailNotVerified(true);
+      } else {
+        const userObject = {
+          email: response.user.email,
+          password: loginData.password
+        };
+        const existingUserQuery = query(usersCollection, where("email", "==", userObject.email));
+        const existingUserSnapshot = await getDocs(existingUserQuery);
+        if (existingUserSnapshot.size === 0) {
+          const addedUser = await addDoc(usersCollection, userObject);
+          console.log("New User added");
+          localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(addedUser.id));
+          window.location.reload();
+        } else {
+          existingUserSnapshot.forEach((doc) => {
+            console.log("User already exists: ", doc.id);
+            localStorage.setItem("expenseTrackerUserFirebaseRefId", JSON.stringify(doc.id));
+            window.location.reload();
+          });
+        }
+      }
     } catch (error) {
       setLoading(false);
-      if (error.response.status === 401) {
-        setInvalidEmail(true);
-        return;
+      if (error.code === "auth/invalid-credential") {
+        setEmailNotVerified(false);
+        setInvalidEmailPassword(true);
+      } else {
+        console.error(error);
       }
-      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -108,10 +128,11 @@ function Login ({ setShowLoginForm }) {
             required
           />
           { !passwordShow
-            ? <FaEyeSlash onClick={passwordShowToggle} className="h-10 w-10 cursor-pointer"/>
-            : <FaEye onClick={passwordShowToggle} className="h-10 cursor-pointer w-10"/> }
+            ? <FaEyeSlash onClick={passwordShowToggle} className="h-7 w-7 cursor-pointer"/>
+            : <FaEye onClick={passwordShowToggle} className="h-6 cursor-pointer w-6"/> }
         </div>
-        {invalidEmail && <p className="error_message">Invalid email or password</p>}
+        {invalidEmailPassword && <p className="error_message">Invalid email or password</p>}
+        {emailNotVerified && <p className="error_message">Email not verified</p>}
 
         <button type='submit' style={{ marginTop: "10px", width: "100%", cursor: loading ? "not-allowed" : "pointer" }} disabled={loading} className='loginBtn'>
           {loading
