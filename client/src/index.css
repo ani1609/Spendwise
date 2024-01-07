@@ -37,9 +37,11 @@ body {
 }
 
 ::-webkit-calendar-picker-indicator {
+  transition: ease-in-out 500ms;
   filter: none;
 }
 
 .dark ::-webkit-calendar-picker-indicator {
+  transition: ease-in-out 500ms;
   filter: invert(76%) sepia(28%) saturate(482%) hue-rotate(188deg) brightness(66%) contrast(98%)
 }
