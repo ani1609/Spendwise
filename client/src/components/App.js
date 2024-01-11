@@ -1,65 +1,29 @@
-import React, { useState, useContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "../styles/App.css";
-import Navbar from "./Navbar";
-import ExpenseTracker from "./ExpenseTracker";
-import NoUser from "./NoUser";
-import Profile from "./profile/Profile";
-import ErrorPage from "./ErrorPage";
-import { ThemeContextProvider, ThemeContext } from "../context/ThemeContext";
-// Home route
-function Home ({ userJWTToken, userFirebaseRefId, showSignupForm, setShowSignupForm }) {
-  const { theme } = useContext(ThemeContext);
-  return (
-        <div>
-                <div className="bg-violet transition duration-500 dark:bg-[rgba(19,43,57,1)] text-white flex justify-center"></div>
-            {
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute bg">
-              <path
-                className="transition duration-500"
-                fill={
-                  (theme === "dark")
-                    ? "rgba(19,43,57,1)"
-                    : "#b6cefc"
-                }
-                d="M0,32L120,58.7C240,85,480,139,720,144C960,149,1200,107,1320,85.3L1440,64L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"
-              ></path>
-              </svg>
-            }
-            <Navbar showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />
-            {userJWTToken || userFirebaseRefId ? <ExpenseTracker /> : <NoUser showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />}
-        </div>
-  );
-}
+import React from "react";
 
-// Profile route
-function UserProfile () {
+function ErrorPage () {
   return (
-        <div>
-            {/* <Navbar /> */}
-            <Profile />
-        </div>
-  );
-}
-
-function App () {
-  const [showSignupForm, setShowSignupForm] = useState(false);
-  const userJWTToken = JSON.parse(localStorage.getItem("expenseTrackerUserJWTToken"));
-  const userFirebaseRefId = JSON.parse(localStorage.getItem("expenseTrackerUserFirebaseRefId"));
-  return (
-    <ThemeContextProvider>
-        <Router>
-            <div className="App">
-                <Routes>
-                <Route path="/" element={<Home userJWTToken={userJWTToken} userFirebaseRefId={userFirebaseRefId} showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />} />
-                <Route path="/profile" element={<UserProfile />} />
-                <Route path="/*" element={<ErrorPage />} />
-                </Routes>
+        <>
+            <div className="flex items-center justify-center h-screen bg-gray-100">
+            <div className="text-center">
+                <img
+                src="https://illustrations.popsy.co/sky/crashed-error.svg"
+                alt="404 Error Illustration"
+                className="mx-auto mb-8 w-64 md:w-96"
+                />
+                <h1 className="text-4xl md:text-6xl font-bold text-blue-500 mb-4">404 Not Found</h1>
+                <p className="text-gray-700 text-lg mb-4">The page you are looking for might be under maintenance or doesn`&apos;`t exist.</p>
+                <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => {
+                  window.history.back();
+                }}
+                >
+                Go Back
+                </button>
             </div>
-        </Router>
-        </ThemeContextProvider>
+            </div>
+        </>
   );
 }
 
-export default App;
-
+export default ErrorPage;
