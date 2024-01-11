@@ -4,6 +4,7 @@ import { transactionsCollection } from "../firebaseConfig";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/ExpenseTracker.css";
+import "../styles/TransactionForm.css";
 import "../index.css";
 import { ThemeContext } from "../context/ThemeContext";
 

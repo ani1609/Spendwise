@@ -1,0 +1,99 @@
+.form_container {
+    padding: 30px;
+    height: 374px;
+    width: 430px;
+    border-color: var(--border);
+  }
+  
+  .form_container form button {
+    border-color: var(--border);
+    letter-spacing: 0.5px;
+    height: 44px;
+  }
+  .form-title {
+    display: flex;
+  }
+  .edittransaction {
+    max-width: 50%;
+  }
+
+  #contactChoice1 {
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+  }
+  
+  #contactChoice1:checked {
+    border: 5px solid var(--border);
+  }
+  
+  #contactChoice2 {
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+  }
+  
+  #contactChoice2:checked {
+    border: 5px solid var(--border);
+  }
+  
+  #number {
+    width: 100%;
+  }
+
+  .input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  color: darkgray;
+  width: 100%;
+}
+#category {
+  border-radius: 0px;
+  display: inline-block;
+  font: inherit;
+  width: 100%;
+  line-height: 1.5em;
+  padding: 8px;
+  box-sizing: border-box;
+  outline: 0;
+  border-style: solid;
+}
+  
+#date {
+  width: 100%;
+  border-radius: 0;
+  height: 44px;
+  border-style: solid;
+}
+
+#text {
+  width: 100%;
+}
+
+#date, #category, #text, #number, .form_container{
+  border-color: var(--border);
+}
+
+.dark #date, .dark #category, .dark #text, .dark #number, .dark .form_container button, .dark .form_container, .dark .incomeExpense_container {
+  border-color: var(--border-dark);
+}
+
+/* --------responsiveness--------- */
+@media only screen and (max-width: 480px) {
+  .form_container {
+    width: 100%;
+    padding: 20px;
+  }
+}
