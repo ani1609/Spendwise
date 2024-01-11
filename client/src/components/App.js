@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import ExpenseTracker from "./ExpenseTracker";
 import NoUser from "./NoUser";
 import Profile from "./profile/Profile";
+import ErrorPage from "./ErrorPage.js";
 import { ThemeContextProvider, ThemeContext } from "../context/ThemeContext";
 // Home route
 function Home ({ userJWTToken, userFirebaseRefId, showSignupForm, setShowSignupForm }) {
@@ -52,6 +53,7 @@ function App () {
                 <Routes>
                 <Route path="/" element={<Home userJWTToken={userJWTToken} userFirebaseRefId={userFirebaseRefId} showSignupForm={showSignupForm} setShowSignupForm={setShowSignupForm} />} />
                 <Route path="/profile" element={<UserProfile />} />
+                <Route path="/*" element={<ErrorPage />} />
                 </Routes>
             </div>
         </Router>
