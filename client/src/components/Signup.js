@@ -5,6 +5,7 @@ import { ReactComponent as Close } from "../icons/close.svg";
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { usersCollection } from "../firebaseConfig";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Signup ({ setShowSignupForm }) {
   const [invalidEmailFOrmat, setInvalidEmailFormat] = useState(false);
@@ -20,6 +21,8 @@ function Signup ({ setShowSignupForm }) {
     confirmPassword: ""
   });
   const [loading, setLoading] = useState(false);
+  const [passwordShow, setPasswordShow] = useState(false);
+  const [confirmPasswordShow, setConfirmPasswordShow] = useState(false);
 
   const handleNameChange = (e) => {
     const isValidName = /^[a-zA-Z\s]*$/.test(e.target.value);
@@ -30,6 +33,14 @@ function Signup ({ setShowSignupForm }) {
     } else {
       setInvalidName(true);
     }
+  };
+
+  const handlePasswordShowToggle = () => {
+    setPasswordShow(!passwordShow);
+  };
+
+  const handleConfirmPasswordShowToggle = () => {
+    setConfirmPasswordShow(!confirmPasswordShow);
   };
 
   const handleSignup = async (e) => {
@@ -135,20 +146,32 @@ function Signup ({ setShowSignupForm }) {
           onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
           required
         />
-        <input
-          type='password'
-          placeholder='Password(minimimum 8 characters)'
-          value={signupData.password}
-          onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
-          required
-        />
-        <input
-          type='password'
-          placeholder='Confirm Password'
-          value={signupData.confirmPassword}
-          onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
-          required
-        />
+        <div className="input_div p-0 flex flex-nowrap items-center pe-2">
+          <input
+            className="p-0 m-0 border"
+            type={passwordShow ? "text" : "password"}
+            placeholder='Password(minimum 8 characters)'
+            value={signupData.password}
+            onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+            required
+          />
+          { !passwordShow
+            ? <FaEyeSlash onClick={handlePasswordShowToggle} className="h-7 w-7 cursor-pointer"/>
+            : <FaEye onClick={handlePasswordShowToggle} className="h-6 cursor-pointer w-6"/> }
+        </div>
+        <div className="input_div p-0 flex flex-nowrap items-center pe-2">
+          <input
+            className="p-0 m-0 border"
+            type={confirmPasswordShow ? "text" : "password"}
+            placeholder='Confirm Password'
+            value={signupData.confirmPassword}
+            onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
+            required
+          />
+          { !confirmPasswordShow
+            ? <FaEyeSlash onClick={handleConfirmPasswordShowToggle} className="h-7 w-7 cursor-pointer"/>
+            : <FaEye onClick={handleConfirmPasswordShowToggle} className="h-6 cursor-pointer w-6"/> }
+        </div>
         {passwordUnmatched && <p className="error_message">Passwords do not match</p>}
         {userExists && <p className="error_message">User already exists</p>}
         {invalidEmailFOrmat && <p className="error_message">Invalid email format</p>}
