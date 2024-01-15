@@ -64,6 +64,30 @@
     color: #888888;
 }
 
+.signup_form_container form .input_div
+{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    /* padding: 10px 15px; */
+    box-sizing: border-box;
+    transition: 0.5s ease-in-out;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    transition: 0.5s ease-in-out;
+    width: 100%;
+    opacity: 0;
+    background-color: rgb(230, 230, 230);
+    color: #888888;
+}
+.signup_form_container .input_div
+{
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 700ms;
+}
 .signup_form_container form input::placeholder
 {
     color: #888888;
@@ -152,6 +176,33 @@
 
 .signup_form_container form input:nth-child(4)
 {
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 1100ms;
+}
+.signup_form_container form .input_div:nth-child(1) {
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 500ms;
+}
+
+.signup_form_container form .input_div:nth-child(2) {
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 700ms;
+}
+
+.signup_form_container form .input_div:nth-child(3) {
+    animation-name: fadeInSlideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 900ms;
+}
+
+.signup_form_container form .input_div:nth-child(4) {
     animation-name: fadeInSlideIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
