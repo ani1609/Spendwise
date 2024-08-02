@@ -22,7 +22,7 @@
   font-size: 17px;
   letter-spacing: 0.5px;
   background-color: white;
-  color: var(--primary);
+  color: var(--primary-bg);
   font-weight: 500;
 }
 
@@ -96,7 +96,12 @@
   .navbar_parent a span {
     font-size: 25px;
   }
+
   .login_signup_container button {
     font-size: 14px;
+  }
+
+  .login_signup_container button {
+    width: 60px;
   }
 }
