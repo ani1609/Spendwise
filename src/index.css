@@ -7,11 +7,6 @@
 body {
   margin: 0;
   padding: 0;
-  /* background-color: #011019; */
-  --primary: #b6cefc;
-  --border: #6e9df7;
-  --border-dark: #B6CEFC80;
-  --icons: #6e9df7;
   transition: all 0.5s;
 }
 
@@ -29,11 +24,11 @@ body {
 }
 
 .dark > ::-webkit-scrollbar-track {
-  background: #959595
+  background: #959595;
 }
 
 .dark > ::-webkit-scrollbar-thumb {
-  background-color: rgba(19,43,57,1);
+  background-color: rgba(19, 43, 57, 1);
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -43,5 +38,21 @@ body {
 
 .dark ::-webkit-calendar-picker-indicator {
   transition: ease-in-out 500ms;
-  filter: invert(76%) sepia(28%) saturate(482%) hue-rotate(188deg) brightness(66%) contrast(98%)
+  filter: invert(76%) sepia(28%) saturate(482%) hue-rotate(188deg)
+    brightness(66%) contrast(98%);
+}
+
+@layer base {
+  :root {
+    --primary-bg: #6e9df7;
+    --secondary-bg: #f3f7ff;
+    --border: #6e9df7;
+    --text: #000000;
+  }
+  .dark {
+    --primary-bg: #335467;
+    --secondary-bg: #011019;
+    --border: #335467;
+    --text: #ffffff;
+  }
 }

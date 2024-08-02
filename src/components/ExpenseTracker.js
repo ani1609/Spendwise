@@ -110,14 +110,14 @@ function ExpenseTracker() {
         />
 
         <div className="WalletDetails_container flex flex-col">
-          <div className="incomeExpense_container border border-border-light dark:border-border-dark rounded flex justify-around gap-2 transition-colors dark:bg-[#011019]">
-            <h3 className="flex flex-col items-center text-light-text dark:text-dark-text text-lg">
+          <div className="incomeExpense_container border border-border rounded flex justify-around gap-2 transition-colors bg-secondary-bg">
+            <h3 className="flex flex-col items-center text-text text-lg">
               Income
               <span className="text-green-600 text-xl">
                 + &#x20B9;{incoming}
               </span>
             </h3>
-            <h3 className="flex flex-col items-center text-light-text dark:text-dark-text">
+            <h3 className="flex flex-col items-center text-text">
               Expense
               <span className="text-red-600 text-xl">- &#x20B9;{outgoing}</span>
             </h3>

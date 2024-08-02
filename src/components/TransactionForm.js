@@ -134,7 +134,7 @@ function TransactionForm({
       }
     }
   };
-  const { theme } = useContext(ThemeContext);
+
   useEffect(() => {
     if (formData.transactionType === "Income") {
       setFormData({ ...formData, category: "NULL" });
@@ -142,16 +142,14 @@ function TransactionForm({
   }, [formData.transactionType]);
 
   return (
-    <div className="form_container border border-border-light dark:border-border-dark rounded flex flex-col justify-between transition-colors dark:bg-[#011019]">
+    <div className="form_container border border-border rounded flex flex-col justify-between transition-colors bg-secondary-bg">
       <div className="flex flex-row items-start gap-5">
         {editEnabled ? (
           <>
-            <h4 className="font-bold text-lg text-light-text dark:text-dark-text">
-              Edit transaction
-            </h4>
+            <h4 className="font-bold text-lg text-text">Edit transaction</h4>
             <button
               type="button"
-              className="text-light-text rounded dark:text-dark-text py-1 px-4 border border-border-light dark:border-border-dark transition-colors"
+              className="text-text rounded py-1 px-4 border border-border transition-colors"
               onClick={() => newTransaction()}
             >
               Cancel
@@ -159,15 +157,13 @@ function TransactionForm({
           </>
         ) : (
           <>
-            <h4 className="font-bold text-lg text-light-text dark:text-dark-text">
-              Add new transaction
-            </h4>
+            <h4 className="font-bold text-lg text-text">Add new transaction</h4>
           </>
         )}
       </div>
 
       <form
-        className="flex justify-between text-light-text dark:text-dark-text"
+        className="flex justify-between text-text"
         style={{ width: "100%" }}
       >
         <div className="flex flex-col justify-start" style={{ width: "45%" }}>
@@ -182,7 +178,7 @@ function TransactionForm({
                 checked={formData.transactionType === "Income"}
                 onChange={handleChange}
                 required
-                className="cursor-pointer border-[2px] border-border-light dark:border-border-dark"
+                className="cursor-pointer border-[2px] border-border"
               />
               &nbsp;Income
             </label>
@@ -195,7 +191,7 @@ function TransactionForm({
                 checked={formData.transactionType === "Expense"}
                 onChange={handleChange}
                 required
-                className="cursor-pointer border-[2px] border-border-light dark:border-border-dark"
+                className="cursor-pointer border-[2px] border-border"
               />
               &nbsp;Expense
             </label>
@@ -217,7 +213,7 @@ function TransactionForm({
                     : "pointer",
               }}
               disabled={formData.transactionType === "Income"}
-              className="bg-transparent border px-1 h-10 mt-1.5 rounded border-border-light dark:border-border-dark transition-colors outline-none"
+              className="bg-transparent border px-1 h-10 mt-1.5 rounded border-border transition-colors outline-none"
               placeholder="Category"
             >
               <option value="" hidden className="">
@@ -225,31 +221,31 @@ function TransactionForm({
               </option>
               <option
                 value="Food"
-                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] bg-primary-bg hover:text-[#ffffff]"
               >
                 Food
               </option>
               <option
                 value="Travel"
-                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] bg-primary-bg hover:text-[#ffffff]"
               >
                 Travel
               </option>
               <option
                 value="Shopping"
-                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] bg-primary-bg hover:text-[#ffffff]"
               >
                 Shopping
               </option>
               <option
                 value="Bills"
-                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] bg-primary-bg hover:text-[#ffffff]"
               >
                 Bills
               </option>
               <option
                 value="Others"
-                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                className="bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] bg-primary-bg hover:text-[#ffffff]"
               >
                 Others
               </option>
@@ -267,7 +263,7 @@ function TransactionForm({
               onChange={handleChange}
               placeholder="Date"
               required
-              className="cursor-pointer rounded border px-1 h-10 mt-1.5 border-border-light dark:border-border-dark transition-colors bg-transparent text-gray-400 dark:text-gray-500 outline-none"
+              className="cursor-pointer rounded border px-1 h-10 mt-1.5 border-border transition-colors bg-transparent text-gray-400 dark:text-gray-500 outline-none"
             />
           </div>
         </div>
@@ -282,7 +278,7 @@ function TransactionForm({
               onChange={handleChange}
               placeholder="Amount"
               required
-              className="bg-transparent border px-1 h-10 mt-1.5 rounded border-border-light dark:border-border-dark transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500 text-light-text dark:text-dark-text outline-none"
+              className="bg-transparent border px-1 h-10 mt-1.5 rounded border-border transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500 text-text outline-none"
               autoComplete="off"
             />
           </div>
@@ -298,13 +294,13 @@ function TransactionForm({
               onChange={handleChange}
               placeholder="Description"
               required
-              className="bg-transparent border px-1 h-10 mt-1.5 rounded border-border-light dark:border-border-dark transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500 text-light-text dark:text-dark-text outline-none"
+              className="bg-transparent border px-1 h-10 mt-1.5 rounded border-border transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-500 text-text outline-none"
               autoComplete="off"
             />
           </div>
           <button
             type="submit"
-            className="h-10 mt-auto rounded box-border text-dark-text transition-colors bg-primary-light dark:bg-primary-dark"
+            className="h-10 mt-auto rounded box-border text-[#ffffff] transition-colors bg-primary-bg"
             onClick={handleSubmit}
           >
             {editEnabled ? "Edit Transaction" : "Add Transaction"}

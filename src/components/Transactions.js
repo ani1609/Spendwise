@@ -198,10 +198,8 @@ function Transactions({
   return (
     <div>
       <div className="transaction-group row flex flex-col">
-        <h4 className="font-bold transition-colors text-light-text dark:text-dark-text">
-          Transactions
-        </h4>
-        <hr className="border-0.5 border-border-light dark:border-border-dark transition-colors" />
+        <h4 className="font-bold transition-colors text-text">Transactions</h4>
+        <hr className="border-0.5 border-border" />
         <div className="flex justify-between mt-3">
           <div className="form-group col-md-4">
             <div
@@ -210,19 +208,19 @@ function Transactions({
               tabIndex={0}
             >
               <div
-                className="selected-value w-[126px] px-4 rounded cursor-pointer dark:bg-[#011019] border border-border-light dark:border-border-dark text-light-text dark:text-dark-text"
+                className="selected-value w-[126px] px-4 rounded cursor-pointer bg-secondary-bg border border-border text-text"
                 onClick={toggleDropdown}
               >
                 {transactionType || "Type"}
                 <i className="arrow down border-black transition-colors dark:border-[#B6CEFC80]"></i>
               </div>
               {isDropdownOpen && (
-                <div className="options rounded overflow-hidden shadow-lg absolute z-50 w-[126px] border border-border-light dark:border-border-dark text-light-text dark:text-dark-text">
+                <div className="options rounded overflow-hidden shadow-lg absolute z-50 w-[126px] border border-border text-text">
                   <div
                     onClick={() =>
                       TransactionTypeChange({ target: { value: "All" } })
                     }
-                    className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                    className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                   >
                     All
                   </div>
@@ -230,7 +228,7 @@ function Transactions({
                     onClick={() =>
                       TransactionTypeChange({ target: { value: "Income" } })
                     }
-                    className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                    className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                   >
                     Income
                   </div>
@@ -238,7 +236,7 @@ function Transactions({
                     onClick={() =>
                       TransactionTypeChange({ target: { value: "Expense" } })
                     }
-                    className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                    className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                   >
                     Expense
                   </div>
@@ -254,19 +252,19 @@ function Transactions({
                 tabIndex={0}
               >
                 <div
-                  className="selected-value w-[126px] px-4 rounded cursor-pointer dark:bg-[#011019] border border-border-light dark:border-border-dark text-light-text dark:text-dark-text"
+                  className="selected-value w-[126px] px-4 rounded cursor-pointer bg-secondary-bg border border-border text-text"
                   onClick={toggleCategoryDropdown}
                 >
                   {categoryFilter || "Category"}
                   <i className="arrow down border-black transition-colors dark:border-[#B6CEFC80]"></i>
                 </div>
                 {isCategoryDropdownOpen && (
-                  <div className="options rounded-sm shadow-lg absolute z-50 w-[126px] border border-border-light dark:border-border-dark text-light-text dark:text-dark-text">
+                  <div className="options rounded-sm shadow-lg absolute z-50 w-[126px] border border-border text-text">
                     <div
                       onClick={() =>
                         CategoryChange({ target: { value: "All" } })
                       }
-                      className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                      className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                     >
                       All
                     </div>
@@ -274,7 +272,7 @@ function Transactions({
                       onClick={() =>
                         CategoryChange({ target: { value: "Food" } })
                       }
-                      className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                      className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                     >
                       Food
                     </div>
@@ -282,7 +280,7 @@ function Transactions({
                       onClick={() =>
                         CategoryChange({ target: { value: "Travel" } })
                       }
-                      className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                      className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                     >
                       Travel
                     </div>
@@ -290,7 +288,7 @@ function Transactions({
                       onClick={() =>
                         CategoryChange({ target: { value: "Shopping" } })
                       }
-                      className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                      className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                     >
                       Shopping
                     </div>
@@ -298,7 +296,7 @@ function Transactions({
                       onClick={() =>
                         CategoryChange({ target: { value: "Bills" } })
                       }
-                      className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                      className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                     >
                       Bills
                     </div>
@@ -306,7 +304,7 @@ function Transactions({
                       onClick={() =>
                         CategoryChange({ target: { value: "Others" } })
                       }
-                      className="option bg-white dark:bg-[#011019] text-start cursor-pointer px-4 py-[2.5px] hover:bg-primary-light dark:hover:bg-[#132b39] hover:text-dark-text"
+                      className="option bg-secondary-bg text-start cursor-pointer px-4 py-[2.5px] hover:!bg-primary-bg hover:text-[#ffffff]"
                     >
                       Others
                     </div>
@@ -322,7 +320,7 @@ function Transactions({
             onChange={(e) => changeDateFilter(e)}
             placeholder="Date"
             required
-            className="selected-value cursor-pointer dark:bg-[#011019] border border-border-light dark:border-border-dark rounded bg-transparent h-[26px] px-1 text-light-text dark:text-dark-text"
+            className="selected-value cursor-pointer bg-secondary-bg border border-border rounded h-[26px] px-1 text-text"
           />
         </div>
       </div>
@@ -333,9 +331,9 @@ function Transactions({
             transaction.transactionType === "Income" ? (
               <li
                 key={index}
-                className="dark:bg-[#011019] income flex justify-between items-center border border-border-light dark:border-border-dark rounded p-2 transition-colors text-light-text dark:text-dark-text"
+                className="bg-secondary-bg income flex justify-between items-center border border-border rounded p-2 transition-colors text-text"
               >
-                <div className="icon_container transition-colors bg-primary-light dark:bg-primary-dark">
+                <div className="icon_container transition-colors bg-primary-bg">
                   <Plus className="icons transition-colors fill-white" />
                 </div>
                 <div className="descDate_container">
@@ -366,9 +364,9 @@ function Transactions({
             ) : (
               <li
                 key={index}
-                className="dark:bg-[#011019] outcome flex justify-between items-center border border-border-light dark:border-border-dark rounded p-2 transition-colors text-light-text dark:text-dark-text"
+                className="bg-secondary-bg outcome flex justify-between items-center border border-border rounded p-2 transition-colors text-text"
               >
-                <div className="icon_container transition-colors bg-primary-light dark:bg-primary-dark">
+                <div className="icon_container transition-colors bg-primary-bg">
                   {transaction.category === "Food" ? (
                     <Food className="icons transition-colors fill-white" />
                   ) : null}

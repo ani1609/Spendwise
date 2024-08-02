@@ -4,12 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-light": "#6e9df7",
-        "primary-dark": "#335467",
-        "border-light": "#6e9df7",
-        "border-dark": "#335467",
-        "light-text": "#000000",
-        "dark-text": "#ffffff",
+        "primary-bg": "var(--primary-bg)",
+        "secondary-bg": "var(--secondary-bg)",
+        border: "var(--border)",
+        text: "var(--text)",
       },
     },
   },
