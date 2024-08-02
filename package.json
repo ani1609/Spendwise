@@ -1,59 +1,56 @@
 {
-    "name": "create-react-app-with-tests",
-    "version": "1.0.0",
-    "description": "",
-    "keywords": [],
-    "main": "src/index.js",
-    "custom-reporter": {
-        "type": "module"
-    },
-    "dependencies": {
-        "@testing-library/jest-dom": "5.16.5",
-        "@testing-library/react": "13.4.0",
-        "@testing-library/user-event": "14.4.3",
-        "apexcharts": "^3.44.2",
-        "axios": "^1.6.2",
-        "dotenv": "^16.3.1",
-        "firebase": "^10.7.0",
-        "lucide-react": "^0.424.0",
-        "react": "18.2.0",
-        "react-apexcharts": "^1.4.1",
-        "react-content-loader": "^6.2.1",
-        "react-dom": "18.2.0",
-        "react-icons": "^4.12.0",
-        "react-router-dom": "^6.21.0",
-        "react-scripts": "5.0.1",
-        "react-toastify": "^9.1.1"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.25.2",
-        "@babel/preset-env": "^7.25.3",
-        "@babel/preset-react": "^7.24.7",
-        "@babel/runtime": "7.13.8",
-        "@stylistic/eslint-plugin-js": "^1.5.1",
-        "babel-loader": "^9.1.3",
-        "cross-env": "^7.0.3",
-        "eslint": "^8.56.0",
-        "eslint-config-standard": "^17.1.0",
-        "eslint-plugin-import": "^2.29.1",
-        "eslint-plugin-n": "^16.4.0",
-        "eslint-plugin-promise": "^6.1.1",
-        "eslint-plugin-react": "^7.33.2",
-        "tailwindcss": "^3.3.5"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test --watchAll=false '--testResultsProcessor=<rootDir>/custom-reporter' '--silent' '--maxWorkers=2' ./",
-        "eject": "react-scripts eject",
-        "dev": "cross-env PORT=4000 REACT_APP_SERVER_URL=http://localhost:3000 REACT_APP_FIREBASE_API_KEY=AIzaSyDbvYGftIoYn0v1950g-OWbdumI9jvSw-Q REACT_APP_FIREBASE_AUTH_DOMAIN=spendwise-test.firebaseapp.com REACT_APP_FIREBASE_PROJECT_ID=spendwise-test REACT_APP_FIREBASE_STORAGE_BUCKET=spendwise-test.appspot.com REACT_APP_FIREBASE_MESSAGING_SENDER_ID=386580529563 REACT_APP_FIREBASE_APP_ID=1:386580529563:web:ac1663fb5c0f827b01e13e REACT_APP_FIREBASE_MEASUREMENT_ID=G-HV1TP1YC5B react-scripts start",
-        "lint": "eslint src/components/*.js src/components/profile/** src/index.js src/firebaseConfig.js tailwind.config.js",
-        "lint-fix": "eslint src/components/*.js src/components/profile/** src/index.js src/firebaseConfig.js tailwind.config.js --fix"
-    },
-    "browserslist": [
-        ">0.2%",
-        "not dead",
-        "not ie <= 11",
-        "not op_mini all"
-    ]
+  "name": "create-react-app-with-tests",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "custom-reporter": {
+    "type": "module"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "5.16.5",
+    "@testing-library/react": "13.4.0",
+    "@testing-library/user-event": "14.4.3",
+    "apexcharts": "^3.44.2",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "firebase": "^10.7.0",
+    "lucide-react": "^0.424.0",
+    "react": "18.2.0",
+    "react-apexcharts": "^1.4.1",
+    "react-content-loader": "^6.2.1",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.12.0",
+    "react-router-dom": "^6.21.0",
+    "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/runtime": "7.13.8",
+    "@stylistic/eslint-plugin-js": "^1.5.1",
+    "babel-loader": "^9.1.3",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.4.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
+    "tailwindcss": "^3.3.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --watchAll=false '--testResultsProcessor=<rootDir>/custom-reporter' '--silent' '--maxWorkers=2' ./",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
