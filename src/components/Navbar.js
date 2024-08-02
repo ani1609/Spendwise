@@ -10,6 +10,7 @@ import { ReactComponent as Sun } from "../icons/sun.svg";
 import { SiMoneygram } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
+import { LogOut } from "lucide-react";
 
 function Navbar(props) {
   const userJWTToken = JSON.parse(
@@ -45,42 +46,58 @@ function Navbar(props) {
       fetchUserFromFirebase(userFirebaseRefId);
     }
   }, [userJWTToken]);
+
+  const handleLogOut = () => {
+    localStorage.removeItem("expenseTrackerUserFirebaseRefId");
+    window.location.href = "/";
+  };
+
   return (
-    <div className="navbar_parent z-10 absolute top-0 text-white">
-      <h1 className="flex flex-1 gap-2 items-center">
-        <div className="moneygram-icon">
-          <SiMoneygram />
-        </div>
-        SPENDWISE
-      </h1>
-      <div className="flex gap-x-4">
-        {userJWTToken || userFirebaseRefId ? (
-          <div
-            className="dark-mode-toggle text-xs flex flex-col items-center hover:cursor-pointer"
-            onClick={toggle}
-          >
+    <div className="navbar_parent h-[5rem] z-10 absolute px-10 top-0 text-white w-full flex justify-between items-center max-md:px-[30px] max-sm:px-[10px]">
+      <a
+        href="https://spendwise-two.vercel.app/"
+        className="flex justify-center gap-2 items-center"
+      >
+        <SiMoneygram className="w-9 h-9 max-md:w-8 max-md:h-8 max-sm:w-7 max-sm:h-7" />
+        <span>SPENDWISE</span>
+      </a>
+      <div className="flex gap-x-4 max-sm:gap-x-2 justify-center items-center">
+        {userFirebaseRefId ? (
+          <div className="p-2 cursor-pointer" onClick={toggle}>
             {theme === "dark" ? (
               <>
-                <Moon fill="white" className="w-10 h-10 p-1.5 box-border" />
+                <Moon
+                  fill="white"
+                  className="w-8 h-8 max-md:w-7 max-md:h-7 max-sm:w-6 max-sm:h-6"
+                />
               </>
             ) : (
               <>
-                <Sun fill="white" className="w-10 h-10 p-1.5 box-border" />
+                <Sun
+                  fill="white"
+                  className="w-8 h-8 max-md:w-7 max-md:h-7 max-sm:w-6 max-sm:h-6"
+                />
               </>
             )}
           </div>
         ) : null}
-        {userJWTToken || userFirebaseRefId ? (
+        {userFirebaseRefId && (
+          <div className="p-2 cursor-pointer" onClick={handleLogOut}>
+            <LogOut className="w-8 h-8 max-md:w-7 max-md:h-7 max-sm:w-6 max-sm:h-6" />
+          </div>
+        )}
+        {userFirebaseRefId ? (
           <div className="profile_container">
-            <Link to="/profile" className="items-center flex flex-col text-xs">
-              {" "}
-              {/* Link to the /profile route */}
+            {/* <Link to="/profile" className="items-center flex flex-col text-xs"> */}
+            {/* Link to the /profile route */}
+            <div className="p-2">
               <img
                 src={user.profilePicture}
                 alt="profile"
-                className="rounded-full w-10 h-10 p-1 box-border"
+                className="rounded-full w-8 h-8 max-md:w-7 max-md:h-7 max-sm:w-6 max-sm:h-6 select-none"
               />
-            </Link>
+            </div>
+            {/* </Link> */}
           </div>
         ) : (
           <div className="login_signup_container">

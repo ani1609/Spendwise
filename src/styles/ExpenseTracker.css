@@ -70,34 +70,36 @@
   bottom: 0;
 }
 /* --------responsiveness--------- */
-  
-  @media only screen and (max-width: 870px) {
-    .formTransactions_container {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-    }
-  }
-  
-  @media only screen and (max-width: 480px) {
-    .expenseTracker_parent {
-      padding: 0px 10px;
-    }
-  
-    .balance_container h3 {
-      color: black;
-    }
-  
-    .balance_container h1 {
-      color: black;
-    }
 
-    .WalletDetails_container {
-      width: 100%;
-    }
-  
-    .incomeExpense_container {
-      justify-content: space-between;
-    }
+@media only screen and (max-width: 870px) {
+  .formTransactions_container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .balance_container h3 {
+    color: black;
+  }
+
+  .balance_container h1 {
+    color: black;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .expenseTracker_parent {
+    padding: 0px 10px;
+  }
+
+  .WalletDetails_container {
+    width: 100%;
+  }
+
+  .incomeExpense_container {
+    justify-content: space-between;
+  }
 }

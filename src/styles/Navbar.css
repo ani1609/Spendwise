@@ -1,44 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500;600&display=swap");
-
-.navbar_parent {
-  height: 70px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0px 50px;
-}
-
-.navbar_parent h1 {
-  margin: 0;
+.navbar_parent a span {
+  font-family: "Barlow Condensed", sans-serif;
   letter-spacing: 0.5px;
   font-size: 35px;
-  font-family: "Barlow Condensed", sans-serif;
-}
-
-.profile_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
-.profile_container h4 {
-  font-family: "Lato", sans-serif;
-  letter-spacing: 0.5px;
-  font-size: 18px;
-}
-
-.moneygram-icon{
-  padding:0.4rem;
-}
-
-.logout_icon {
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  fill: white;
 }
 
 .login_signup_container {
@@ -106,11 +69,7 @@
 /* padding to 30px for screen widths<=768px */
 
 @media only screen and (max-width: 768px) {
-  .navbar_parent {
-    padding: 0px 30px;
-  }
-
-  .navbar_parent h1 {
+  .navbar_parent a span {
     font-size: 30px;
   }
 
@@ -134,11 +93,8 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .navbar_parent {
-    padding: 0px 10px;
-  }
-  .navbar_parent h1 {
-    font-size: 28px;
+  .navbar_parent a span {
+    font-size: 25px;
   }
   .login_signup_container button {
     font-size: 14px;
