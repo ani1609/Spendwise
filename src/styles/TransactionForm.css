@@ -1,0 +1,64 @@
+.form_container {
+  padding: 30px;
+  height: 374px;
+  width: 430px;
+}
+
+.form-title {
+  display: flex;
+}
+.edittransaction {
+  max-width: 50%;
+}
+
+#contactChoice1 {
+  appearance: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+
+#contactChoice1:checked {
+  border: 5px solid var(--border);
+}
+
+#contactChoice2 {
+  appearance: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+
+#contactChoice2:checked {
+  border: 5px solid var(--border);
+}
+
+#number {
+  width: 100%;
+}
+
+.input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  width: 100%;
+}
+
+#text {
+  width: 100%;
+}
+
+/* --------responsiveness--------- */
+@media only screen and (max-width: 480px) {
+  .form_container {
+    width: 100%;
+    padding: 20px;
+  }
+}
