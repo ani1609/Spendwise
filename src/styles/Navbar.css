@@ -105,3 +105,17 @@
     width: 60px;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .navbar_parent a span {
+    font-size: 22px;
+  }
+
+  .login_signup_container button {
+    font-size: 14px;
+  }
+
+  .login_signup_container button {
+    width: 60px;
+  }
+}
