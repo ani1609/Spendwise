@@ -259,7 +259,7 @@ function Transactions({
                   <i className="arrow down border-black transition-colors dark:border-[#B6CEFC80]"></i>
                 </div>
                 {isCategoryDropdownOpen && (
-                  <div className="options rounded-sm shadow-lg absolute z-50 w-[126px] border border-border text-text">
+                  <div className="options rounded overflow-hidden shadow-lg absolute z-50 w-[126px] border border-border text-text">
                     <div
                       onClick={() =>
                         CategoryChange({ target: { value: "All" } })
@@ -320,7 +320,7 @@ function Transactions({
             onChange={(e) => changeDateFilter(e)}
             placeholder="Date"
             required
-            className="selected-value cursor-pointer bg-secondary-bg border border-border rounded h-[26px] px-1 text-text max-sm:w-[130px]"
+            className="selected-value cursor-pointer bg-secondary-bg border border-border rounded h-[26px] px-1 text-text max-sm:w-[130px] outline-none"
           />
         </div>
       </div>
