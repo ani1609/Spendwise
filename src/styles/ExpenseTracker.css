@@ -81,12 +81,12 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .balance_container h3 {
+  .balance_container {
     color: black;
   }
 
-  .balance_container h1 {
-    color: black;
+  .dark .balance_container {
+    color: #b6cefc;
   }
 }
 

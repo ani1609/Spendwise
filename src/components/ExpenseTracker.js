@@ -96,9 +96,9 @@ function ExpenseTracker() {
 
   return (
     <div className="expenseTracker_parent">
-      <div className="balance_container border-[1.5px] rounded transition-colors dark:border-[#B6CEFC] dark:text-[#B6CEFC]">
-        <h3>Your Balance-</h3>
-        <h1>&#x20B9;{balance}</h1>
+      <div className="balance_container border-[1.5px] rounded transition-colors border-[#a6c3fa]">
+        <h3 className="select-none">Your Balance-</h3>
+        <h1 className="select-none">&#x20B9;{balance}</h1>
       </div>
       <div className="formTransactions_container flex justify-evenly dark:text-[#B6CEFC80]">
         <TransactionForm

@@ -208,7 +208,7 @@ function Transactions({
               tabIndex={0}
             >
               <div
-                className="selected-value w-[126px] px-4 rounded cursor-pointer bg-secondary-bg border border-border text-text"
+                className="selected-value w-[126px] max-sm:w-[100px] px-1 rounded cursor-pointer bg-secondary-bg border border-border text-text"
                 onClick={toggleDropdown}
               >
                 {transactionType || "Type"}
@@ -252,7 +252,7 @@ function Transactions({
                 tabIndex={0}
               >
                 <div
-                  className="selected-value w-[126px] px-4 rounded cursor-pointer bg-secondary-bg border border-border text-text"
+                  className="selected-value w-[126px] max-sm:w-[100px] px-1 rounded cursor-pointer bg-secondary-bg border border-border text-text"
                   onClick={toggleCategoryDropdown}
                 >
                   {categoryFilter || "Category"}
@@ -320,7 +320,7 @@ function Transactions({
             onChange={(e) => changeDateFilter(e)}
             placeholder="Date"
             required
-            className="selected-value cursor-pointer bg-secondary-bg border border-border rounded h-[26px] px-1 text-text"
+            className="selected-value cursor-pointer bg-secondary-bg border border-border rounded h-[26px] px-1 text-text max-sm:w-[130px]"
           />
         </div>
       </div>
