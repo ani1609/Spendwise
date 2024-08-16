@@ -10,7 +10,15 @@ import { ReactComponent as Sun } from "../icons/sun.svg";
 import { SiMoneygram } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
-import { LogOut } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTrigger,
+} from "./ui/drawer";
 
 function Navbar(props) {
   const userJWTToken = JSON.parse(
@@ -61,10 +69,10 @@ function Navbar(props) {
         <SiMoneygram className="w-9 h-9 max-md:w-8 max-md:h-8 max-sm:w-7 max-sm:h-7 max-[400px]:w-6 max-[400px]:h-6" />
         <span>SPENDWISE</span>
       </a>
-      <div className="flex gap-x-4 max-sm:gap-x-2 justify-center items-center">
+      <div className="flex gap-x-4 justify-center items-center max-md:hidden">
         {userFirebaseRefId && (
           <a
-            className="p-2 max-sm:p-1 cursor-pointer"
+            className="p-2  cursor-pointer"
             href="https://github.com/ani1609/Spendwise"
             target="_blank"
             rel="noopener noreferrer"
@@ -80,7 +88,7 @@ function Navbar(props) {
               stroke-linecap="round"
               stroke-linejoin="round"
               class="lucide lucide-github"
-              className="w-6 h-6 max-sm:w-5 max-sm:h-5"
+              className="w-6 h-6 "
             >
               <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
               <path d="M9 18c-4.51 2-5-2-7-2" />
@@ -88,32 +96,32 @@ function Navbar(props) {
           </a>
         )}
         {userFirebaseRefId && (
-          <div className="p-2 max-sm:p-1 cursor-pointer" onClick={toggle}>
+          <div className="p-2 cursor-pointer" onClick={toggle}>
             {theme === "dark" ? (
               <>
-                <Moon fill="white" className="w-6 h-6 max-sm:w-5 max-sm:h-5" />
+                <Moon fill="white" className="w-6 h-6" />
               </>
             ) : (
               <>
-                <Sun fill="white" className="w-6 h-6 max-sm:w-5 max-sm:h-5" />
+                <Sun fill="white" className="w-6 h-6" />
               </>
             )}
           </div>
         )}
         {userFirebaseRefId && (
-          <div className="p-2 max-sm:p-1 cursor-pointer" onClick={handleLogOut}>
-            <LogOut className="w-6 h-6 max-sm:w-5 max-sm:h-5" />
+          <div className="p-2 cursor-pointer" onClick={handleLogOut}>
+            <LogOut className="w-6 h-6" />
           </div>
         )}
         {userFirebaseRefId ? (
           <div className="profile_container">
             {/* <Link to="/profile" className="items-center flex flex-col text-xs"> */}
             {/* Link to the /profile route */}
-            <div className="p-2 max-sm:p-1">
+            <div className="p-1">
               <img
                 src={user.profilePicture}
                 alt="profile"
-                className="rounded-full w-8 h-8 max-md:w-7 max-md:h-7 max-sm:w-6 max-sm:h-6 select-none"
+                className="rounded-full w-8 h-8 select-none"
               />
             </div>
             {/* </Link> */}
@@ -139,6 +147,101 @@ function Navbar(props) {
           </div>
         )}
       </div>
+
+      <Drawer>
+        <DrawerTrigger className="md:hidden">
+          <Menu />
+        </DrawerTrigger>
+        <DrawerContent className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[4px] bg-primary-bg text-white">
+          <DrawerHeader className="flex justify-start items-center gap-2 px-4 py-2">
+            <SiMoneygram className="w-6 h-6" />
+            <span className="text-xl">SPENDWISE</span>
+            <DrawerClose className="ml-auto p-2">
+              <X className="w-6 h-6" />
+            </DrawerClose>
+          </DrawerHeader>
+          <DrawerDescription className="flex flex-col items-center justify-center gap-4 p-4">
+            <a
+              href="https://github.com/ani1609/Spendwise"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-github"
+                className="w-6 h-6 "
+              >
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                <path d="M9 18c-4.51 2-5-2-7-2" />
+              </svg>
+            </a>
+            {!userFirebaseRefId && (
+              <DrawerClose>
+                <div className="login_signup_container">
+                  <button
+                    onClick={() => {
+                      setShowLoginForm(true);
+                      props.setShowSignupForm(false);
+                    }}
+                  >
+                    Login
+                  </button>
+                </div>
+              </DrawerClose>
+            )}
+            {!userFirebaseRefId && (
+              <DrawerClose>
+                <div className="login_signup_container">
+                  <button
+                    onClick={() => {
+                      props.setShowSignupForm(true);
+                      setShowLoginForm(false);
+                    }}
+                  >
+                    Signup
+                  </button>
+                </div>
+              </DrawerClose>
+            )}
+            {userFirebaseRefId && (
+              <>
+                <div className="cursor-pointer p-2" onClick={toggle}>
+                  {theme === "dark" ? (
+                    <>
+                      <Moon fill="white" className="w-6 h-6" />
+                    </>
+                  ) : (
+                    <>
+                      <Sun fill="white" className="w-6 h-6" />
+                    </>
+                  )}
+                </div>
+                <div className="cursor-pointer p-2" onClick={handleLogOut}>
+                  <LogOut className="w-6 h-6" />
+                </div>
+              </>
+            )}
+            {userFirebaseRefId && (
+              <div className="p-1">
+                <img
+                  src={user.profilePicture}
+                  alt="profile"
+                  className="rounded-full w-8 h-8 select-none"
+                />
+              </div>
+            )}
+          </DrawerDescription>
+        </DrawerContent>
+      </Drawer>
 
       {showLoginForm && (
         <div className="login_parent">

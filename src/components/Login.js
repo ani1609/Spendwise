@@ -185,7 +185,6 @@ function Login({ setShowLoginForm }) {
         <button
           type="submit"
           style={{
-            marginTop: "10px",
             width: "100%",
             cursor: loading ? "not-allowed" : "pointer",
           }}
@@ -207,7 +206,7 @@ function Login({ setShowLoginForm }) {
         </div>
       </form>
       <button
-        className="googleLogin p-2 border flex justify-center gap-2 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+        className="googleLogin p-2 border flex justify-center gap-2 transition duration-150"
         onClick={handleGoogleSignIn}
       >
         <img
