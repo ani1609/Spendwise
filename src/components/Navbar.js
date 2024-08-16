@@ -149,8 +149,8 @@ function Navbar(props) {
       </div>
 
       <Drawer>
-        <DrawerTrigger className="md:hidden">
-          <Menu />
+        <DrawerTrigger className="md:hidden p-1">
+          <Menu className="w-7 h-7" />
         </DrawerTrigger>
         <DrawerContent className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[4px] bg-primary-bg text-white">
           <DrawerHeader className="flex justify-start items-center gap-2 px-4 py-2">
